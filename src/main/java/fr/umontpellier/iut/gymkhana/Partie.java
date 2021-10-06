@@ -1,16 +1,11 @@
 package fr.umontpellier.iut.gymkhana;
 
 public class Partie {
+    public static void main(String[] args) {
 
-    private Joueur joueurA;
-    private Joueur joueurB;
+       Plateau plateau = new Plateau(5);
 
-    private Plateau plateau;
-
-    public Partie(Joueur joueurA, Joueur joueurB, Plateau plateau) {
-        this.joueurA = joueurA;
-        this.joueurB = joueurB;
-        this.plateau = plateau;
+       plateau.getGrapheBlanc().getListPoint().get(2).addVoisin(plateau.getGrapheBlanc().getListPoint().get(3));
+        System.out.println(plateau.toString());
     }
-
 }

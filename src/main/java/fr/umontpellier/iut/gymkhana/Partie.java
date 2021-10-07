@@ -5,7 +5,7 @@ public class Partie {
 
        Plateau plateau = new Plateau(5);
 
-       plateau.getGrapheBlanc().getListPoint().get(2).addVoisin(plateau.getGrapheBlanc().getListPoint().get(3));
+       plateau.getGrapheBlanc().getPointCord(3,3).addVoisin(plateau.getGrapheBlanc().getPointCord(2,3));
         System.out.println(plateau.toString());
     }
 }

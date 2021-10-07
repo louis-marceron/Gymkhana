@@ -24,10 +24,17 @@ public class Plateau {
         int y1;
         int y2;
         String str="";
-        char[][] tab = new char[taille*2][taille*2];
+        char[][] tab = new char[taille*2+1][taille*2+1];
         for (int i = 0; i < tab.length ; i++) {
             for (int j = 0; j < tab[i].length ; j++) {
-                tab[i][j]='0';
+                if (i%2 ==0) {
+                    if (j%2 == 0) tab[i][j]=' ';
+                    else tab[i][j]='.';
+                }
+                else {
+                    if (j%2 == 0) tab[i][j]='.';
+                    else tab[i][j]=' ';
+                }
             }
         }
         for (Arrete a:grapheBlanc.getArrete()) {

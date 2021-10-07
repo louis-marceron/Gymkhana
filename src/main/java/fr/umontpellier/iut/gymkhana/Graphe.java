@@ -55,6 +55,13 @@ public class Graphe {
         return true;
     }
 
+    public Point getPointCord(int x,int y){
+        for (Point p: listPoint) {
+            if (p.getX() == x && p.getY() == y) return p;
+        }
+        return null;
+    }
+
     public boolean verifieGagnant(Arrete ar) {
         //TODO
        return false;

@@ -10,8 +10,8 @@ public class Plateau {
     int taille;
 
     public Plateau(int taille) {
-        this.grapheBlanc = new Graphe(taille+1,taille,'B');
-        this.grapheRouge = new Graphe(taille,taille+1,'R');
+        this.grapheBlanc = new Graphe(taille+1,taille, Couleur.Blanc);
+        this.grapheRouge = new Graphe(taille,taille+1, Couleur.Rouge);
         this.joueurRouge = new Joueur();
         this.joueurBlanc = new Joueur();
         this.taille = taille;
@@ -39,14 +39,14 @@ public class Plateau {
             y1=a.getA().getY();
             x2=a.getB().getX();
             y2=a.getB().getY();
-            tab[x1+x2][y1+y2+1] = a.getA().couleur;
+            tab[x1+x2][y1+y2+1] = a.getA().couleur.toChar();
         }
         for (Arrete a:grapheRouge.getArrete()) {
             x1=a.getA().getX();
             y1=a.getA().getY();
             x2=a.getB().getX();
             y2=a.getB().getY();
-            tab[x1+x2+1][Math.max(y1,y2)+2] = a.getA().couleur;
+            tab[x1+x2+1][Math.max(y1,y2)+2] = a.getA().couleur.toChar();
         }
 
         for (int i = 0; i < tab.length ; i++) {

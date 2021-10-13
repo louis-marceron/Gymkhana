@@ -8,13 +8,13 @@ public class Graphe {
     private int hauteur;
     private int largeur;
 
-    public Graphe(int hauteur, int largeur, char couleur) {
+    public Graphe(int hauteur, int largeur, Couleur c) {
         this.hauteur = hauteur;
         this.largeur = largeur;
         this.listPoint = new ArrayList<>();
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < largeur; j++) {
-                listPoint.add(new Sommet(j,i,couleur));
+                listPoint.add(new Sommet(j,i,c));
             }
         }
     }
@@ -27,12 +27,12 @@ public class Graphe {
     public String toString() {
         int compteur = 0;
         String str = "";
-        for (int i = 0; i < listPoint.size(); i++) {
-            if (compteur == largeur){
+        for (Sommet sommet : listPoint) {
+            if (compteur == largeur) {
                 System.out.println();
                 compteur = 0;
             }
-            System.out.print(listPoint.get(i).toString() + "\t");
+            System.out.print(sommet.toString() + "\t");
             compteur++;
         }
         return str;

@@ -6,10 +6,10 @@ import java.util.List;
 public class Sommet {
     private int x;
     private int y;
-    char couleur;
+    Couleur couleur;
     private List<Sommet> voisins;
 
-    public Sommet(int x, int y, char couleur) {
+    public Sommet(int x, int y, Couleur couleur) {
         this.x = x;
         this.y = y;
         this.couleur = couleur;

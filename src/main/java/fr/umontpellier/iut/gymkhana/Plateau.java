@@ -50,7 +50,12 @@ public class Plateau {
         }
 
         for (int i = 0; i < tab.length ; i++) {
+//            if (i%2 !=0) str+= "\u001B[31m";
+//            if (i%2 ==0) str+= "\u001B[37m";
             for (int j = 0; j < tab[i].length ; j++) {
+                if (i%2 !=0 && j%2 == 0) str+= "\u001B[31m";
+                if (i%2 !=0 && j%2 != 0) str+= "\u001B[0m";
+                if (i%2 ==0) str+= "\u001B[0m";
                str+= tab[i][j] + "\t";
             }
             str+="\n";

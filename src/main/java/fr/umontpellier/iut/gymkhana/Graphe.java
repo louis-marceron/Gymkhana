@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Graphe {
 
-    private List<Point> listPoint;
+    private List<Sommet> listPoint;
     private int hauteur;
     private int largeur;
 
@@ -14,49 +14,49 @@ public class Graphe {
         this.listPoint = new ArrayList<>();
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < largeur; j++) {
-                listPoint.add(new Point(j,i,couleur));
+                listPoint.add(new Sommet(j,i,couleur));
             }
         }
     }
 
-    public List<Point> getListPoint() {
+    public List<Sommet> getListPoint() {
         return listPoint;
     }
 
     @Override
     public String toString() {
-        int comteur = 0;
+        int compteur = 0;
         String str = "";
         for (int i = 0; i < listPoint.size(); i++) {
-            if (comteur == largeur){
+            if (compteur == largeur){
                 System.out.println();
-                comteur = 0;
+                compteur = 0;
             }
             System.out.print(listPoint.get(i).toString() + "\t");
-            comteur++;
+            compteur++;
         }
         return str;
     }
 
     public ArrayList<Arrete> getArrete(){
         ArrayList<Arrete> list = new ArrayList<>();
-        for (Point p1:listPoint) {
-            for (Point p2: p1.getVoisins()) {
+        for (Sommet p1:listPoint) {
+            for (Sommet p2: p1.getVoisins()) {
                 list.add(new Arrete(p1,p2));
             }
         }
         return list;
     }
 
-    public boolean ajouteArrete( Point x,  Point y) {
+    public boolean ajouteArrete( Sommet x,  Sommet y) {
         //TODO il faut regarder si l'arêtes est valide (si l'autre graphe ne la bloque pas)
         x.addVoisin(y);
         y.addVoisin(x);
         return true;
     }
 
-    public Point getPointCord(int x,int y){
-        for (Point p: listPoint) {
+    public Sommet getPointCord(int x,int y){
+        for (Sommet p: listPoint) {
             if (p.getX() == x && p.getY() == y) return p;
         }
         return null;

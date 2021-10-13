@@ -19,10 +19,7 @@ public class Plateau {
 
     @Override
     public String toString() {
-        int x1;
-        int x2;
-        int y1;
-        int y2;
+        int x1, x2, y1, y2;
         String str="";
         char[][] tab = new char[taille*2+1][taille*2+1];
         for (int i = 0; i < tab.length ; i++) {

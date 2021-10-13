@@ -24,6 +24,10 @@ public class Point {
         return y;
     }
 
+    public char getCouleur() {
+        return couleur;
+    }
+
     public List<Point> getVoisins() {
         return voisins;
     }

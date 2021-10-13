@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.gymkhana;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Plateau {
@@ -66,7 +67,16 @@ public class Plateau {
         return grapheBlanc;
     }
 
-    public List<Point> getVoisinsPossibles() {
+    public List<Point> getVoisinsPossibles(Point a) {
+        List<Point> voisinsPossibles = new ArrayList<Point>();
+            if (a.getX()==0){
+                if (a.getY()==0){
+                    voisinsPossibles.add(new Point(a.getX()+1,a.getY(),a.getCouleur()));
+                }
+            }
+            if (a.getY()==0){
+
+            }
         // TODO implement here
         return null;
     }

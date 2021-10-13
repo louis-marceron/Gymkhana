@@ -25,15 +25,15 @@ public class Graphe {
 
     @Override
     public String toString() {
-        int compteur = 0;
+        int comteur = 0;
         String str = "";
         for (int i = 0; i < listPoint.size(); i++) {
-            if (compteur == largeur){
+            if (comteur == largeur){
                 System.out.println();
-                compteur = 0;
+                comteur = 0;
             }
             System.out.print(listPoint.get(i).toString() + "\t");
-            compteur++;
+            comteur++;
         }
         return str;
     }

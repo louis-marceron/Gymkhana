@@ -66,7 +66,7 @@ public class Plateau {
         return grapheBlanc;
     }
 
-    public List<Point> getVoisinsPossibles() {
+    public List<Sommet> getVoisinsPossibles() {
         // TODO implement here
         return null;
     }

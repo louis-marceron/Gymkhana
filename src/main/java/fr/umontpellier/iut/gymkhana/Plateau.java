@@ -49,9 +49,11 @@ public class Plateau {
             tab[x1+x2+1][Math.max(y1,y2)+2] = a.getA().couleur.toChar();
         }
 
+        int compteur =0; //pour afficher les numéros des sommets
         for (int i = 0; i < tab.length ; i++) {
-//            if (i%2 !=0) str+= "\u001B[31m";
-//            if (i%2 ==0) str+= "\u001B[37m";
+            str += compteur + "\t"; //numéroter les sommets axe horizontal
+            if (i!=0 && i%2!=0) compteur +=1; //numéroter les sommets axe horizontal
+
             for (int j = 0; j < tab[i].length ; j++) {
                 if (i%2 !=0 && j%2 == 0) str+= "\u001B[31m";
                 if (i%2 !=0 && j%2 != 0) str+= "\u001B[0m";
@@ -59,7 +61,16 @@ public class Plateau {
                str+= tab[i][j] + "\t";
             }
             str+="\n";
+            if (i ==  tab.length-1){
+                str+= " \t";
+                compteur =0;
+                for (int j = 0; j < tab.length; j++) {
+                    str += compteur + "\t";
+                    if (j!=0 && j%2!=0) compteur +=1;
+                }
+            }
         }
+
        return str;
     }
 

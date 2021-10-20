@@ -68,16 +68,35 @@ public class Plateau {
     }
 
     public List<Point> getVoisinsPossibles(Point a) {
-        List<Point> voisinsPossibles = new ArrayList<Point>();
+        ArrayList<Point> voisinsPossibles = new ArrayList<Point>();
+        if (a.getCouleur()=='B'){
+            ArrayList<Arrete> arretes = grapheBlanc.getArrete();
+        }else{
+            ArrayList<Arrete> arretes = grapheRouge.getArrete();
+        }
             if (a.getX()==0){
-                if (a.getY()==0){
+                voisinsPossibles.add(new Point(a.getX()+1,a.getY(),a.getCouleur()));
+            }else{
+                if (a.getX()==taille){
+                    voisinsPossibles.add(new Point(a.getX()-1,a.getY(),a.getCouleur()));
+                }else{
+                    voisinsPossibles.add(new Point(a.getX()-1,a.getY(),a.getCouleur()));
                     voisinsPossibles.add(new Point(a.getX()+1,a.getY(),a.getCouleur()));
                 }
             }
             if (a.getY()==0){
-
+                voisinsPossibles.add(new Point(a.getX(),a.getY()+1,a.getCouleur()));
+            }else{
+                if (a.getY()==taille) {
+                    voisinsPossibles.add(new Point(a.getX(), a.getY()-1, a.getCouleur()));
+                }else{
+                    voisinsPossibles.add(new Point(a.getX(),a.getY()-1,a.getCouleur()));
+                    voisinsPossibles.add(new Point(a.getX(),a.getY()+1,a.getCouleur()));
+                }
             }
-        // TODO implement here
-        return null;
+            if (a.getX()==taille){
+                voisinsPossibles.add(new Point(a.getX()-1,a.getY(),a.getCouleur()));
+            }
+        return voisinsPossibles;
     }
 }

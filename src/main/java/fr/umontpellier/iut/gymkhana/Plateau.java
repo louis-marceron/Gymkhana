@@ -11,8 +11,8 @@ public class Plateau {
     int taille;
 
     public Plateau(int taille) {
-        this.grapheBlanc = new Graphe(taille+1,taille,'B');
-        this.grapheRouge = new Graphe(taille,taille+1,'R');
+        this.grapheBlanc = new Graphe(taille+1,taille, Couleur.Blanc);
+        this.grapheRouge = new Graphe(taille,taille+1, Couleur.Rouge);
         this.joueurRouge = new Joueur();
         this.joueurBlanc = new Joueur();
         this.taille = taille;
@@ -40,18 +40,23 @@ public class Plateau {
             y1=a.getA().getY();
             x2=a.getB().getX();
             y2=a.getB().getY();
-            tab[x1+x2][y1+y2+1] = a.getA().couleur;
+            tab[x1+x2][y1+y2+1] = a.getA().couleur.toChar();
         }
         for (Arrete a:grapheRouge.getArrete()) {
             x1=a.getA().getX();
             y1=a.getA().getY();
             x2=a.getB().getX();
             y2=a.getB().getY();
-            tab[x1+x2+1][Math.max(y1,y2)+2] = a.getA().couleur;
+            tab[x1+x2+1][Math.max(y1,y2)+2] = a.getA().couleur.toChar();
         }
 
         for (int i = 0; i < tab.length ; i++) {
+//            if (i%2 !=0) str+= "\u001B[31m";
+//            if (i%2 ==0) str+= "\u001B[37m";
             for (int j = 0; j < tab[i].length ; j++) {
+                if (i%2 !=0 && j%2 == 0) str+= "\u001B[31m";
+                if (i%2 !=0 && j%2 != 0) str+= "\u001B[0m";
+                if (i%2 ==0) str+= "\u001B[0m";
                str+= tab[i][j] + "\t";
             }
             str+="\n";
@@ -67,36 +72,13 @@ public class Plateau {
         return grapheBlanc;
     }
 
-    public List<Point> getVoisinsPossibles(Point a) {
-        ArrayList<Point> voisinsPossibles = new ArrayList<Point>();
-        if (a.getCouleur()=='B'){
+    public List<Sommet> getVoisinsPossibles(Sommet a) {
+        List<Sommet> voisinsPossibles = getVoisinsPossibles(a);
+        if (a.getCouleur() == Couleur.Blanc) {
             ArrayList<Arrete> arretes = grapheBlanc.getArrete();
-        }else{
+        } else {
             ArrayList<Arrete> arretes = grapheRouge.getArrete();
         }
-            if (a.getX()==0){
-                voisinsPossibles.add(new Point(a.getX()+1,a.getY(),a.getCouleur()));
-            }else{
-                if (a.getX()==taille){
-                    voisinsPossibles.add(new Point(a.getX()-1,a.getY(),a.getCouleur()));
-                }else{
-                    voisinsPossibles.add(new Point(a.getX()-1,a.getY(),a.getCouleur()));
-                    voisinsPossibles.add(new Point(a.getX()+1,a.getY(),a.getCouleur()));
-                }
-            }
-            if (a.getY()==0){
-                voisinsPossibles.add(new Point(a.getX(),a.getY()+1,a.getCouleur()));
-            }else{
-                if (a.getY()==taille) {
-                    voisinsPossibles.add(new Point(a.getX(), a.getY()-1, a.getCouleur()));
-                }else{
-                    voisinsPossibles.add(new Point(a.getX(),a.getY()-1,a.getCouleur()));
-                    voisinsPossibles.add(new Point(a.getX(),a.getY()+1,a.getCouleur()));
-                }
-            }
-            if (a.getX()==taille){
-                voisinsPossibles.add(new Point(a.getX()-1,a.getY(),a.getCouleur()));
-            }
-        return voisinsPossibles;
+        return null;
     }
 }

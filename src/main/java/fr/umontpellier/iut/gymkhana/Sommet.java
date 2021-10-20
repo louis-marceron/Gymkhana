@@ -3,13 +3,13 @@ package fr.umontpellier.iut.gymkhana;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Point {
+public class Sommet {
     private int x;
     private int y;
-    char couleur;
-    private List<Point> voisins;
+    Couleur couleur;
+    private List<Sommet> voisins;
 
-    public Point(int x, int y, char couleur) {
+    public Sommet(int x, int y, Couleur couleur) {
         this.x = x;
         this.y = y;
         this.couleur = couleur;
@@ -24,15 +24,13 @@ public class Point {
         return y;
     }
 
-    public char getCouleur() {
-        return couleur;
-    }
+    public Couleur getCouleur(){ return couleur;}
 
-    public List<Point> getVoisins() {
+    public List<Sommet> getVoisins() {
         return voisins;
     }
 
-    public void addVoisin(Point p){
+    public void addVoisin(Sommet p){
         voisins.add(p);
     }
 

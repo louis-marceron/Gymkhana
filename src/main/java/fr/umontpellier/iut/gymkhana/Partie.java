@@ -17,10 +17,13 @@ public class Partie {
 //        String str = "\u001B[31m" + "tedgz" + "\u001B[0m" + "dede";
 //        System.out.println(str);
 
-        List<Sommet> p = plateau.grapheBlanc.voisinsPossibles(plateau.grapheBlanc.getPointCord(0,0));
+        List<Sommet> p = plateau.grapheBlanc.voisinsPossibles(plateau.grapheBlanc.getPointCord(1,1));
         for (Sommet a:p
              ) {
-            System.out.println(p);
+            System.out.println(a.getX());
+            System.out.println(a.getY());
+            System.out.println('\n');
+
         }
     }
 }

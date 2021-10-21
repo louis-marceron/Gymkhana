@@ -86,10 +86,6 @@ public class Graphe {
                     voisinsPossibles.add(getPointCord(a.getX(), a.getY() + 1));
                 }
             }
-            if (a.getX() == hauteur) {
-                voisinsPossibles.add(new Sommet(a.getX() - 1, a.getY(), a.getCouleur()));
-            }
-
         return voisinsPossibles;
     }
 

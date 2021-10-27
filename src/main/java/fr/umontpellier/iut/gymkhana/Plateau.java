@@ -97,8 +97,8 @@ public class Plateau {
         return grapheBlanc;
     }
 
-    public List<Sommet> getVoisinsPossibles(Sommet a) {
-        List<Sommet> voisinsPossibles = getVoisinsPossibles(a);
+    public List<Sommet> getVoisinsPossibles(Sommet a, Graphe g) {
+        List<Sommet> voisinsPossibles = g.voisinsPossibles(a);
         if (a.getCouleur() == Couleur.Blanc) {
             ArrayList<Arrete> arretes = grapheBlanc.getArrete();
         } else {

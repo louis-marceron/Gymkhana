@@ -1,15 +1,13 @@
 package fr.umontpellier.iut.gymkhana;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Partie {
     Plateau plateau;
 
     public void intit(){
-        System.out.println("Sélectionnez la taille du plateau :");
-        Scanner entree = new Scanner(System.in);
-        int taille = entree.nextInt();
-        plateau = new Plateau(taille);
+        plateau = new Plateau(5);
         run();
     }
 

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Plateau {
-    Graphe grapheRouge;
-    Graphe grapheBlanc;
-    Joueur joueurRouge;
-    Joueur joueurBlanc;
-    int taille;
+    private Graphe grapheRouge;
+    private Graphe grapheBlanc;
+    private Joueur joueurRouge;
+    private Joueur joueurBlanc;
+    private int taille;
 
     public Plateau(int taille) {
         this.grapheBlanc = new Graphe(taille + 1, taille, Couleur.Blanc);

@@ -64,8 +64,8 @@ public class Graphe {
         return null;
     }
 
-    public List<Sommet> voisinsPossibles(Sommet a){
-        List<Sommet> voisinsPossibles = new ArrayList<>();
+    public ArrayList<Sommet> voisinsPossibles(Sommet a){
+        ArrayList<Sommet> voisinsPossibles = new ArrayList<>();
             if (a.getX() == 0) {
                 voisinsPossibles.add(getPointCord(a.getX() + 1, a.getY()));
             } else {

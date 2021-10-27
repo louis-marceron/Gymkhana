@@ -2,6 +2,7 @@ package fr.umontpellier.iut.gymkhana;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Plateau {
     private Graphe grapheRouge;
@@ -46,8 +47,8 @@ public class Plateau {
             y1 = a.getA().getY();
             x2 = a.getB().getX();
             y2 = a.getB().getY();
-            if (x1 == x2) tab[x1 + x2 + 1][Math.max(y1, y2)*2-1] = a.getA().couleur.toChar();
-            else tab[x1 + x2 + 1][Math.max(y1, y2)*2] = a.getA().couleur.toChar();
+            if (x1 == x2) tab[x1 + x2 + 1][Math.max(y1, y2) * 2 - 1] = a.getA().couleur.toChar();
+            else tab[x1 + x2 + 1][Math.max(y1, y2) * 2] = a.getA().couleur.toChar();
 
         }
 
@@ -59,7 +60,7 @@ public class Plateau {
                 str += compteur + "\t";
                 str += "\u001B[0m";
                 compteur2 = 0;
-            } else{
+            } else {
                 str += "\u001B[0m";
                 str += compteur + "\t"; //numéroter les sommets axe horizontal
                 compteur2 = 1;
@@ -97,7 +98,46 @@ public class Plateau {
         return grapheBlanc;
     }
 
-    public List<Sommet> getVoisinsPossibles(Sommet a, Graphe g) {
+    public Sommet selectSommet(Graphe g) { //donne un sommet en fonction de ses coordonnées demandées à l'utilisateur
+        int x1, y1;
+        Scanner entree = new Scanner(System.in);
+        System.out.println("sélectionnez X et Y du premier point");
+        x1 = entree.nextInt();
+        y1 = entree.nextInt();
+        return g.getPointCord(x1, y1);
+    }
+
+    public void jouer(Graphe g) { // pour ajouter une arête entre 2 sommets avec la vérification de si c'est possible
+        int compteurS1 = 0;
+        Sommet s1;
+        ArrayList<Sommet> voisinsPossibles;
+        do
+        {                                                                //sélection du premier sommet tant que ce soit un sommet jouable
+            if (compteurS1 != 0) System.out.println("Point non jouable");
+            s1 = selectSommet(g);
+            voisinsPossibles = getVoisinsPossibles(s1,g);
+            compteurS1++;
+        } while (voisinsPossibles.isEmpty());
+
+
+        System.out.println("Voici avec quelles points vous pouvez jouer");
+        for (Sommet s : voisinsPossibles) {
+            System.out.println(s.afficherPoint());
+        }
+
+        Sommet s2;
+        int compteurS2=0;
+        do {                                                                    //selection du 2eme sommet tant que somment correct
+            if (compteurS2 !=0) System.out.println("somment non atteignable");
+            s2 = selectSommet(g);
+            compteurS2++;
+        } while (voisinsPossibles.contains(s2));
+
+        s1.addVoisin(s2);
+    }
+
+    public ArrayList<Sommet> getVoisinsPossibles(Sommet a, Graphe g) {
+        //TODO à faire après voisin possible de graphe
         List<Sommet> voisinsPossibles = g.voisinsPossibles(a);
         if (a.getCouleur() == Couleur.Blanc) {
             ArrayList<Arrete> arretes = grapheBlanc.getArrete();

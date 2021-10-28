@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.gymkhana;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,7 +9,7 @@ public class Partie {
 
     public void intit(){
         plateau = new Plateau(5);
-        run();
+        run2();
     }
 
     private void run(){
@@ -47,6 +48,45 @@ public class Partie {
             continuer = entree.nextInt();
             if (continuer == 2) b = false;
 
+        }
+    }
+
+    private void run2(){
+        int continuer;
+        Scanner entree = new Scanner(System.in);
+        boolean b = true;
+        while (b){
+            System.out.print("\033[H\033[2J");
+            System.out.println(plateau);
+            System.out.println("Joueur Blanc, choisissez votre coup à jouer");
+            plateau.jouer(plateau.getGrapheBlanc());
+            System.out.println("Votre coup à été joué !\n\n");
+            System.out.print("\033[H\033[2J");
+            System.out.println(plateau);
+
+            System.out.println("Joueur Rouge, choisissez votre coup à jouer");
+           plateau.jouer(plateau.getGrapheRouge());
+            System.out.println("Votre coup à été joué !\n\n");
+            System.out.print("\033[H\033[2J");
+            System.out.println(plateau);
+
+
+            System.out.println("Tapez 1 pour continuer \nou tapez 2 pour finir");
+            continuer = entree.nextInt();
+            if (continuer == 2) b = false;
+
+        }
+    }
+
+    public void voirVoissinsP(){
+        System.out.println(plateau);
+
+        Graphe g = plateau.getGrapheBlanc();
+        Sommet s = g.getPointCord(5,4);
+        ArrayList<Sommet> v = g.voisinsPossibles(s);
+        System.out.println("Voici avec quelles points vous pouvez jouer");
+        for (Sommet s1 : v) {
+            System.out.println(s1.afficherPoint());
         }
     }
 

@@ -8,7 +8,7 @@ public class Sommet {
     private int x;
     private int y;
     Couleur couleur;
-    private List<Sommet> voisins;
+    private ArrayList<Sommet> voisins;
 
     public Sommet(int x, int y, Couleur couleur) {
         this.x = x;
@@ -27,7 +27,7 @@ public class Sommet {
 
     public Couleur getCouleur(){ return couleur;}
 
-    public List<Sommet> getVoisins() {
+    public ArrayList<Sommet> getVoisins() {
         return voisins;
     }
 
@@ -37,7 +37,8 @@ public class Sommet {
 
     @Override
     public String toString() {
-        return "" + couleur;
+//        return "" + couleur;
+        return "(" + x + "," + y + ")";
     }
 
     public String afficherPoint() { // affichage du sommet par ses coordonnées

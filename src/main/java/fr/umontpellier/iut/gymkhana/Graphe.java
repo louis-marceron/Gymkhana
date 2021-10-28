@@ -16,7 +16,7 @@ public class Graphe {
         this.listPoint = new ArrayList<>();
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < largeur; j++) {
-                listPoint.add(new Sommet(j,i,c));
+                listPoint.add(new Sommet(i,j,c));
             }
         }
     }
@@ -64,7 +64,7 @@ public class Graphe {
         return null;
     }
 
-    public ArrayList<Sommet> voisinsPossibles(Sommet a){
+    public ArrayList<Sommet> voisinsPossiblesThomas(Sommet a){
         ArrayList<Sommet> voisinsPossibles = new ArrayList<>();
             if (a.getX() == 0) {
                 voisinsPossibles.add(getPointCord(a.getX() + 1, a.getY()));
@@ -87,6 +87,20 @@ public class Graphe {
                 }
             }
         return voisinsPossibles;
+    }
+
+    public ArrayList<Sommet> voisinsPossibles(Sommet a){
+        ArrayList<Sommet> v = new ArrayList<>();
+        Sommet s1 = getPointCord(a.getX()+1,a.getY());
+        Sommet s2= getPointCord(a.getX()-1,a.getY());
+        Sommet s3= getPointCord(a.getX(),a.getY()+1);
+        Sommet s4= getPointCord(a.getX(),a.getY()-1);
+        if (s1 != null) v.add(s1);
+        if (s2 != null) v.add(s2);
+        if (s3 != null) v.add(s3);
+        if (s4 != null) v.add(s4);
+
+        return v;
     }
 
     public boolean verifieGagnant(Arrete ar) {

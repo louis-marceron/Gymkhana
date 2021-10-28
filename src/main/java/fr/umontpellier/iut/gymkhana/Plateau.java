@@ -1,7 +1,6 @@
 package fr.umontpellier.iut.gymkhana;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Plateau {
@@ -101,7 +100,7 @@ public class Plateau {
     public Sommet selectSommet(Graphe g) { //donne un sommet en fonction de ses coordonnées demandées à l'utilisateur
         int x1, y1;
         Scanner entree = new Scanner(System.in);
-        System.out.println("sélectionnez X et Y du premier point");
+        System.out.println("sélectionnez X et Y du point");
         x1 = entree.nextInt();
         y1 = entree.nextInt();
         return g.getPointCord(x1, y1);
@@ -113,9 +112,10 @@ public class Plateau {
         ArrayList<Sommet> voisinsPossibles;
         do
         {                                                                //sélection du premier sommet tant que ce soit un sommet jouable
-            if (compteurS1 != 0) System.out.println("Point non jouable");
+            if (compteurS1 != 0) System.out.println("Point non jouable, veuillez réessayer");
             s1 = selectSommet(g);
-            voisinsPossibles = getVoisinsPossibles(s1,g);
+            if (s1 == null) voisinsPossibles = new ArrayList<>();
+            else voisinsPossibles = getVoisinsPossibles(s1, g);
             compteurS1++;
         } while (voisinsPossibles.isEmpty());
 
@@ -126,24 +126,51 @@ public class Plateau {
         }
 
         Sommet s2;
-        int compteurS2=0;
-        do {                                                                    //selection du 2eme sommet tant que somment correct
-            if (compteurS2 !=0) System.out.println("somment non atteignable");
+        int compteurS2 = 0;
+        do
+        {                                                                    //selection du 2eme sommet tant que somment correct
+            if (compteurS2 != 0) System.out.println("somment non atteignable, veuillez réessayer");
             s2 = selectSommet(g);
             compteurS2++;
-        } while (voisinsPossibles.contains(s2));
+        } while (!voisinsPossibles.contains(s2));
 
         s1.addVoisin(s2);
     }
 
+    public ArrayList<Sommet> getVoisinsBloques(Sommet a) {
+        ArrayList<Sommet> voisinsBloques = new ArrayList<>();
+        if (a.couleur == Couleur.Blanc) {
+            if (a.getX() - 1 >= 0) {
+                voisinsBloques.addAll(grapheRouge.getPointCord(a.getX() - 1, a.getY()).getVoisins());
+                voisinsBloques.addAll(grapheRouge.getPointCord(a.getX() - 1, a.getY() + 1).getVoisins());
+            }
+            if (a.getX() != 5) {
+                voisinsBloques.addAll(grapheRouge.getPointCord(a.getX(), a.getY()).getVoisins());
+                voisinsBloques.addAll(grapheRouge.getPointCord(a.getX(), a.getY() + 1).getVoisins());
+            }
+
+        } else {
+            if (a.getY() - 1 >= 0) {
+                voisinsBloques.addAll(grapheBlanc.getPointCord(a.getX(), a.getY() - 1).getVoisins());
+                voisinsBloques.addAll(grapheBlanc.getPointCord(a.getX() + 1, a.getY() - 1).getVoisins());
+            }
+            if (a.getY() != 5) {
+                voisinsBloques.addAll(grapheBlanc.getPointCord(a.getX(), a.getY()).getVoisins());
+                voisinsBloques.addAll(grapheBlanc.getPointCord(a.getX() + 1, a.getY()).getVoisins());
+            }
+        }
+        return voisinsBloques;
+    }
+
     public ArrayList<Sommet> getVoisinsPossibles(Sommet a, Graphe g) {
         //TODO à faire après voisin possible de graphe
-        List<Sommet> voisinsPossibles = g.voisinsPossibles(a);
-        if (a.getCouleur() == Couleur.Blanc) {
-            ArrayList<Arrete> arretes = grapheBlanc.getArrete();
-        } else {
-            ArrayList<Arrete> arretes = grapheRouge.getArrete();
+
+        ArrayList<Sommet> voisinsPossibles = g.voisinsPossibles(a);
+        ArrayList<Sommet> voisinsBloques = getVoisinsBloques(a);
+
+        for (Sommet s : voisinsBloques) {
+            if (voisinsBloques.contains(s)) voisinsPossibles.remove(s);
         }
-        return null;
+        return voisinsPossibles;
     }
 }

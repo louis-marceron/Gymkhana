@@ -3,7 +3,15 @@ package fr.umontpellier.iut.gymkhana;
 public enum Couleur {
     Rouge, Blanc;
 
-    public char toChar() {
-        return this == Rouge ? 'R' : 'B';
+    public String nomArrete() {
+        return this == Rouge ? "AR" : "AB";
+    }
+
+    public String nomSommet() {
+        return this == Rouge ? "SR" : "SB";
+    }
+
+    public String nomCouleur() {
+        return this == Rouge ? "Rouge" : "Blanc";
     }
 }

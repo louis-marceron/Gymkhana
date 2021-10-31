@@ -50,11 +50,11 @@ public class Sommet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Sommet sommet = (Sommet) o;
-        return x == sommet.x && y == sommet.y && couleur == sommet.couleur;
+        return x == sommet.x && y == sommet.y;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, couleur);
+        return Objects.hash(x, y);
     }
 }

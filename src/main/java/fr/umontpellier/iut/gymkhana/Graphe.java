@@ -49,6 +49,13 @@ public class Graphe {
         }
         return list;
     }
+    public boolean arreteExist(Sommet a, Sommet b){
+        Arrete arrete = new Arrete(a,b);
+        for (Arrete arrete1:getArrete()){
+            if (arrete1.equals(arrete)) return true;
+        }
+        return false;
+    }
 
     public boolean ajouteArrete( Sommet x,  Sommet y) {
         //TODO il faut regarder si l'arêtes est valide (si l'autre graphe ne la bloque pas)

@@ -50,7 +50,7 @@ public class Plateau {
             else tab[x1 + x2 + 1][Math.max(y1, y2) * 2] = a.getA().couleur.toChar();
 
         }
-
+        str+="x\n";
         int compteur = 0; //pour afficher les numéros des sommets
         int compteur2 = 0;
         for (int i = 0; i < tab.length; i++) {
@@ -83,6 +83,7 @@ public class Plateau {
                     str += compteur + "\t";
                     if (j != 0 && j % 2 != 0) compteur += 1;
                 }
+                str+= "\u001B[0my";
             }
         }
         str += "\u001B[0m";
@@ -135,31 +136,41 @@ public class Plateau {
         } while (!voisinsPossibles.contains(s2));
 
         s1.addVoisin(s2);
+        s2.addVoisin(s1);
     }
 
-    public ArrayList<Sommet> getVoisinsBloques(Sommet a) {
-        ArrayList<Sommet> voisinsBloques = new ArrayList<>();
-        if (a.couleur == Couleur.Blanc) {
-            if (a.getX() - 1 >= 0) {
-                voisinsBloques.addAll(grapheRouge.getPointCord(a.getX() - 1, a.getY()).getVoisins());
-                voisinsBloques.addAll(grapheRouge.getPointCord(a.getX() - 1, a.getY() + 1).getVoisins());
-            }
-            if (a.getX() != 5) {
-                voisinsBloques.addAll(grapheRouge.getPointCord(a.getX(), a.getY()).getVoisins());
-                voisinsBloques.addAll(grapheRouge.getPointCord(a.getX(), a.getY() + 1).getVoisins());
-            }
 
-        } else {
-            if (a.getY() - 1 >= 0) {
-                voisinsBloques.addAll(grapheBlanc.getPointCord(a.getX(), a.getY() - 1).getVoisins());
-                voisinsBloques.addAll(grapheBlanc.getPointCord(a.getX() + 1, a.getY() - 1).getVoisins());
-            }
-            if (a.getY() != 5) {
-                voisinsBloques.addAll(grapheBlanc.getPointCord(a.getX(), a.getY()).getVoisins());
-                voisinsBloques.addAll(grapheBlanc.getPointCord(a.getX() + 1, a.getY()).getVoisins());
-            }
+    public ArrayList<Sommet> getVoisinsBloques(Sommet a) {
+        //TODO
+        ArrayList<Sommet> voisinsB = new ArrayList<>();
+
+        if (a.couleur == Couleur.Rouge) {
+            Sommet s1 = grapheBlanc.getPointCord(a.getX(),a.getY()-1);
+            Sommet s2 = grapheBlanc.getPointCord(a.getX(),a.getY());
+            Sommet s3 = grapheBlanc.getPointCord(a.getX()+1,a.getY()-1);
+            Sommet s4 = grapheBlanc.getPointCord(a.getX()+1,a.getY());
+
+
+            if ((s1 != null && s2 != null) && grapheBlanc.arreteExist(s1,s2)) voisinsB.add(grapheRouge.getPointCord(a.getX()-1,a.getY()));
+            if ((s3 != null && s4 != null) && grapheBlanc.arreteExist(s3,s4)) voisinsB.add(grapheRouge.getPointCord(a.getX()+1,a.getY()));
+            if ((s1 != null && s3 != null) && grapheBlanc.arreteExist(s1,s3)) voisinsB.add(grapheRouge.getPointCord(a.getX(),a.getY()-1));
+            if ((s2 != null && s4 != null) && grapheBlanc.arreteExist(s2,s4)) voisinsB.add(grapheRouge.getPointCord(a.getX(),a.getY()+1));
+        }else {
+            Sommet s1 = grapheRouge.getPointCord(a.getX()-1,a.getY());
+            Sommet s2 = grapheRouge.getPointCord(a.getX()-1,a.getY()+1);
+            Sommet s3 = grapheRouge.getPointCord(a.getX(),a.getY());
+            Sommet s4 = grapheRouge.getPointCord(a.getX(),a.getY()+1);
+
+            if ((s1 != null && s2 != null) && grapheRouge.arreteExist(s1,s2)) voisinsB.add(grapheBlanc.getPointCord(a.getX()-1,a.getY()));
+            if ((s3 != null && s4 != null) && grapheRouge.arreteExist(s3,s4)) voisinsB.add(grapheBlanc.getPointCord(a.getX()+1,a.getY()));
+            if ((s1 != null && s3 != null) && grapheRouge.arreteExist(s1,s3)) voisinsB.add(grapheBlanc.getPointCord(a.getX(),a.getY()-1));
+            if ((s2 != null && s4 != null) && grapheRouge.arreteExist(s2,s4)) voisinsB.add(grapheBlanc.getPointCord(a.getX(),a.getY()+1));
         }
-        return voisinsBloques;
+
+        for (Sommet sommet: a.getVoisins()){
+            voisinsB.add(sommet);
+        }
+        return voisinsB;
     }
 
     public ArrayList<Sommet> getVoisinsPossibles(Sommet a, Graphe g) {
@@ -167,10 +178,13 @@ public class Plateau {
 
         ArrayList<Sommet> voisinsPossibles = g.voisinsPossibles(a);
         ArrayList<Sommet> voisinsBloques = getVoisinsBloques(a);
+//        System.out.println("------------");
+//        System.out.println("voisinsPossibles");
+//        for (Sommet sa : voisinsPossibles) System.out.println(sa);
+//        System.out.println("voisinsBloques");
+//        for (Sommet sb : voisinsBloques) System.out.println(sb);
 
-        for (Sommet s : voisinsBloques) {
-            if (voisinsBloques.contains(s)) voisinsPossibles.remove(s);
-        }
+        voisinsPossibles.removeIf(voisinsBloques::contains);
         return voisinsPossibles;
     }
 }

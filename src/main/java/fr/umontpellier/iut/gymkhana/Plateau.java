@@ -108,20 +108,20 @@ public class Plateau {
         // TODO tests unitaires
         ArrayList<int[]> voisins = new ArrayList<>();
 
-        // S'il y a une arête à gauche du sommet s (correspondant à sa couleur),
-        // il y a un voisin à deux cases à gauche de s.
+        // Regarde s'il y a un voisin à gauche du sommet s en regardant s'il y a une
+        // arête de couleur c à gauche de s
         if (s[1] > 0 && matrice[s[0]][s[1] - 1].equals(c.nomArrete()))
             voisins.add(new int[]{s[0], s[1] - 2});
 
-        // Voisin deux cases à droite de s
+        // Regarde s'il y a un voisin à droite
         if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].equals(c.nomArrete()))
             voisins.add(new int[]{s[0], s[1] + 2});
 
-        // Voisin deux cases au-dessus de s
+        // Regarde s'il y a un voisin au dessus
         if (s[0] > 0 && matrice[s[0] - 1][s[1]].equals(c.nomArrete()))
             voisins.add(new int[]{s[0] - 2, s[1]});
 
-        // Voisin deux cases en dessous de s
+        // Regarde s'il y a un voisin en dessous
         if (s[1] < 2 * taille && matrice[s[0] + 1][s[1]].equals(c.nomArrete()))
             voisins.add(new int[]{s[0] + 2, s[1]});
 
@@ -136,6 +136,10 @@ public class Plateau {
         return matrice;
     }
 
+    /* J'ai déplacé l'affichage de Plateau dans la classe Impression,
+    car il me semble que ça respecte mieux le principe de responsabilité unique
+    (pour moi ce n'est pas le rôle de Plateau de faire l'affichage dans la console)
+    */
     @Override
     public String toString() {
         return ImpressionPlateau.impression(this);

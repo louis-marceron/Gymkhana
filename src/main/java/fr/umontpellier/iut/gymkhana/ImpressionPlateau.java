@@ -1,5 +1,9 @@
 package fr.umontpellier.iut.gymkhana;
 
+/**
+ * La classe {@code Plateau} affiche le plateau
+ *
+ */
 public class ImpressionPlateau {
 
     public static String impression(Plateau p) {

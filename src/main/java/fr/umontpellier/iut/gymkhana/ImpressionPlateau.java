@@ -1,15 +1,23 @@
 package fr.umontpellier.iut.gymkhana;
 
 /**
- * La classe {@code Plateau} affiche le plateau
+ * La classe {@code ImpressionPlateau} contient une unique méthode statique {@code toStringPlateau}
+ * qui permet de représenter de façon esthétique la matrice sur la console.
  *
  */
 public class ImpressionPlateau {
 
-    public static String impression(Plateau p) {
+    /**
+     * Retourne une représentation la matrice d'un objet {@code Plateau}
+     * en affichant les sommets par des points colorés et en indiquant
+     * les valeurs des axes x et y.
+     *
+     * @param p le plateau qu'on veut représenter
+     * @return le {@code String} de la matrice de {@code p}
+     */
+    public static String toStringPlateau(Plateau p) {
         StringBuilder str = new StringBuilder();
         String[][] tab = p.getMatrice();
-
 
         // Indices de l'axe horizontal en haut
         str.append("   ");
@@ -19,19 +27,17 @@ public class ImpressionPlateau {
         str.append("\n");
 
 
-        // Boucle remplaçant les strings de la matrice par d'autres strings, plus lisibles
         for (int i = 0; i < tab.length; i++) {
-            // Indices de l'axe horizontal
+
+            // Indices de l'axe vertical
             str.append("\u001B[0m").append(i);
-            if (i < 10)
+            if (i < 10) // Plus petit espace après le "10" car il prend plus d'espace que les autres chiffres
                 str.append("  ");
             else str.append(" ");
 
-
-
-            // Valeurs de la matrice
+            // Remplace les valeurs de la matrice par des points colorés et par B/R pour les arêtes
             for (int j = 0; j < tab[i].length; j++) {
-                if (i % 2 != 0 && j % 2 == 0) str.append("\u001B[31m"); // Met les sommets rouges en rouge
+                if (i % 2 != 0 && j % 2 == 0) str.append("\u001B[31m"); // Met les points des sommets Rouges en rouge
                 switch (tab[i][j]) {
                     case "V":
                     case "NA":
@@ -49,9 +55,9 @@ public class ImpressionPlateau {
                         break;
                 }
             }
-
             str.append("\n");
         }
+
 
         // Indices de l'axe horizontal en bas
         str.append("   ");

@@ -22,8 +22,6 @@ import java.util.Arrays;
  */
 public class Plateau {
     private final int taille;
-    private Joueur joueurRouge;
-    private Joueur joueurBlanc;
     private String[][] matrice;
 
     /**
@@ -142,6 +140,6 @@ public class Plateau {
     */
     @Override
     public String toString() {
-        return ImpressionPlateau.impression(this);
+        return ImpressionPlateau.toStringPlateau(this);
     }
 }

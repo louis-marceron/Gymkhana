@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * La classe {@code Plateau} permet de créer instances d'un plateau du Gymkhana, modélisé
- * à travers une matrice d'incidence de type {@code String[][]}.
- * Cette matrice comprend la position de chaque sommet et de chaque arrête placée, représentés par
- * une chaine de caractères.
+ * La classe {@code Plateau} permet de créer des instances d'un plateau du Gymkhana, modélisé
+ * à travers une matrice de type {@code String[][]}. Chaque case de la matrice représente les sommets / arêtes
+ * des graphes Rouge et Blanc, ou les cases vides où l'on peut poser une arête.
  * <p><b>Légende</b>
  * <blockquote>
  * NA = case non assignée (correspond aux 4 coins du plateau)<br>
@@ -43,6 +42,7 @@ public class Plateau {
         // On remplit la matrice de "V"
         for (String[] strings : matrice) Arrays.fill(strings, "V");
 
+        // On remplit les coins de "NA"
         matrice[0][0] = "NA";
         matrice[matrice.length - 1][0] = "NA";
         matrice[0][matrice.length - 1] = "NA";

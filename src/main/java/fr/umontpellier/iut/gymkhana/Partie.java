@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Partie {
     Plateau plateau;
 
-    public void intit(){
+    public void init(){
         plateau = new Plateau(5);
         System.out.println(plateau);
         run();
@@ -61,6 +61,6 @@ public class Partie {
 
     public static void main (String[]args){
         Partie p = new Partie();
-        p.intit();
+        p.init();
     }
 }

@@ -17,7 +17,6 @@ public class Plateau {
     SB = sommet blanc
     AR = arrête rouge
     AB = arrête blanche
-    TODO remplacer null par V (vide)
     */
 
     public Plateau(int taille) {
@@ -66,7 +65,7 @@ public class Plateau {
     public boolean ajouterArrete(int[] a1, int[] a2, Couleur c) {
         // TODO try/catch + tests unitaires
         // les indices ne sont pas trop grands
-        if(a1[0] > taille * 2 || a1[1] > taille * 2 || a2[0] > taille * 2 || a2[1] > taille * 2)
+        if (a1[0] > taille * 2 || a1[1] > taille * 2 || a2[0] > taille * 2 || a2[1] > taille * 2)
             return false;
 
         // les deux cases sont toutes les deux SR ou toutes les deux SB
@@ -78,33 +77,33 @@ public class Plateau {
             return false;
 
         // l'arrête est uniquement sur une case vide
-        if (matrice[(a1[0] + a2[0])/2][(a1[1] + a2[1])/2].equals("V"))
+        if (!matrice[(a1[0] + a2[0]) / 2][(a1[1] + a2[1]) / 2].equals("V"))
             return false;
 
-        matrice[(a1[0] + a2[0])/2][(a1[1] + a2[1])/2] = c.nomArrete();
+        matrice[(a1[0] + a2[0]) / 2][(a1[1] + a2[1]) / 2] = c.nomArrete();
         return true;
     }
 
-    public ArrayList<int[]> voisins(int[] s, Couleur c) {
+    public ArrayList<int[]> voisinsDunSommet(int[] s, Couleur c) {
         // TODO tests unitaires
         ArrayList<int[]> voisins = new ArrayList<>();
 
         // S'il y a une arrête à gauche du sommet s (correspondant à sa couleur),
         // il y a un voisin à deux cases à gauche de s.
-        if (s[1] > 0 && matrice[s[0]][s[1]-1].equals(c.nomArrete()))
-            voisins.add(new int[]{s[0], s[1]-2});
+        if (s[1] > 0 && matrice[s[0]][s[1] - 1].equals(c.nomArrete()))
+            voisins.add(new int[]{s[0], s[1] - 2});
 
         // Voisin deux cases à droite de s
-        if (s[1] < 2 * taille && matrice[s[0]][s[1]+1].equals(c.nomArrete()))
-            voisins.add(new int[]{s[0], s[1]+2});
+        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].equals(c.nomArrete()))
+            voisins.add(new int[]{s[0], s[1] + 2});
 
         // Voisin deux cases au-dessus de s
-        if (s[0] > 0 && matrice[s[0]-1][s[1]].equals(c.nomArrete()))
-            voisins.add(new int[]{s[0]-2, s[1]});
+        if (s[0] > 0 && matrice[s[0] - 1][s[1]].equals(c.nomArrete()))
+            voisins.add(new int[]{s[0] - 2, s[1]});
 
         // Voisin deux cases en dessous de s
-        if (s[1] < 2 * taille && matrice[s[0]+1][s[1]].equals(c.nomArrete()))
-            voisins.add(new int[]{s[0]+2, s[1]});
+        if (s[1] < 2 * taille && matrice[s[0] + 1][s[1]].equals(c.nomArrete()))
+            voisins.add(new int[]{s[0] + 2, s[1]});
 
         return voisins;
     }

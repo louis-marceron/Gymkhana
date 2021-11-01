@@ -1,6 +1,8 @@
 package fr.umontpellier.iut.gymkhana;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Partie {
     Plateau plateau;
@@ -11,8 +13,8 @@ public class Partie {
         run();
     }
 
-    private void run(){
-        int x1, y1, x2, y2,continuer;
+    private void run() {
+        int x1, y1, x2, y2, continuer;
         Scanner entree = new Scanner(System.in);
 
         do {
@@ -50,8 +52,7 @@ public class Partie {
         } while (continuer != 2);
     }
 
-
-    public static void main(String[] args) {
+    public static void main (String[]args){
         Partie p = new Partie();
         p.intit();
     }

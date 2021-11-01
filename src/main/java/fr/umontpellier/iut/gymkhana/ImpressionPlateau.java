@@ -7,7 +7,7 @@ public class ImpressionPlateau {
         String[][] tab = p.getMatrice();
 
 
-        // Indices de l'axe horizontal
+        // Indices de l'axe horizontal en haut
         str.append("   ");
         for (int i = 0; i < tab.length; i++) {
             str.append(i).append("   ");
@@ -41,6 +41,13 @@ public class ImpressionPlateau {
 
             str.append("\n");
         }
+
+        // Indices de l'axe horizontal en bas
+        str.append("   ");
+        for (int i = 0; i < tab.length; i++) {
+            str.append(i).append("   ");
+        }
+        str.append("\n");
 
 
         return str.toString();

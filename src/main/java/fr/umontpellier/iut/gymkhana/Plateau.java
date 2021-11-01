@@ -63,37 +63,52 @@ public class Plateau {
         }
     }
 
-    public boolean ajouterArrete(int[] a1, int[] a2, Couleur c) {
+    /**
+     * Ajoute une arête de couleur {@code c} positionnée entre deux sommets passés en paramètres.
+     *
+     * @param s1 Les coordonnées x,y du premier sommet
+     * @param s2 Les coordonnées x,y du second sommet
+     * @param c La couleur de l'arête que l'on veut placer
+     * @return {@code false} si le placement de l'arête est illégal
+     */
+    public boolean ajouterArete(int[] s1, int[] s2, Couleur c) {
         // TODO try/catch + tests unitaires
-        // les indices ne sont pas trop grands
-        if (a1[0] > taille * 2
-                || a1[1] > taille * 2
-                || a2[0] > taille * 2
-                || a2[1] > taille * 2)
+        // Vérifie que les indices ne sont pas trop grands
+        if (s1[0] > taille * 2
+                || s1[1] > taille * 2
+                || s2[0] > taille * 2
+                || s2[1] > taille * 2)
             return false;
 
-        // les deux cases sont toutes les deux SR ou toutes les deux SB
-        if (!matrice[a1[0]][a1[1]].equals(c.nomSommet())
-                || !matrice[a2[0]][a2[1]].equals(c.nomSommet()))
+        // Vérifie que les deux cases sont toutes les deux SR ou toutes les deux SB
+        if (!matrice[s1[0]][s1[1]].equals(c.nomSommet())
+                || !matrice[s2[0]][s2[1]].equals(c.nomSommet()))
             return false;
 
-        // il y a une case d'écart entre les deux cases
-        if (Math.abs(a1[0] - a2[0]) + Math.abs(a1[1] - a2[1]) != 2)
+        // Vérifie qu'il y a une case d'écart entre les deux cases
+        if (Math.abs(s1[0] - s2[0]) + Math.abs(s1[1] - s2[1]) != 2)
             return false;
 
-        // l'arrête est uniquement sur une case vide
-        if (!matrice[(a1[0] + a2[0]) / 2][(a1[1] + a2[1]) / 2].equals("V"))
+        // Vérifie que l'arête est uniquement sur une case vide
+        if (!matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2].equals("V"))
             return false;
 
-        matrice[(a1[0] + a2[0]) / 2][(a1[1] + a2[1]) / 2] = c.nomArrete();
+        matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = c.nomArrete();
         return true;
     }
 
+    /**
+     * Retourne la liste des coordonnées des sommets adjacents (voisins) au sommet passé en paramètres.
+     *
+     * @param s le sommet dont on veut connaître ses voisins
+     * @param c la couleur du sommet {@code s}
+     * @return Liste des coordonnées des voisins de {@code s}
+     */
     public ArrayList<int[]> getVoisinsSommet(int[] s, Couleur c) {
         // TODO tests unitaires
         ArrayList<int[]> voisins = new ArrayList<>();
 
-        // S'il y a une arrête à gauche du sommet s (correspondant à sa couleur),
+        // S'il y a une arête à gauche du sommet s (correspondant à sa couleur),
         // il y a un voisin à deux cases à gauche de s.
         if (s[1] > 0 && matrice[s[0]][s[1] - 1].equals(c.nomArrete()))
             voisins.add(new int[]{s[0], s[1] - 2});

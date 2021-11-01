@@ -36,7 +36,7 @@ public class Partie {
                     System.out.println("sélectionnez X et Y du deuxième point");
                     x2 = entree.nextInt();
                     y2 = entree.nextInt();
-                    b = plateau.ajouterArrete(new int[]{x1, y1}, new int[]{x2, y2}, couleur);
+                    b = plateau.ajouterArete(new int[]{x1, y1}, new int[]{x2, y2}, couleur);
                 } while (!b);
 
                 System.out.println("Votre coup à été joué !\n\n");

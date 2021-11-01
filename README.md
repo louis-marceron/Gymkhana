@@ -9,4 +9,4 @@ Cependant, il est impossible de poser une barre à un endroit où il y en a déj
 
 Le but du jeu est simple : le premier joueur à créer un chemin partant de son côté au côté d'en face à gagné !
 
-<img src="ressources/plateau_gymkhana.png" width="17%" style="margin:auto;display:block;" alt=""/>
+<img src="ressources/plateau_gymkhana.png" style="margin:auto;display:block;" alt="plateau gymkhana"/>

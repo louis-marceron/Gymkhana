@@ -3,7 +3,7 @@ package fr.umontpellier.iut.gymkhana;
 public enum Couleur {
     Rouge, Blanc;
 
-    public String nomArrete() {
+    public String nomArete() {
         return this == Rouge ? "AR" : "AB";
     }
 

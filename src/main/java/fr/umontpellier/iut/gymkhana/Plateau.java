@@ -13,10 +13,10 @@ import java.util.Arrays;
  * V = case vide<br>
  * SR = sommet rouge<br>
  * SB = sommet blanc<br>
- * AR = arrête rouge<br>
- * AB = arrête blanche<br>
+ * AR = arête rouge<br>
+ * AB = arête blanche<br>
  * </blockquote>
- * <p>La classe {@code Plateau} comprend les méthodes pouvant placer des arrêtes et vérifier si un
+ * <p>La classe {@code Plateau} comprend les méthodes pouvant placer des arêtes et vérifier si un
  * {@code Joueur} est gagnant. Il y aussi des méthodes spécifiques aux Graphes, pouvant par exemple
  * retourner les voisins d'un sommet ou sa classe de connexité.
  */
@@ -91,7 +91,7 @@ public class Plateau {
         if (!matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2].equals("V"))
             return false;
 
-        matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = c.nomArrete();
+        matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = c.nomArete();
         return true;
     }
 
@@ -108,19 +108,19 @@ public class Plateau {
 
         // Regarde s'il y a un voisin à gauche du sommet s en regardant s'il y a une
         // arête de couleur c à gauche de s
-        if (s[1] > 0 && matrice[s[0]][s[1] - 1].equals(c.nomArrete()))
+        if (s[1] > 0 && matrice[s[0]][s[1] - 1].equals(c.nomArete()))
             voisins.add(new int[]{s[0], s[1] - 2});
 
         // Regarde s'il y a un voisin à droite
-        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].equals(c.nomArrete()))
+        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].equals(c.nomArete()))
             voisins.add(new int[]{s[0], s[1] + 2});
 
         // Regarde s'il y a un voisin au dessus
-        if (s[0] > 0 && matrice[s[0] - 1][s[1]].equals(c.nomArrete()))
+        if (s[0] > 0 && matrice[s[0] - 1][s[1]].equals(c.nomArete()))
             voisins.add(new int[]{s[0] - 2, s[1]});
 
         // Regarde s'il y a un voisin en dessous
-        if (s[1] < 2 * taille && matrice[s[0] + 1][s[1]].equals(c.nomArrete()))
+        if (s[1] < 2 * taille && matrice[s[0] + 1][s[1]].equals(c.nomArete()))
             voisins.add(new int[]{s[0] + 2, s[1]});
 
         return voisins;

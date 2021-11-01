@@ -18,25 +18,32 @@ public class ImpressionPlateau {
         // Boucle remplaçant les strings de la matrice par d'autres strings, plus lisibles
         for (int i = 0; i < tab.length; i++) {
             // Indices de l'axe horizontal
-            str.append("\u001B[0m").append(i).append("  ");
+            str.append("\u001B[0m").append(i);
+            if (i < 10)
+                str.append("  ");
+            else str.append(" ");
+
 
 
             // Valeurs de la matrice
             for (int j = 0; j < tab[i].length; j++) {
-                if (i % 2 != 0 && j % 2 == 0) str.append("\u001B[31m");
-                if (i % 2 != 0 && j % 2 != 0) str.append("\u001B[0m");
-                if (i % 2 == 0) str.append("\u001B[0m");
-                if (tab[i][j] == null || tab[i][j].equals("NA"))
-                    str.append("    ");
-                else if (tab[i][j].equals("SB"))
-                    str.append(".   ");
-                else if (tab[i][j].equals("SR"))
-                    str.append(".   ");
-                else if (tab[i][j].equals("AB")) {
-                    str.append("B   ");
+                if (i % 2 != 0 && j % 2 == 0) str.append("\u001B[31m"); // Met les sommets rouges en rouge
+                switch (tab[i][j]) {
+                    case "V":
+                    case "NA":
+                        str.append("    ");
+                        break;
+                    case "SB":
+                    case "SR":
+                        str.append(".   ");
+                        break;
+                    case "AB":
+                        str.append("B   ");
+                        break;
+                    case "AR":
+                        str.append("R   ");
+                        break;
                 }
-                else if (tab[i][j].equals("AR"))
-                    str.append("R   ");
             }
 
             str.append("\n");

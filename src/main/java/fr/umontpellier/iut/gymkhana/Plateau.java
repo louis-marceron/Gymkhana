@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.gymkhana;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Plateau {
     private Joueur joueurRouge;
@@ -11,7 +12,7 @@ public class Plateau {
     /*
     L'attribut "matrice" correpond à une matrice comprenant les sommets rouges et blancs, et leurs arrêtes respectives
     NA = case non assignée (correspond aux 4 coins du plateau)
-    null = arrête ne comprenant pas d'arrête
+    V = case vide
     SR = sommet rouge
     SB = sommet blanc
     AR = arrête rouge
@@ -24,6 +25,9 @@ public class Plateau {
 
         int dimension = taille * 2 + 1;
         matrice = new String[dimension][dimension];
+
+        // On remplit le tableau de "V"
+        for (String[] strings : matrice) Arrays.fill(strings, "V");
 
         // On met "NA" dans les quatres coins de la matrice
         matrice[0][0] = "NA";
@@ -65,10 +69,6 @@ public class Plateau {
         if(a1[0] > taille * 2 || a1[1] > taille * 2 || a2[0] > taille * 2 || a2[1] > taille * 2)
             return false;
 
-        // les deux cases non nulles
-        if (matrice[a1[0]][a1[1]] == null || matrice[a2[0]][a2[1]] == null)
-            return false;
-
         // les deux cases sont toutes les deux SR ou toutes les deux SB
         if (!matrice[a1[0]][a1[1]].equals(c.nomSommet()) || !matrice[a2[0]][a2[1]].equals(c.nomSommet()))
             return false;
@@ -77,8 +77,8 @@ public class Plateau {
         if (Math.abs(a1[0] - a2[0]) + Math.abs(a1[1] - a2[1]) != 2)
             return false;
 
-        // l'arrête est uniquement sur une case null
-        if (matrice[(a1[0] + a2[0])/2][(a1[1] + a2[1])/2] != null)
+        // l'arrête est uniquement sur une case vide
+        if (matrice[(a1[0] + a2[0])/2][(a1[1] + a2[1])/2].equals("V"))
             return false;
 
         matrice[(a1[0] + a2[0])/2][(a1[1] + a2[1])/2] = c.nomArrete();
@@ -91,19 +91,19 @@ public class Plateau {
 
         // S'il y a une arrête à gauche du sommet s (correspondant à sa couleur),
         // il y a un voisin à deux cases à gauche de s.
-        if (s[1] > 0 && matrice[s[0]][s[1]-1] != null && matrice[s[0]][s[1]-1].equals(c.nomArrete()))
+        if (s[1] > 0 && matrice[s[0]][s[1]-1].equals(c.nomArrete()))
             voisins.add(new int[]{s[0], s[1]-2});
 
         // Voisin deux cases à droite de s
-        if (s[1] < 2 * taille && matrice[s[0]][s[1]+1] != null && matrice[s[0]][s[1]+1].equals(c.nomArrete()))
+        if (s[1] < 2 * taille && matrice[s[0]][s[1]+1].equals(c.nomArrete()))
             voisins.add(new int[]{s[0], s[1]+2});
 
         // Voisin deux cases au-dessus de s
-        if (s[0] > 0 && matrice[s[0]-1][s[1]] != null && matrice[s[0]-1][s[1]].equals(c.nomArrete()))
+        if (s[0] > 0 && matrice[s[0]-1][s[1]].equals(c.nomArrete()))
             voisins.add(new int[]{s[0]-2, s[1]});
 
         // Voisin deux cases en dessous de s
-        if (s[1] < 2 * taille && matrice[s[0]+1][s[1]] != null && matrice[s[0]+1][s[1]].equals(c.nomArrete()))
+        if (s[1] < 2 * taille && matrice[s[0]+1][s[1]].equals(c.nomArrete()))
             voisins.add(new int[]{s[0]+2, s[1]});
 
         return voisins;

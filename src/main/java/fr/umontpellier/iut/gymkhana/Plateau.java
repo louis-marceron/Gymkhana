@@ -28,8 +28,7 @@ public class Plateau {
      * Initialise un nouvel objet {@code Plateau} en construisant une matrice comprenant les cases
      * non assignées "NA", les cases vides "V" et les sommets rouges et blancs "SR" / "SB".
      *
-     * @param taille
-     *        La longueur des graphes Rouge et Blanc. Leur largeur est de {@code taille - 1}
+     * @param taille La longueur des graphes Rouge et Blanc. Leur largeur est de {@code taille - 1}
      */
     public Plateau(int taille) {
         this.taille = taille;
@@ -66,7 +65,7 @@ public class Plateau {
      *
      * @param s1 Les coordonnées x,y du premier sommet
      * @param s2 Les coordonnées x,y du second sommet
-     * @param c La couleur de l'arête que l'on veut placer
+     * @param c  La couleur de l'arête que l'on veut placer
      * @return {@code false} si le placement de l'arête est illégal
      */
     public boolean ajouterArete(int[] s1, int[] s2, Couleur c) {
@@ -124,6 +123,38 @@ public class Plateau {
             voisins.add(new int[]{s[0] + 2, s[1]});
 
         return voisins;
+    }
+
+    public boolean gagnant(int[] s, Couleur c) {
+        ArrayList<int[]> connex = new ArrayList<>();
+        connex = connex(s,c,connex);
+        Boolean a = false, b = false;
+        switch (c) {
+            case Rouge:
+                for (int[] som:connex){
+                    if(som[1] == 0) a = true;
+                    if(som[1] == 10) b = true;
+                }
+                break;
+
+            case Blanc:
+                for (int[] som:connex){
+                    if(som[0] == 0) a = true;
+                    if(som[0] == 10) b = true;
+                }
+                break;
+        }
+        return a && b;
+    }
+
+    public ArrayList<int[]> connex(int[] s, Couleur c, ArrayList<int[]> l) {
+        for (int[] sommet : getVoisinsSommet(s, c)) {
+            if (!l.contains(sommet)) {
+                l.add(sommet);
+                connex(sommet, c, l);
+            }
+        }
+        return l;
     }
 
     public int getTaille() {

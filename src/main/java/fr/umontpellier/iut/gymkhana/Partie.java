@@ -21,7 +21,8 @@ public class Partie {
      *
      */
     private void run() {
-        int x1, y1, x2, y2, continuer;
+        int x1, y1, x2, y2;
+        boolean continuer = true;
         Scanner entree = new Scanner(System.in);
 
         do {
@@ -42,21 +43,31 @@ public class Partie {
                     System.out.println("sélectionnez X et Y du premier point");
                     x1 = entree.nextInt();
                     y1 = entree.nextInt();
+                    int[] s1 = new int[]{x1, y1};
                     System.out.println("sélectionnez X et Y du deuxième point");
                     x2 = entree.nextInt();
                     y2 = entree.nextInt();
-                    b = plateau.ajouterArete(new int[]{x1, y1}, new int[]{x2, y2}, couleur);
+                    b = plateau.ajouterArete(s1, new int[]{x2, y2}, couleur);
+
+
+                    if (b && plateau.gagnant(s1,couleur)){
+                        System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
+                        System.out.println(plateau);
+                        System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
+                        continuer = false;
+                        break;
+                    }
                 } while (!b); // Tant que les points entrés ne sont pas valides, impossible de continuer
 
+                if (!continuer) break;
                 System.out.println("Votre coup à été joué !\n\n");
                 System.out.println(plateau);
             }
 
-            // Système temporaire
-            System.out.println("Tapez 1 pour continuer ou tapez 2 pour finir");
-            continuer = entree.nextInt();
 
-        } while (continuer != 2);
+        } while (continuer);
+        System.out.println("Tappez 1 pour relancer une partie !");
+        if (entree.nextInt() == 1) init();
     }
 
     public static void main (String[]args){

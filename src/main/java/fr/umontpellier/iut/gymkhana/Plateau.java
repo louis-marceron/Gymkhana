@@ -119,18 +119,25 @@ public class Plateau {
             voisins.add(new int[]{s[0] - 2, s[1]});
 
         // Regarde s'il y a un voisin en dessous
-        if (s[1] < 2 * taille && matrice[s[0] + 1][s[1]].equals(c.nomArete()))
+        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].equals(c.nomArete()))
             voisins.add(new int[]{s[0] + 2, s[1]});
 
         return voisins;
     }
 
+    /**
+     * Retourne vrai ou faux en fonction du si oui ou non le sommet est gagant
+     *
+     * @param s le sommet dont on veut connaître s'il est gagnant ou non
+     * @param c la couleur du sommet {@code s}
+     * @return retourne un boolean}
+     */
     public boolean gagnant(int[] s, Couleur c) {
         ArrayList<int[]> connex = new ArrayList<>();
-        connex = connex(s,c,connex);
+        connex = connex(s,c,connex); // on obtient la classe de connexité du sommet s.
         Boolean a = false, b = false;
         switch (c) {
-            case Rouge:
+            case Rouge: // dans le cas des sommets rouges on regarde si sa classe de connexité contient des sommets
                 for (int[] som:connex){
                     if(som[1] == 0) a = true;
                     if(som[1] == 10) b = true;
@@ -147,9 +154,15 @@ public class Plateau {
         return a && b;
     }
 
+    private  boolean contenir(ArrayList<int[]> l, int[] s){
+        for (int[] sommet: l) {
+            if (sommet[0] == s[0] && sommet[1] == s[1]) return true;
+        }
+        return false;
+    }
     public ArrayList<int[]> connex(int[] s, Couleur c, ArrayList<int[]> l) {
         for (int[] sommet : getVoisinsSommet(s, c)) {
-            if (!l.contains(sommet)) {
+            if (!contenir(l,sommet)) {
                 l.add(sommet);
                 connex(sommet, c, l);
             }

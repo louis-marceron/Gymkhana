@@ -2,7 +2,6 @@ package fr.umontpellier.iut.gymkhana;
 
 import java.util.Scanner;
 
-
 /**
  * La classe {@code Partie} initialise un {@code Plateau} et fait avancer une partie de Gymkhana
  * en prenant et en traitant les valeurs entrées par les joueurs.

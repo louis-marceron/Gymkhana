@@ -23,17 +23,54 @@ public class Partie {
     private void run() {
         int x1, y1, x2, y2, continuer;
         Scanner entree = new Scanner(System.in);
+        Couleur couleurJ1;
+        Couleur couleurJ2;
+        System.out.println("Joueur 1, comment doit-on vous appeler ?");
+        String pseudoJ1 = entree.nextLine();
+        System.out.println("Joueur 2, comment doit-on vous appeler ?");
+        String pseudoJ2 = entree.nextLine();
+        int random = (int)Math.floor(Math.random()*(2-1+1)+1);
+        // Détermination d'un chiffre aléatoire entre 1 et 2, cela sert à savoir quel joueur à le droit de choisir sa couleur
+        if (random == 1){
+            System.out.println( pseudoJ1 + ", quelle couleur voulez-vous jouer ? Tapez 1 pour Blanc, 2 pour Rouge");
+        }else {
+            System.out.println( pseudoJ2 + ", quelle couleur voulez-vous jouer ? Tapez 1 pour Blanc, 2 pour Rouge");
+        }
+        int choixCouleur = entree.nextInt();
+        //Affectations en fonction de si le joueur 1 a choisi en premier ou si c'est le joueur 2
+        if (random == 1){
+            if (choixCouleur == 1){
+                couleurJ1 = Couleur.Blanc;
+                couleurJ2 = Couleur.Rouge;
+            }else{
+                couleurJ1 = Couleur.Rouge;
+                couleurJ2 = Couleur.Blanc;
+            }
+        }else{
+            if (choixCouleur == 1){
+                couleurJ1 = Couleur.Rouge;
+                couleurJ2 = Couleur.Blanc;
+            }else{
+                couleurJ1 = Couleur.Blanc;
+                couleurJ2 = Couleur.Rouge;
+            }
+        }
+        System.out.println(plateau);
+
 
         do {
             for (int k = 0; k < 2; k++) { // Boucle appellant les 2 joueurs
                 Couleur couleur;
+                String pseudo;
                 // La couleur change en fonction de k
-                if (k == 0)
-                    couleur = Couleur.Blanc;
-                else
-                    couleur = Couleur.Rouge;
-
-                System.out.println("Joueur " + couleur.nomCouleur() + ", choisissez votre coup à jouer");
+                if (k == 0) {
+                    couleur = couleurJ1;
+                    pseudo = pseudoJ1;
+                }else {
+                    couleur = couleurJ2;
+                    pseudo = pseudoJ2;
+                }
+                System.out.println("Joueur " + couleur.nomCouleur() +" " + pseudo + ", choisissez votre coup à jouer");
 
                 boolean b = true;
                 do {

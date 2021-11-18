@@ -125,6 +125,43 @@ public class Plateau {
         return voisins;
     }
 
+    public ArrayList<int[]> getVoisinsSommetPossible(int[] s, Couleur c) {
+        ArrayList<int[]> voisins = new ArrayList<>();
+
+        // Regarde s'il y a un voisin possible à gauche du sommet s en regardant s'il y a une
+        // arête de couleur c à gauche de s
+        if (s[1] > 0 && matrice[s[0]][s[1] - 1].equals("V"))
+            voisins.add(new int[]{s[0], s[1] - 2});
+
+        // Regarde s'il y a un voisin possible à droite
+        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].equals("V"))
+            voisins.add(new int[]{s[0], s[1] + 2});
+
+        // Regarde s'il y a un voisin possible au dessus
+        if (s[0] > 0 && matrice[s[0] - 1][s[1]].equals("V"))
+            voisins.add(new int[]{s[0] - 2, s[1]});
+
+        // Regarde s'il y a un voisin possible en dessous
+        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].equals("V"))
+            voisins.add(new int[]{s[0] + 2, s[1]});
+
+        return voisins;
+    }
+
+    public ArrayList<int[]> getSommetJouables(Couleur c){
+        ArrayList<int[]> list = new ArrayList<>();
+        int[] x;
+        for (int i = 0; i < matrice.length; i++) {
+            for (int j = 0; j <matrice[i].length ; j++) {
+                if (matrice[i][j].equals(c.nomSommet())){
+                     x = new int[]{i,j};
+                    if (!getVoisinsSommetPossible(x,c).isEmpty()) list.add(x);
+                }
+            }
+        }
+        return list;
+    }
+
     /**
      * Retourne vrai ou faux en fonction du si oui ou non le sommet est gagant
      *

@@ -48,11 +48,11 @@ public class Partie {
                     if (couleur == Couleur.Blanc) {
                         // TODO try/catch scanner
                         if (!b) System.out.println("Points non valides, veuillez réessayer");
-                        System.out.println("sélectionnez X et Y du premier point");
+                        System.out.println("sélectionnez Y et X du premier point");
                         x1 = entree.nextInt();
                         y1 = entree.nextInt();
                         s1 = new int[]{x1, y1};
-                        System.out.println("sélectionnez X et Y du deuxième point");
+                        System.out.println("sélectionnez Y et X du deuxième point");
                         x2 = entree.nextInt();
                         y2 = entree.nextInt();
                         b = plateau.ajouterArete(s1, new int[]{x2, y2}, couleur);

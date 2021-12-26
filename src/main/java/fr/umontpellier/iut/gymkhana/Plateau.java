@@ -1,7 +1,6 @@
 package fr.umontpellier.iut.gymkhana;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * La classe {@code Plateau} permet de créer des instances d'un plateau du Gymkhana, modélisé
@@ -22,7 +21,7 @@ import java.util.Arrays;
  */
 public class Plateau {
     private final int taille;
-    private String[][] matrice;
+    private Piece[][] matrice;
 
     /**
      * Initialise un nouvel objet {@code Plateau} en construisant une matrice comprenant les cases
@@ -34,27 +33,26 @@ public class Plateau {
         this.taille = taille;
 
         int dimension = taille * 2 + 1;
-        matrice = new String[dimension][dimension];
+        matrice = new Piece[dimension][dimension];
 
-        // On remplit la matrice de "V"
-        for (String[] strings : matrice) Arrays.fill(strings, "V");
-
+/*      je laisse les coins juste en null comme pour les cases vides
         // On remplit les coins de "NA"
         matrice[0][0] = "NA";
         matrice[matrice.length - 1][0] = "NA";
         matrice[0][matrice.length - 1] = "NA";
         matrice[matrice.length - 1][matrice.length - 1] = "NA";
-
+*/
         // On place les sommets rouges et blancs
+
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
                 if (i % 2 == 0) {
                     if (j % 2 == 1)
-                        matrice[i][j] = "SB";
+                        matrice[i][j] = new Sommet(Couleur.Blanc);
                 }
                 if (i % 2 == 1) {
                     if (j % 2 == 0)
-                        matrice[i][j] = "SR";
+                        matrice[i][j] = new Sommet(Couleur.Rouge);
                 }
             }
         }
@@ -87,10 +85,10 @@ public class Plateau {
             return false;
 
         // Vérifie que l'arête est uniquement sur une case vide
-        if (!matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2].equals("V"))
+        if (matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] != null)
             return false;
 
-        matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = c.nomArete();
+        matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = new Arete(c);
         return true;
     }
 
@@ -148,14 +146,14 @@ public class Plateau {
         return voisins;
     }
 
-    public ArrayList<int[]> getSommetJouables(Couleur c){
+    public ArrayList<int[]> getSommetJouables(Couleur c) {
         ArrayList<int[]> list = new ArrayList<>();
         int[] x;
         for (int i = 0; i < matrice.length; i++) {
-            for (int j = 0; j <matrice[i].length ; j++) {
-                if (matrice[i][j].equals(c.nomSommet())){
-                     x = new int[]{i,j};
-                    if (!getVoisinsSommetPossible(x,c).isEmpty()) list.add(x);
+            for (int j = 0; j < matrice[i].length; j++) {
+                if (matrice[i][j].equals(c.nomSommet())) {
+                    x = new int[]{i, j};
+                    if (!getVoisinsSommetPossible(x, c).isEmpty()) list.add(x);
                 }
             }
         }
@@ -171,35 +169,36 @@ public class Plateau {
      */
     public boolean gagnant(int[] s, Couleur c) {
         ArrayList<int[]> connex = new ArrayList<>();
-        connex = connex(s,c,connex); // on obtient la classe de connexité du sommet s.
+        connex = connex(s, c, connex); // on obtient la classe de connexité du sommet s.
         Boolean a = false, b = false;
         switch (c) {
             case Rouge: // dans le cas des sommets rouges on regarde si sa classe de connexité contient des sommets
-                for (int[] som:connex){
-                    if(som[1] == 0) a = true;
-                    if(som[1] == 10) b = true;
+                for (int[] som : connex) {
+                    if (som[1] == 0) a = true;
+                    if (som[1] == 10) b = true;
                 }
                 break;
 
             case Blanc:
-                for (int[] som:connex){
-                    if(som[0] == 0) a = true;
-                    if(som[0] == 10) b = true;
+                for (int[] som : connex) {
+                    if (som[0] == 0) a = true;
+                    if (som[0] == 10) b = true;
                 }
                 break;
         }
         return a && b;
     }
 
-    private  boolean contenir(ArrayList<int[]> l, int[] s){
-        for (int[] sommet: l) {
+    private boolean contenir(ArrayList<int[]> l, int[] s) {
+        for (int[] sommet : l) {
             if (sommet[0] == s[0] && sommet[1] == s[1]) return true;
         }
         return false;
     }
+
     public ArrayList<int[]> connex(int[] s, Couleur c, ArrayList<int[]> l) {
         for (int[] sommet : getVoisinsSommet(s, c)) {
-            if (!contenir(l,sommet)) {
+            if (!contenir(l, sommet)) {
                 l.add(sommet);
                 connex(sommet, c, l);
             }
@@ -211,7 +210,7 @@ public class Plateau {
         return taille;
     }
 
-    public String[][] getMatrice() {
+    public Piece[][] getMatrice() {
         return matrice;
     }
 

@@ -37,7 +37,7 @@ public class ImpressionPlateau {
             // Remplace les valeurs de la matrice par des points colorés et par B/R pour les arêtes
             for (int j = 0; j < tab[i].length; j++) {
                 if (i % 2 != 0 && j % 2 == 0) str.append("\u001B[31m"); // Met les points des sommets Rouges en rouge
-                if (tab[i][j] == null) {
+                if (tab[i][j] == null || tab[i][j].getClass().equals(Vide.class)) {
                     str.append("    ");
                 } else if (tab[i][j].getClass().equals(Sommet.class)) { //"SB".equals(tab[i][j]) || "SR".equals(tab[i][j])
                     str.append(".   ");

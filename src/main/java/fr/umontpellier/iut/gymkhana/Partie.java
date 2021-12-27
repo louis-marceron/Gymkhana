@@ -9,6 +9,8 @@ import java.util.Scanner;
  */
 public class Partie {
     Plateau plateau;
+    Joueur j1;
+    Joueur j2;
 
     public static void main(String[] args) {
         Partie p = new Partie();
@@ -17,8 +19,17 @@ public class Partie {
 
     public void init() {
         plateau = new Plateau(5);
+        Scanner entree = new Scanner(System.in);
+        System.out.println("Jouer à 1 ou 2 ?");
+
+        j1 = new JoueurHumain();
+        if (entree.nextInt() == 1) {
+            j2 = new JoueurIADebutant();
+        } else {
+            j2 = new JoueurHumain();
+        }
         System.out.println(plateau);
-        run();
+        run2();
     }
 
     /**
@@ -26,8 +37,8 @@ public class Partie {
      * Demande à chaque joueur de rentrer tour par tour des arêtes dans un {@code Plateau}.
      */
     private void run() {
-        int[] s1,s2;
-        ArrayList<int[]> sommetJouables,sommetVoisinsP;
+        int[] s1, s2;
+        ArrayList<int[]> sommetJouables, sommetVoisinsP;
         int x1, y1, x2, y2;
         boolean continuer = true;
         Scanner entree = new Scanner(System.in);
@@ -59,9 +70,9 @@ public class Partie {
                     } else {
                         sommetJouables = plateau.getSommetJouables(couleur);
                         s1 = sommetJouables.get((int) (Math.random() * (sommetJouables.size())));
-                        sommetVoisinsP =plateau.getVoisinsSommetPossible(s1,couleur);
+                        sommetVoisinsP = plateau.getVoisinsSommetPossible(s1, couleur);
                         s2 = sommetVoisinsP.get((int) (Math.random() * (sommetVoisinsP.size())));
-                        b = plateau.ajouterArete(s1,s2,couleur);
+                        b = plateau.ajouterArete(s1, s2, couleur);
                     }
 
                     if (b && plateau.gagnant(s1, couleur)) {
@@ -74,6 +85,47 @@ public class Partie {
                 } while (!b); // Tant que les points entrés ne sont pas valides, impossible de continuer
 
                 if (!continuer) break;
+                System.out.println("Votre coup à été joué !\n\n");
+                System.out.println(plateau);
+            }
+
+
+        } while (continuer);
+        System.out.println("Tappez 1 pour relancer une partie !");
+        if (entree.nextInt() == 1) init();
+    }
+
+
+    private void run2() {
+        int[] s1, s2;
+        ArrayList<int[]> sommetJouables, sommetVoisinsP;
+        int x1, y1, x2, y2;
+        boolean continuer = true;
+        Scanner entree = new Scanner(System.in);
+
+        do {
+            for (int k = 0; k < 2; k++) { // Boucle appellant les 2 joueurs
+                Couleur couleur;
+                Joueur joueur;
+                // La couleur change en fonction de k
+                if (k == 0) {
+                    couleur = Couleur.Blanc;
+                    joueur = j1;
+                } else {
+                    couleur = Couleur.Rouge;
+                    joueur = j2;
+                }
+
+                System.out.println("Joueur " + couleur.nomCouleur() + ", choisissez votre coup à jouer");
+
+                Boolean b = joueur.jouer(plateau, couleur);
+                if (b) {
+                    System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
+                    System.out.println(plateau);
+                    System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
+                    continuer = false;
+                    break;
+                }
                 System.out.println("Votre coup à été joué !\n\n");
                 System.out.println(plateau);
             }

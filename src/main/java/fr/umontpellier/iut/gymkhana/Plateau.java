@@ -42,6 +42,13 @@ public class Plateau {
         matrice[0][matrice.length - 1] = "NA";
         matrice[matrice.length - 1][matrice.length - 1] = "NA";
 */
+
+        // on rempli le plateau de vide
+        for (int i = 0; i < matrice.length; i++) {
+            for (int j = 0; j < matrice[i].length; j++) {
+                matrice[i][j] = new Vide(null);
+            }
+        }
         // On place les sommets rouges et blancs
 
         for (int i = 0; i < matrice.length; i++) {
@@ -75,19 +82,32 @@ public class Plateau {
                 || s2[1] > taille * 2)
             return false;
 
-        // Vérifie que les deux cases sont toutes les deux SR ou toutes les deux SB
+/*        // Vérifie que les deux cases sont toutes les deux SR ou toutes les deux SB
         if (!matrice[s1[0]][s1[1]].equals(c.nomSommet())
                 || !matrice[s2[0]][s2[1]].equals(c.nomSommet()))
             return false;
+ */
+        // Vérifie que les cases ne soient pas null
+        if (matrice[s1[0]][s1[1]] == null || matrice[s2[0]][s2[1]] == null)
+            return false;
+        // Vérifie que les deux cases soient des sommets
+        if (!matrice[s1[0]][s1[1]].getClass().equals(Sommet.class) || !matrice[s2[0]][s2[1]].getClass().equals(Sommet.class)) {
+            return false;
+        }
+        // Vérifie que les deux cases soient de la même couleur
+        if (!matrice[s1[0]][s1[1]].getCouleur().equals(c) || !matrice[s2[0]][s2[1]].getCouleur().equals(c)) {
+            return false;
+        }
 
         // Vérifie qu'il y a une case d'écart entre les deux cases
         if (Math.abs(s1[0] - s2[0]) + Math.abs(s1[1] - s2[1]) != 2)
             return false;
 
         // Vérifie que l'arête est uniquement sur une case vide
-        if (matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] != null)
+        if (!matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2].getClass().equals(Vide.class)) {
+            System.out.println("ça marche pas");
             return false;
-
+        }
         matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = new Arete(c);
         return true;
     }
@@ -102,23 +122,29 @@ public class Plateau {
     public ArrayList<int[]> getVoisinsSommet(int[] s, Couleur c) {
         // TODO tests unitaires
         ArrayList<int[]> voisins = new ArrayList<>();
-
-        // Regarde s'il y a un voisin à gauche du sommet s en regardant s'il y a une
-        // arête de couleur c à gauche de s
-        if (s[1] > 0 && matrice[s[0]][s[1] - 1].equals(c.nomArete()))
-            voisins.add(new int[]{s[0], s[1] - 2});
+        // Regarde s'il y a un voisin à gauche du sommet s en regardant s'il y a une arête de couleur c à gauche de s
+        if (s[1] > 0
+                && matrice[s[0]][s[1] - 1].getClass().equals(Arete.class)
+                && matrice[s[0]][s[1] - 1].getCouleur().equals(c)
+        ) voisins.add(new int[]{s[0], s[1] - 2});
 
         // Regarde s'il y a un voisin à droite
-        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].equals(c.nomArete()))
-            voisins.add(new int[]{s[0], s[1] + 2});
+        if (s[1] < 2 * taille
+                && matrice[s[0]][s[1] + 1].getClass().equals(Arete.class)
+                && matrice[s[0]][s[1] + 1].getCouleur().equals(c)
+        ) voisins.add(new int[]{s[0], s[1] + 2});
 
         // Regarde s'il y a un voisin au dessus
-        if (s[0] > 0 && matrice[s[0] - 1][s[1]].equals(c.nomArete()))
-            voisins.add(new int[]{s[0] - 2, s[1]});
+        if (s[0] > 0
+                && matrice[s[0] - 1][s[1]].getClass().equals(Arete.class)
+                && matrice[s[0] - 1][s[1]].getCouleur().equals(c)
+        ) voisins.add(new int[]{s[0] - 2, s[1]});
 
         // Regarde s'il y a un voisin en dessous
-        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].equals(c.nomArete()))
-            voisins.add(new int[]{s[0] + 2, s[1]});
+        if (s[0] < 2 * taille
+                && matrice[s[0] + 1][s[1]].getClass().equals(Arete.class)
+                && matrice[s[0] + 1][s[1]].getCouleur().equals(c)
+        ) voisins.add(new int[]{s[0] + 2, s[1]});
 
         return voisins;
     }
@@ -128,19 +154,19 @@ public class Plateau {
 
         // Regarde s'il y a un voisin possible à gauche du sommet s en regardant s'il y a une
         // arête de couleur c à gauche de s
-        if (s[1] > 0 && matrice[s[0]][s[1] - 1].equals("V"))
+        if (s[1] > 0 && matrice[s[0]][s[1] - 1].getClass().equals(Vide.class))
             voisins.add(new int[]{s[0], s[1] - 2});
 
         // Regarde s'il y a un voisin possible à droite
-        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].equals("V"))
+        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].getClass().equals(Vide.class))
             voisins.add(new int[]{s[0], s[1] + 2});
 
         // Regarde s'il y a un voisin possible au dessus
-        if (s[0] > 0 && matrice[s[0] - 1][s[1]].equals("V"))
+        if (s[0] > 0 && matrice[s[0] - 1][s[1]].getClass().equals(Vide.class))
             voisins.add(new int[]{s[0] - 2, s[1]});
 
         // Regarde s'il y a un voisin possible en dessous
-        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].equals("V"))
+        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].getClass().equals(Vide.class))
             voisins.add(new int[]{s[0] + 2, s[1]});
 
         return voisins;
@@ -151,9 +177,13 @@ public class Plateau {
         int[] x;
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
-                if (matrice[i][j].equals(c.nomSommet())) {
-                    x = new int[]{i, j};
-                    if (!getVoisinsSommetPossible(x, c).isEmpty()) list.add(x);
+                if (matrice[i][j].getClass().equals(Sommet.class)) {
+                    if (matrice[i][j].getCouleur().equals(c)) {
+                        x = new int[]{i, j};
+                        if (!getVoisinsSommetPossible(x, c).isEmpty()) {
+                            list.add(x);
+                        }
+                    }
                 }
             }
         }
@@ -198,7 +228,7 @@ public class Plateau {
 
     public ArrayList<int[]> connex(int[] s, Couleur c, ArrayList<int[]> l) {
         for (int[] sommet : getVoisinsSommet(s, c)) {
-            if (!contenir(l, sommet)) {
+            if (!contenir(l, sommet)) { //(!contenir(l, sommet))
                 l.add(sommet);
                 connex(sommet, c, l);
             }

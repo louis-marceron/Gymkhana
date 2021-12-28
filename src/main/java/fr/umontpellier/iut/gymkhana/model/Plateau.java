@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.gymkhana;
+package fr.umontpellier.iut.gymkhana.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ import java.util.Arrays;
  */
 public class Plateau {
     private final int taille;
-    private String[][] matrice;
+    private final String[][] matrice;
 
     /**
      * Initialise un nouvel objet {@code Plateau} en construisant une matrice comprenant les cases
@@ -172,7 +172,8 @@ public class Plateau {
     public boolean gagnant(int[] s, Couleur c) {
         ArrayList<int[]> connex = new ArrayList<>();
         connex = connex(s,c,connex); // on obtient la classe de connexité du sommet s.
-        Boolean a = false, b = false;
+        boolean a = false;
+        boolean b = false;
         switch (c) {
             case Rouge: // dans le cas des sommets rouges on regarde si sa classe de connexité contient des sommets
                 for (int[] som:connex){

@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.gymkhana;
+package fr.umontpellier.iut.gymkhana.model;
 
 /**
  * La classe {@code ImpressionPlateau} contient une unique méthode statique {@code toStringPlateau}

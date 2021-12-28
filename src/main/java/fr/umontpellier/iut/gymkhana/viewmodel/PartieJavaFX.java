@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.gymkhana;
+package fr.umontpellier.iut.gymkhana.viewmodel;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
 
 import java.util.Scanner;
 

@@ -3,7 +3,6 @@ package fr.umontpellier.iut.gymkhana.model;
 /**
  * La classe {@code ImpressionPlateau} contient une unique méthode statique {@code toStringPlateau}
  * qui permet de représenter de façon esthétique la matrice sur la console.
- *
  */
 public class ImpressionPlateau {
 
@@ -17,7 +16,7 @@ public class ImpressionPlateau {
      */
     public static String toStringPlateau(Plateau p) {
         StringBuilder str = new StringBuilder();
-        String[][] tab = p.getMatrice();
+        Piece[][] tab = p.getMatrice();
 
         // Indices de l'axe horizontal en haut
         str.append("   ");
@@ -38,21 +37,16 @@ public class ImpressionPlateau {
             // Remplace les valeurs de la matrice par des points colorés et par B/R pour les arêtes
             for (int j = 0; j < tab[i].length; j++) {
                 if (i % 2 != 0 && j % 2 == 0) str.append("\u001B[31m"); // Met les points des sommets Rouges en rouge
-                switch (tab[i][j]) {
-                    case "V":
-                    case "NA":
-                        str.append("    ");
-                        break;
-                    case "SB":
-                    case "SR":
-                        str.append(".   ");
-                        break;
-                    case "AB":
+                if (tab[i][j] == null || tab[i][j].getClass().equals(Vide.class)) {
+                    str.append("    ");
+                } else if (tab[i][j].getClass().equals(Sommet.class)) { //"SB".equals(tab[i][j]) || "SR".equals(tab[i][j])
+                    str.append(".   ");
+                } else if (tab[i][j].getClass().equals(Arete.class)) { //"AB".equals(tab[i][j])
+                    if ((tab[i][j]).getCouleur() == Couleur.Blanc) {
                         str.append("B   ");
-                        break;
-                    case "AR":
+                    } else {
                         str.append("R   ");
-                        break;
+                    }
                 }
             }
             str.append("\n");

@@ -12,6 +12,7 @@ public class ViewModelFactory {
         this.mf = mf;
     }
 
+    // Il ne peut avoir qu'un menu principal
     public MenuPrincipalViewModel getMenuPrincipalViewModel() {
         if(menuPrincipalViewModel == null)
             menuPrincipalViewModel = new MenuPrincipalViewModel(mf.getPartie());

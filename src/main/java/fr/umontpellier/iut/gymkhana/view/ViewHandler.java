@@ -5,49 +5,45 @@ import fr.umontpellier.iut.gymkhana.view.menuprincipal.MenuPrincipalViewControll
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 
 public class ViewHandler {
 
     private Scene menuPrincipalScene;
     private Stage stage;
-    private ViewModelFactory vmf;
+    private ViewModelFactory viewModelFactory;
 
-    public ViewHandler(ViewModelFactory vmf) {
-        this.vmf = vmf;
+    public ViewHandler(ViewModelFactory viewModelFactory) {
+        this.viewModelFactory = viewModelFactory;
     }
 
-    public void start() {
+    public void start() throws IOException {
         stage = new Stage();
         stage.setResizable(false);
-        openPartie();
+        openView("MenuPrincipal");
     }
 
-    private void openPartie() {
-        if (menuPrincipalScene == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader();
-                // Seul le chemin absolu marche, je comprends pas pourquoi :/
-                URL url = new URL("file:/Users/Louis/Gymkhana/src/main/java/fr/umontpellier/iut/gymkhana/view/menuprincipal/MenuPrincipalView.fxml");
-//                URL url2 = new URL("file:/fr/umontpellier/iut/gymkhana/view/menuprincipal/MenuPrincipalView.fxml");
-                loader.setLocation(url);
-//                loader.setLocation(getClass().getResource("/fr/umontpellier/iut/gymkhana/view/menuprincipal/MenuPrincipalView.fxml"));
-                Parent root = loader.load();
+    private void openView(String viewToOpen) throws IOException {
+        Scene scene = null;
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = null;
 
-                MenuPrincipalViewController ctrl = loader.getController();
-                ctrl.init(vmf.getMenuPrincipalViewModel());
+        loader.setLocation(new URL("file:src/main/java/fr/umontpellier/iut/gymkhana/view/menuprincipal/MenuPrincipalView.fxml"));
+        root = loader.load();
 
-                stage.setTitle("Menu principal");
-                menuPrincipalScene = new Scene(root);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if ("MenuPrincipal".equals(viewToOpen)) {
+            MenuPrincipalViewController controller = loader.getController();
+            controller.init(viewModelFactory.getMenuPrincipalViewModel()); // La factory permet de ne pas avoir plusieurs models en attribut
+            stage.setTitle("Menu Principal");
         }
-        stage.setScene(menuPrincipalScene);
+
+        scene = new Scene(root);
+        stage.setScene(scene);
         stage.show();
     }
 }

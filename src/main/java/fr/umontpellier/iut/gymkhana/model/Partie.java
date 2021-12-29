@@ -117,7 +117,7 @@ public class Partie {
 
                 System.out.println("Joueur " + couleur.nomCouleur() + ", choisissez votre coup à jouer");
 
-                Boolean b = joueur.jouer(plateau, couleur);
+                boolean b = joueur.jouer(plateau, couleur);
                 if (b) {
                     System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
                     System.out.println(plateau);

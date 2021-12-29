@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.gymkhana.view.menuprincipal;
 
 import fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal.MenuPrincipalViewModel;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,20 +32,12 @@ public class MenuPrincipalViewController {
         // On met des valeurs par défaut dans la liste
         comboBoxJoueur1.getSelectionModel().selectFirst();
         comboBoxJoueur2.getSelectionModel().selectFirst();
+    }
 
-        // Envoie les valeurs par défaut et initialise le programme quand on appuie sur le bouton
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                // On récupère les valeurs sélectionnées
-                String valeurCB1 = comboBoxJoueur1.getSelectionModel().getSelectedItem();
-                String valeurCB2 = comboBoxJoueur2.getSelectionModel().getSelectedItem();
-                // TODO initialiser partie
-                System.out.println(valeurCB1 + valeurCB2);
-            }
-        };
-        buttonLancerPartie.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-
-
+    public void onButtonLancerPartie(ActionEvent actionEvent) {
+        String valeurCB1 = comboBoxJoueur1.getSelectionModel().getSelectedItem();
+        String valeurCB2 = comboBoxJoueur2.getSelectionModel().getSelectedItem();
+        // TODO initialiser partie
+        System.out.println(valeurCB1 + valeurCB2);
     }
 }

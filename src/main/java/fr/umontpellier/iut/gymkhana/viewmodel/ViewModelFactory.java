@@ -13,6 +13,7 @@ public class ViewModelFactory {
     }
 
     // Il ne peut avoir qu'un menu principal
+    // FIXME je pense que le singleton n'est pas nécessaire
     public MenuPrincipalViewModel getMenuPrincipalViewModel() {
         if(menuPrincipalViewModel == null)
             menuPrincipalViewModel = new MenuPrincipalViewModel(mf.getPartie());

@@ -17,7 +17,7 @@
             <Font name="Berlin Sans FB" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="buttonLancerPartie" layoutX="139.0" layoutY="149.0" mnemonicParsing="false" text="Lancer la partie">
+      <Button fx:id="buttonLancerPartie" layoutX="139.0" onAction="#onButtonLancerPartie" layoutY="149.0" mnemonicParsing="false" text="Lancer la partie">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>

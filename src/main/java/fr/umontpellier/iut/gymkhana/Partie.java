@@ -74,7 +74,6 @@ public class Partie {
                         s2 = sommetVoisinsP.get((int) (Math.random() * (sommetVoisinsP.size())));
                         b = plateau.ajouterArete(s1, s2, couleur);
                     }
-
                     if (b && plateau.gagnant(s1, couleur)) {
                         System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
                         System.out.println(plateau);

@@ -219,6 +219,21 @@ public class Plateau {
         return a && b;
     }
 
+    public boolean plateauGagnant(Couleur couleur) {
+        ArrayList<int[]> list = new ArrayList<>();
+        int[] sommet = new int[2];
+        for (int i = 0; i < matrice.length; i++) {
+            for (int j = 0; j < matrice[i].length; j++) {
+                sommet[0] = i;
+                sommet[1] = j;
+                if (matrice[i][j].getClass().equals(Sommet.class) && matrice[i][j].getCouleur().equals(couleur) && !contenir(list,sommet)){
+                    if (gagnant(sommet,couleur)) return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private boolean contenir(ArrayList<int[]> l, int[] s) {
         for (int[] sommet : l) {
             if (sommet[0] == s[0] && sommet[1] == s[1]) return true;

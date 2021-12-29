@@ -12,13 +12,16 @@ public class Partie {
     Joueur j1;
     Joueur j2;
 
+    public Partie() {
+        this.plateau = new Plateau(5);
+    }
+
     public static void main(String[] args) {
         Partie p = new Partie();
         p.init();
     }
 
     public void init() {
-        plateau = new Plateau(5);
         Scanner entree = new Scanner(System.in);
         System.out.println("Jouer à 1 ou 2 ?");
 

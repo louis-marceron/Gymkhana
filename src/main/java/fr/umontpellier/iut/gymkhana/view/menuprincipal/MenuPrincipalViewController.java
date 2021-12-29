@@ -2,15 +2,15 @@ package fr.umontpellier.iut.gymkhana.view.menuprincipal;
 
 import fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal.MenuPrincipalViewModel;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TextField;
 
 public class MenuPrincipalViewController {
 
-    private MenuPrincipalViewModel viewModel; // FIXME comprendre à quoi ça sert
+    TextField tfJoueur1;
+    TextField tfJoueur2;
 
     @FXML
     ComboBox<String> comboBoxJoueur1;
@@ -21,9 +21,7 @@ public class MenuPrincipalViewController {
     @FXML
     Button buttonLancerPartie;
 
-    public void init(MenuPrincipalViewModel menuPrincipalViewModel) {
-        this.viewModel = menuPrincipalViewModel; // FIXME comprendre à quoi ça sert
-
+    public void init(MenuPrincipalViewModel vm) {
         // On initialise les valeurs dans les listes déroulantes (comboBox)
         // TODO faire un truc plus propre qui ajouter automatiquement les implémentations de Joueur
         comboBoxJoueur1.getItems().addAll("Humain", "IA débutante", "IA MinMax");
@@ -32,12 +30,16 @@ public class MenuPrincipalViewController {
         // On met des valeurs par défaut dans la liste
         comboBoxJoueur1.getSelectionModel().selectFirst();
         comboBoxJoueur2.getSelectionModel().selectFirst();
+
+        // Hack pour binder la valeur sélectionner dans la liste déroulante avec le model
+        tfJoueur1 = new TextField();
+        tfJoueur2 = new TextField();
+        tfJoueur1.textProperty().bindBidirectional(vm.getJoueur1());
+        tfJoueur2.textProperty().bindBidirectional(vm.getJoueur2());
     }
 
     public void onButtonLancerPartie(ActionEvent actionEvent) {
-        String valeurCB1 = comboBoxJoueur1.getSelectionModel().getSelectedItem();
-        String valeurCB2 = comboBoxJoueur2.getSelectionModel().getSelectedItem();
-        // TODO initialiser partie
-        System.out.println(valeurCB1 + valeurCB2);
+        tfJoueur1.textProperty().setValue(comboBoxJoueur1.getSelectionModel().getSelectedItem());
+        tfJoueur2.textProperty().setValue(comboBoxJoueur2.getSelectionModel().getSelectedItem());
     }
 }

@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.gymkhana.view.menuprincipal;
 
+import fr.umontpellier.iut.gymkhana.model.Partie;
 import fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal.MenuPrincipalViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 public class MenuPrincipalViewController {
+
+    private MenuPrincipalViewModel viewModel;
 
     TextField tfJoueur1;
     TextField tfJoueur2;
@@ -22,6 +25,8 @@ public class MenuPrincipalViewController {
     Button buttonLancerPartie;
 
     public void init(MenuPrincipalViewModel vm) {
+        viewModel = vm;
+
         // On initialise les valeurs dans les listes déroulantes (comboBox)
         // TODO faire un truc plus propre qui ajouter automatiquement les implémentations de Joueur
         comboBoxJoueur1.getItems().addAll("Humain", "IA débutante", "IA MinMax");
@@ -41,5 +46,9 @@ public class MenuPrincipalViewController {
     public void onButtonLancerPartie(ActionEvent actionEvent) {
         tfJoueur1.textProperty().setValue(comboBoxJoueur1.getSelectionModel().getSelectedItem());
         tfJoueur2.textProperty().setValue(comboBoxJoueur2.getSelectionModel().getSelectedItem());
+
+        viewModel.setJoueurs();
+        viewModel.lancerPartie();
+        // TODO lancement scène Plateau
     }
 }

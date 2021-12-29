@@ -1,5 +1,6 @@
-package fr.umontpellier.iut.gymkhana.core;
+package fr.umontpellier.iut.gymkhana.view;
 
+import fr.umontpellier.iut.gymkhana.viewmodel.ViewModelFactory;
 import fr.umontpellier.iut.gymkhana.view.menuprincipal.MenuPrincipalViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

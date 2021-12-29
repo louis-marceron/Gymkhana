@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.gymkhana.core;
+package fr.umontpellier.iut.gymkhana.model;
 
 import fr.umontpellier.iut.gymkhana.model.Partie;
 

@@ -1,8 +1,8 @@
 package fr.umontpellier.iut.gymkhana;
 
-import fr.umontpellier.iut.gymkhana.core.ModelFactory;
-import fr.umontpellier.iut.gymkhana.core.ViewHandler;
-import fr.umontpellier.iut.gymkhana.core.ViewModelFactory;
+import fr.umontpellier.iut.gymkhana.model.ModelFactory;
+import fr.umontpellier.iut.gymkhana.view.ViewHandler;
+import fr.umontpellier.iut.gymkhana.viewmodel.ViewModelFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

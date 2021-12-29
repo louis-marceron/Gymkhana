@@ -1,6 +1,7 @@
-package fr.umontpellier.iut.gymkhana.core;
+package fr.umontpellier.iut.gymkhana.viewmodel;
 
-import fr.umontpellier.iut.gymkhana.view.menuprincipal.MenuPrincipalViewModel;
+import fr.umontpellier.iut.gymkhana.model.ModelFactory;
+import fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal.MenuPrincipalViewModel;
 
 public class ViewModelFactory {
 

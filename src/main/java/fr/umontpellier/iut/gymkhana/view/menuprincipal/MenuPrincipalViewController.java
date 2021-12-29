@@ -1,20 +1,11 @@
 package fr.umontpellier.iut.gymkhana.view.menuprincipal;
 
-import fr.umontpellier.iut.gymkhana.model.Joueur;
-import fr.umontpellier.iut.gymkhana.model.JoueurHumain;
+import fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal.MenuPrincipalViewModel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.effect.Reflection;
 import javafx.scene.input.MouseEvent;
-
-
-import java.lang.reflect.Method;
-import java.lang.reflect.Field;
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Set;
 
 public class MenuPrincipalViewController {
 

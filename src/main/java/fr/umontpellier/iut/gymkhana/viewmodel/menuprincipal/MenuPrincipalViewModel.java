@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.gymkhana.view.menuprincipal;
+package fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal;
 
 import fr.umontpellier.iut.gymkhana.model.Partie;
 

@@ -21,6 +21,7 @@ public class ViewHandler {
 
     public void start() {
         stage = new Stage();
+        stage.setResizable(false);
         openPartie();
     }
 

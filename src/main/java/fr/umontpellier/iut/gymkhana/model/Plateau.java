@@ -1,6 +1,7 @@
-package fr.umontpellier.iut.gymkhana;
+package fr.umontpellier.iut.gymkhana.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * La classe {@code Plateau} permet de créer des instances d'un plateau du Gymkhana, modélisé
@@ -199,8 +200,9 @@ public class Plateau {
      */
     public boolean gagnant(int[] s, Couleur c) {
         ArrayList<int[]> connex = new ArrayList<>();
-        connex = connex(s, c, connex); // on obtient la classe de connexité du sommet s.
-        Boolean a = false, b = false;
+        connex = connex(s,c,connex); // on obtient la classe de connexité du sommet s.
+        boolean a = false;
+        boolean b = false;
         switch (c) {
             case Rouge: // dans le cas des sommets rouges on regarde si sa classe de connexité contient des sommets
                 for (int[] som : connex) {

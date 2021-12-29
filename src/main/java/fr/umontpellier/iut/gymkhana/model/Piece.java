@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.gymkhana;
+package fr.umontpellier.iut.gymkhana.model;
 
 public abstract class Piece {
     private Couleur couleur;

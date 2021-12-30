@@ -1,72 +1,68 @@
 package fr.umontpellier.iut.gymkhana.view.plateau;
 
+import fr.umontpellier.iut.gymkhana.model.Couleur;
+import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
+import fr.umontpellier.iut.gymkhana.model.pieces.Piece;
+import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
+import fr.umontpellier.iut.gymkhana.model.pieces.Vide;
 import fr.umontpellier.iut.gymkhana.viewmodel.plateau.PlateauViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class PlateauViewController {
 
     private PlateauViewModel viewModel;
+    private Piece[][] plateau;
 
     @FXML
     GridPane gridPane;
 
-    public void init(PlateauViewModel vm) {
+    @FXML
+    ImageView imageView2;
+
+    @FXML
+    Image image2;
+
+    public void init(PlateauViewModel vm) throws FileNotFoundException {
         viewModel = vm;
-
-        Label label = new Label("hahahhaha");
-        Label label2 = new Label("x");
-
-        gridPane.addColumn(viewModel.getNombreColonnes(), label2);
-        gridPane.addColumn(viewModel.getNombreColonnes() + 1, label);
+        plateau = viewModel.getPlateau().getMatrice();
+        int largeur = viewModel.getNombreColonnes();
 
 
+
+        for (int i = 0; i < largeur; i++) {
+            for (int j = 0; j < largeur; j++) {
+                if (plateau[i][j].getClass() == Vide.class) {
+                    gridPane.add(imageCorrespondante("vide.jpg"), i, j);
+                }
+                if (plateau[i][j].getClass() == Arete.class) {
+                    if (plateau[i][j].getCouleur() == Couleur.Rouge)
+                        gridPane.add(new Label("AR"), i, j);
+                    if (plateau[i][j].getCouleur() == Couleur.Blanc)
+                        gridPane.add(new Label("AB"), i, j);
+                }
+                if (plateau[i][j].getClass() == Sommet.class)
+                    if (plateau[i][j].getCouleur() == Couleur.Rouge)
+                        gridPane.add(imageCorrespondante("sommetRouge.png"), i, j);
+                if (plateau[i][j].getCouleur() == Couleur.Blanc)
+                    gridPane.add(imageCorrespondante("sommetBlanc.png"), i, j);
+            }
+        }
     }
 
-//    public void start(Stage stage) {
-//        Scanner sc = new Scanner(System.in);
-//
-//        for (int row = 0; row < (i+1); row++) {
-//            for (int col = 0; col < (i+2); col++) {
-//                if (col == 0 && row != i) {
-//                    textDisplay(grid, Integer.toString(row), row, col);
-//                } else if (row != i) {
-//                    Rectangle rec = new Rectangle();
-//                    rec.setWidth(20);
-//                    rec.setHeight(20);
-//                    if (row % 2 == 0) {
-//                        if (col % 2 == 1)
-//                            rec.setFill(Color.WHITE);
-//                    }
-//                    if (row % 2 == 1) {
-//                        if (col % 2 == 0)
-//                            rec.setFill(Color.RED);
-//                    }
-//                    GridPane.setRowIndex(rec, row);
-//                    GridPane.setColumnIndex(rec, col );
-//                    grid.getChildren().addAll(rec);
-//                }
-//            }
-//            if (row == i) {
-//                for (int col = 0; col < (i + 1); col++) {
-//                    if (col == 0) {
-//                        textDisplay(grid, "/", row, col);
-//                    } else {
-//                        textDisplay(grid, Integer.toString(col), row, col);
-//                    }
-//                }
-//            }
-//        }
-//
-//        Scene scene = new Scene(grid, (i+1)*100, (i+1)*100);
-//
-//        scene.setFill(Color.BLACK);
-//        stage.setTitle(
-//                "Gymkhana");
-//        stage.setScene(scene);
-//
-//        stage.show();
-//
-//    }
+    private ImageView imageCorrespondante(String nomImage) throws FileNotFoundException {
+        Image image = new Image(new FileInputStream("src/main/java/fr/umontpellier/iut/gymkhana/view/plateau/"+nomImage));
+        ImageView imageView = new ImageView(image);
+        int taille = 70;
+        imageView.setFitHeight(taille);
+        imageView.setFitWidth(taille);
+        return imageView;
+    }
 }
+

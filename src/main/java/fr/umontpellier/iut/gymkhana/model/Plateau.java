@@ -40,22 +40,14 @@ public class Plateau {
         int dimension = taille * 2 + 1;
         matrice = new Piece[dimension][dimension];
 
-/*      je laisse les coins juste en null comme pour les cases vides
-        // On remplit les coins de "NA"
-        matrice[0][0] = "NA";
-        matrice[matrice.length - 1][0] = "NA";
-        matrice[0][matrice.length - 1] = "NA";
-        matrice[matrice.length - 1][matrice.length - 1] = "NA";
-*/
-
         // on rempli le plateau de vide
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
                 matrice[i][j] = new Vide(null);
             }
         }
-        // On place les sommets rouges et blancs
 
+        // On place les sommets rouges et blancs
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
                 if (i % 2 == 0) {

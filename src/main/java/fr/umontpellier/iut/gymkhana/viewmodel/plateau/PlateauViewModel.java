@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.gymkhana.viewmodel.plateau;
 
+import fr.umontpellier.iut.gymkhana.model.Plateau;
 import fr.umontpellier.iut.gymkhana.model.joueurs.Joueur;
 import fr.umontpellier.iut.gymkhana.model.joueurs.JoueurHumain;
 import fr.umontpellier.iut.gymkhana.model.Partie;
@@ -32,6 +33,9 @@ public class PlateauViewModel {
         return nombreColonnes;
     }
 
+    public Plateau getPlateau() {
+        return partie.getPlateau();
+    }
     //TODO savoir si la partie est fini
 
 }

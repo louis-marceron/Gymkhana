@@ -11,9 +11,28 @@ public class Partie {
     Plateau plateau;
     Joueur j1;
     Joueur j2;
+    Joueur joueurCourant;
 
     public Partie() {
         this.plateau = new Plateau(5);
+    }
+
+    public void prochainTour() {
+        // vérifie le joueur courant à gagné
+        // change le joueur courant
+    }
+
+    public boolean estGagnant (Joueur j) {
+        // retourne true si le joueur passé en paramètres est gagnant
+        return true;
+    }
+
+    public void setJ1(Joueur j1) {
+        this.j1 = j1;
+    }
+
+    public void setJ2(Joueur j2) {
+        this.j2 = j2;
     }
 
 //    public static void main(String[] args) {
@@ -97,56 +116,44 @@ public class Partie {
 //        if (entree.nextInt() == 1) init();
 //    }
 
-
-    public void run2() {
-        int[] s1, s2;
-        ArrayList<int[]> sommetJouables, sommetVoisinsP;
-        int x1, y1, x2, y2;
-        boolean continuer = true;
-        Scanner entree = new Scanner(System.in);
-
-        System.out.println(plateau);
-
-        do {
-            for (int k = 0; k < 2; k++) { // Boucle appellant les 2 joueurs
-                Couleur couleur;
-                Joueur joueur;
-                // La couleur change en fonction de k
-                if (k == 0) {
-                    couleur = Couleur.Blanc;
-                    joueur = j1;
-                } else {
-                    couleur = Couleur.Rouge;
-                    joueur = j2;
-                }
-
-                System.out.println("Joueur " + couleur.nomCouleur() + ", choisissez votre coup à jouer");
-
-                boolean b = joueur.jouer(plateau, couleur);
-                if (b) {
-                    System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
-                    System.out.println(plateau);
-                    System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
-                    continuer = false;
-                    break;
-                }
-                System.out.println("Votre coup à été joué !\n\n");
-                System.out.println(plateau);
-            }
-
-
-        } while (continuer);
-        System.out.println("Tappez 1 pour relancer une partie !"); // FIXME ne marche plus
-        if (entree.nextInt() == 1)
-//            init();
-            run2();
-    }
-
-    public void setJ1(Joueur j1) {
-        this.j1 = j1;
-    }
-
-    public void setJ2(Joueur j2) {
-        this.j2 = j2;
-    }
+//    public void run2() {
+//        boolean continuer = true;
+//        Scanner entree = new Scanner(System.in);
+//
+//        System.out.println(plateau);
+//
+//        do {
+//            for (int k = 0; k < 2; k++) { // Boucle appellant les 2 joueurs
+//                Couleur couleur;
+//                Joueur joueur;
+//                // La couleur change en fonction de k
+//                if (k == 0) {
+//                    couleur = Couleur.Blanc;
+//                    joueur = j1;
+//                } else {
+//                    couleur = Couleur.Rouge;
+//                    joueur = j2;
+//                }
+//
+//                System.out.println("Joueur " + couleur.nomCouleur() + ", choisissez votre coup à jouer");
+//
+//                boolean b = joueur.jouer(plateau, couleur);
+//                if (b) {
+//                    System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
+//                    System.out.println(plateau);
+//                    System.out.println("Joueur " + couleur.nomCouleur() + " à gagné !!!!");
+//                    continuer = false;
+//                    break;
+//                }
+//                System.out.println("Votre coup à été joué !\n\n");
+//                System.out.println(plateau);
+//            }
+//
+//
+//        } while (continuer);
+//        System.out.println("Tappez 1 pour relancer une partie !"); // FIXME ne marche plus
+//        if (entree.nextInt() == 1)
+////            init();
+//            run2();
+//    }
 }

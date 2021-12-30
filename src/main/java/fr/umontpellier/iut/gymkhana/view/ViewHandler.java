@@ -34,7 +34,7 @@ public class ViewHandler {
         FXMLLoader loader = new FXMLLoader();
         Parent root = null;
 
-        loader.setLocation(new URL("file:src/main/java/fr/umontpellier/iut/gymkhana/view/"+viewToOpen.toLowerCase()+"/"+viewToOpen+"View.fxml"));
+        loader.setLocation(new URL("file:src/main/java/fr/umontpellier/iut/gymkhana/view/" + viewToOpen.toLowerCase() + "/" + viewToOpen + "View.fxml"));
         root = loader.load();
 
         if ("MenuPrincipal".equals(viewToOpen)) {

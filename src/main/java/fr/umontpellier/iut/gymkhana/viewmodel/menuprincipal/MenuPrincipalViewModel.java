@@ -58,6 +58,7 @@ public class MenuPrincipalViewModel {
     }
 
     public void lancerPartie() {
-        partie.run2();
+//        partie.run2();
+        // FIXME réparer ça
     }
 }

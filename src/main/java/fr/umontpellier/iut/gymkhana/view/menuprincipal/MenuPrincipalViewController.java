@@ -1,7 +1,6 @@
 package fr.umontpellier.iut.gymkhana.view.menuprincipal;
 
 import fr.umontpellier.iut.gymkhana.view.ViewHandler;
-import fr.umontpellier.iut.gymkhana.viewmodel.ViewModelFactory;
 import fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal.MenuPrincipalViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,9 +51,7 @@ public class MenuPrincipalViewController {
         tfJoueur1.textProperty().setValue(comboBoxJoueur1.getSelectionModel().getSelectedItem());
         tfJoueur2.textProperty().setValue(comboBoxJoueur2.getSelectionModel().getSelectedItem());
 
-        viewHandler.openView("Plateau");
-
         viewModel.setJoueurs();
-        viewModel.lancerPartie();
+        viewHandler.openView("Plateau");
     }
 }

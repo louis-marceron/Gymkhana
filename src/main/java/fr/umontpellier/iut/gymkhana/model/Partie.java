@@ -1,58 +1,66 @@
 package fr.umontpellier.iut.gymkhana.model;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import fr.umontpellier.iut.gymkhana.model.joueurs.Joueur;
 
 /**
  * La classe {@code Partie} initialise un {@code Plateau} et fait avancer une partie de Gymkhana
  * en prenant et en traitant les valeurs entrées par les joueurs.
  */
 public class Partie {
-    Plateau plateau;
-    Joueur j1;
-    Joueur j2;
-    Joueur joueurCourant;
+    private Plateau plateau;
+    private Joueur j1;
+    private Joueur j2;
+    private Joueur joueurCourant;
+    private boolean partieTerminee;
+
 
     public Partie() {
         this.plateau = new Plateau(5);
+        partieTerminee = false;
+        joueurCourant = j1;
     }
 
-    public void prochainTour() {
-        // vérifie le joueur courant à gagné
-        // change le joueur courant
+    public void jouerTour() {
+        jouerJoueurCourant();
+        if (estGagnant(joueurCourant)) {
+            System.out.println(joueurCourant.getClass() + " a gagné");
+            partieTerminee = true;
+        }
+        else
+            changerJoueurCourant();
     }
 
-    public boolean estGagnant (Joueur j) {
-        // retourne true si le joueur passé en paramètres est gagnant
+    public void changerJoueurCourant() {
+        if (joueurCourant == j1)
+            joueurCourant = j2;
+        else
+            joueurCourant = j1;
+    }
+
+    public boolean estGagnant(Joueur j) {
+
         return true;
+    }
+
+    public void jouerJoueurCourant() {
+        joueurCourant.jouer();
     }
 
     public void setJ1(Joueur j1) {
         this.j1 = j1;
     }
 
+    public Plateau getPlateau() {
+        return plateau;
+    }
+
     public void setJ2(Joueur j2) {
         this.j2 = j2;
     }
 
-//    public static void main(String[] args) {
-//        Partie p = new Partie();
-//        p.init();
-//    }
-
-//    public void init() {
-//        Scanner entree = new Scanner(System.in);
-//        System.out.println("Jouer à 1 ou 2 ?");
-//
-//        j1 = new JoueurHumain();
-//        if (entree.nextInt() == 1) {
-//            j2 = new JoueurIADebutant();
-//        } else {
-//            j2 = new JoueurHumain();
-//        }
-//        System.out.println(plateau);
-//        run2();
-//    }
+    public Joueur getJoueurCourant() {
+        return joueurCourant;
+    }
 
     /**
      * Intermédiaire entre les joueurs et un {@code Plateau}.<br>

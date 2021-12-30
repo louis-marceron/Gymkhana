@@ -1,7 +1,11 @@
 package fr.umontpellier.iut.gymkhana.model;
 
+import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
+import fr.umontpellier.iut.gymkhana.model.pieces.Piece;
+import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
+import fr.umontpellier.iut.gymkhana.model.pieces.Vide;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * La classe {@code Plateau} permet de créer des instances d'un plateau du Gymkhana, modélisé
@@ -75,7 +79,6 @@ public class Plateau {
      * @return {@code false} si le placement de l'arête est illégal
      */
     public boolean ajouterArete(int[] s1, int[] s2, Couleur c) {
-        // TODO try/catch + tests unitaires
         // Vérifie que les indices ne sont pas trop grands
         if (s1[0] > taille * 2
                 || s1[1] > taille * 2
@@ -83,18 +86,15 @@ public class Plateau {
                 || s2[1] > taille * 2)
             return false;
 
-/*        // Vérifie que les deux cases sont toutes les deux SR ou toutes les deux SB
-        if (!matrice[s1[0]][s1[1]].equals(c.nomSommet())
-                || !matrice[s2[0]][s2[1]].equals(c.nomSommet()))
-            return false;
- */
         // Vérifie que les cases ne soient pas null
         if (matrice[s1[0]][s1[1]] == null || matrice[s2[0]][s2[1]] == null)
             return false;
+
         // Vérifie que les deux cases soient des sommets
         if (!matrice[s1[0]][s1[1]].getClass().equals(Sommet.class) || !matrice[s2[0]][s2[1]].getClass().equals(Sommet.class)) {
             return false;
         }
+
         // Vérifie que les deux cases soient de la même couleur
         if (!matrice[s1[0]][s1[1]].getCouleur().equals(c) || !matrice[s2[0]][s2[1]].getCouleur().equals(c)) {
             return false;

@@ -1,5 +1,10 @@
 package fr.umontpellier.iut.gymkhana.model;
 
+import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
+import fr.umontpellier.iut.gymkhana.model.pieces.Piece;
+import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
+import fr.umontpellier.iut.gymkhana.model.pieces.Vide;
+
 /**
  * La classe {@code ImpressionPlateau} contient une unique méthode statique {@code toStringPlateau}
  * qui permet de représenter de façon esthétique la matrice sur la console.

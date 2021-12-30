@@ -15,7 +15,6 @@ import java.util.Locale;
 
 public class ViewHandler {
 
-    private Scene menuPrincipalScene;
     private Stage stage;
     private ViewModelFactory viewModelFactory;
 

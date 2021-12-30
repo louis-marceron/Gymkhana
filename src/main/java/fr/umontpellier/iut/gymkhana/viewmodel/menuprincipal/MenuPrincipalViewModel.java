@@ -1,9 +1,9 @@
 package fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal;
 
-import fr.umontpellier.iut.gymkhana.model.JoueurHumain;
-import fr.umontpellier.iut.gymkhana.model.JoueurIADebutant;
-import fr.umontpellier.iut.gymkhana.model.JoueurMinMax;
-import fr.umontpellier.iut.gymkhana.model.Partie;
+import fr.umontpellier.iut.gymkhana.model.*;
+import fr.umontpellier.iut.gymkhana.model.joueurs.JoueurHumain;
+import fr.umontpellier.iut.gymkhana.model.joueurs.JoueurIADebutant;
+import fr.umontpellier.iut.gymkhana.model.joueurs.JoueurMinMax;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -34,31 +34,26 @@ public class MenuPrincipalViewModel {
 
         switch (j1) {
             case "Humain":
-                partie.setJ1(new JoueurHumain());
+                partie.setJ1(new JoueurHumain(partie.getPlateau(), Couleur.Blanc));
                 break;
             case "IA débutante":
-                partie.setJ1(new JoueurIADebutant());
+                partie.setJ1(new JoueurIADebutant(partie.getPlateau(), Couleur.Blanc));
                 break;
             case "IA MinMax":
-                partie.setJ1(new JoueurMinMax());
+                partie.setJ1(new JoueurMinMax(partie.getPlateau(), Couleur.Blanc));
                 break;
         }
 
         switch (j2) {
             case "Humain":
-                partie.setJ2(new JoueurHumain());
+                partie.setJ2(new JoueurHumain(partie.getPlateau(), Couleur.Rouge));
                 break;
             case "IA débutante":
-                partie.setJ2(new JoueurIADebutant());
+                partie.setJ2(new JoueurIADebutant(partie.getPlateau(), Couleur.Rouge));
                 break;
             case "IA MinMax":
-                partie.setJ2(new JoueurMinMax());
+                partie.setJ2(new JoueurMinMax(partie.getPlateau(), Couleur.Rouge));
                 break;
         }
-    }
-
-    public void lancerPartie() {
-//        partie.run2();
-        // FIXME réparer ça
     }
 }

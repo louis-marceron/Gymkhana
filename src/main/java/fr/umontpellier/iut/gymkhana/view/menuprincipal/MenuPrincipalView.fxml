@@ -4,24 +4,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.umontpellier.iut.gymkhana.view.menuprincipal.MenuPrincipalViewController">
-   <children>
-      <Label layoutX="103.0" layoutY="14.0" text="Gymkhana">
-         <font>
-            <Font name="Berlin Sans FB" size="41.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="comboBoxJoueur1" layoutX="14.0" layoutY="92.0" prefWidth="150.0" />
-      <Label layoutX="178.0" layoutY="88.0" prefHeight="34.0" prefWidth="48.0" text="Versus">
-         <font>
-            <Font name="Berlin Sans FB" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="buttonLancerPartie" layoutX="139.0" onAction="#onButtonLancerPartie" layoutY="149.0" mnemonicParsing="false" text="Lancer la partie">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-      </Button>
-      <ComboBox fx:id="comboBoxJoueur2" layoutX="236.0" layoutY="92.0" prefWidth="150.0" />
-   </children>
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.umontpellier.iut.gymkhana.view.menuprincipal.MenuPrincipalViewController">
+    <children>
+        <Label layoutX="103.0" layoutY="14.0" text="Gymkhana">
+            <font>
+                <Font name="Berlin Sans FB" size="41.0"/>
+            </font>
+        </Label>
+        <ComboBox fx:id="comboBoxJoueur1" layoutX="14.0" layoutY="92.0" prefWidth="150.0"/>
+        <Label layoutX="178.0" layoutY="88.0" prefHeight="34.0" prefWidth="48.0" text="Versus">
+            <font>
+                <Font name="Berlin Sans FB" size="18.0"/>
+            </font>
+        </Label>
+        <Button fx:id="buttonLancerPartie" layoutX="139.0" onAction="#onButtonLancerPartie" layoutY="149.0"
+                mnemonicParsing="false" text="Lancer la partie">
+            <font>
+                <Font name="Berlin Sans FB" size="15.0"/>
+            </font>
+        </Button>
+        <ComboBox fx:id="comboBoxJoueur2" layoutX="236.0" layoutY="92.0" prefWidth="150.0"/>
+    </children>
 </AnchorPane>

@@ -1,6 +1,5 @@
-package fr.umontpellier.iut.gymkhana;
+package fr.umontpellier.iut.gymkhana.model;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JoueurHumain implements Joueur {

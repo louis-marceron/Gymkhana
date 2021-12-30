@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.gymkhana;
+package fr.umontpellier.iut.gymkhana.model;
 
 public class JoueurMinMax implements Joueur {
     private int[] bestMove;

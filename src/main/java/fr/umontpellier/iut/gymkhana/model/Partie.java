@@ -17,15 +17,14 @@ public class Partie {
     public Partie() {
         this.plateau = new Plateau(5);
         partieTerminee = false;
-        joueurCourant = j1;
     }
 
     public void jouerTour() {
         jouerJoueurCourant();
-        if (estGagnant(joueurCourant)) {
-            System.out.println(joueurCourant.getClass() + " a gagné");
-            partieTerminee = true;
-        } else
+//        if (estGagnant(joueurCourant)) {
+//            System.out.println("Gagné !");
+//            partieTerminee = true;
+//        } else
             changerJoueurCourant();
     }
 
@@ -37,7 +36,7 @@ public class Partie {
     }
 
     public boolean estGagnant(Joueur j) {
-
+        // TODO
         return true;
     }
 
@@ -46,6 +45,8 @@ public class Partie {
     }
 
     public void setJ1(Joueur j1) {
+        if (joueurCourant == null)
+            joueurCourant = j1;
         this.j1 = j1;
     }
 

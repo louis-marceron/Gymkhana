@@ -44,7 +44,7 @@ public class ViewHandler {
 
         if ("Plateau".equals(viewToOpen)) {
             PlateauViewController controller = loader.getController();
-            controller.init(viewModelFactory.getPlateauViewModel());
+            controller.init(viewModelFactory.getPlateauViewModel(), this);
             stage.setTitle("Plateau");
         }
 

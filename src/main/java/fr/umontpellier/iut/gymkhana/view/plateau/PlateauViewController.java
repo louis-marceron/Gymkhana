@@ -1,10 +1,12 @@
 package fr.umontpellier.iut.gymkhana.view.plateau;
 
 import fr.umontpellier.iut.gymkhana.model.Couleur;
+import fr.umontpellier.iut.gymkhana.model.Plateau;
 import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
 import fr.umontpellier.iut.gymkhana.model.pieces.Piece;
 import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
 import fr.umontpellier.iut.gymkhana.model.pieces.Vide;
+import fr.umontpellier.iut.gymkhana.view.ViewHandler;
 import fr.umontpellier.iut.gymkhana.viewmodel.plateau.PlateauViewModel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,27 +18,24 @@ import javafx.scene.layout.GridPane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class PlateauViewController {
 
+    private PlateauViewController plateauViewController;
     private PlateauViewModel viewModel;
+    private ViewHandler viewHandler;
     private Piece[][] plateau;
-    private char x, y;
 
     @FXML
     GridPane gridPane;
 
-    @FXML
-    ImageView imageView2;
-
-    @FXML
-    Image image2;
-
-    public void init(PlateauViewModel vm) throws FileNotFoundException {
+    public void init(PlateauViewModel vm, ViewHandler vh) throws FileNotFoundException {
         viewModel = vm;
+        viewHandler = vh;
+        plateauViewController = this;
         plateau = viewModel.getPlateau().getMatrice();
         int largeur = viewModel.getNombreColonnes();
-
 
         for (int i = 0; i < largeur; i++) {
             for (int j = 0; j < largeur; j++) {
@@ -48,9 +47,9 @@ public class PlateauViewController {
                 }
                 if (plateau[i][j].getClass() == Arete.class) {
                     if (plateau[i][j].getCouleur() == Couleur.Rouge)
-                        gridPane.add(new Label("AR"), i, j);
+                        gridPane.add(creerImageView("areteBlanche.png"), i, j);
                     if (plateau[i][j].getCouleur() == Couleur.Blanc)
-                        gridPane.add(new Label("AB"), i, j);
+                        gridPane.add(creerImageView("areteRouge.png"), i, j);
                 }
                 if (plateau[i][j].getClass() == Sommet.class)
                     if (plateau[i][j].getCouleur() == Couleur.Rouge)
@@ -59,8 +58,6 @@ public class PlateauViewController {
                     gridPane.add(creerImageView("sommetBlanc.png"), i, j);
             }
         }
-
-
     }
 
     private ImageView creerImageView(String nomImage) throws FileNotFoundException {
@@ -85,20 +82,25 @@ public class PlateauViewController {
                 // Envoie les coordonnées dans la vue model
                 int x = Integer.parseInt(coordonnees[0]);
                 int y = Integer.parseInt(coordonnees[1]);
-                viewModel.setX(y); // TODO régler le problème des incohérences entre les coordonnées
-                viewModel.setY(x);
+                viewModel.setX(x); // TODO coordonnées buggées
+                viewModel.setY(y);
 
-                // tests
+                System.out.println(((ImageView) mouseEvent.getSource()).getId());
+
                 try {
-                    ((ImageView)mouseEvent.getSource()).setImage(new Image(new FileInputStream("src/main/java/fr/umontpellier/iut/gymkhana/view/plateau/sommet.jpg")));
-                } catch (FileNotFoundException e) {
+                    plateauViewController.jouerLeTour();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println(((ImageView) mouseEvent.getSource()).getId());
             }
         });
 
         return imageView;
+    }
+
+    private void jouerLeTour() throws IOException {
+        viewModel.jouer();
+        viewHandler.openView("Plateau");
     }
 }
 

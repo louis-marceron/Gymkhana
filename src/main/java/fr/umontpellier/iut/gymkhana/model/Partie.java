@@ -22,8 +22,7 @@ public class Partie {
         Scanner entree = new Scanner(System.in);
         System.out.println("Jouer à 1 ou 2 ?");
 
-//        int a = entree.nextInt();
-        int a = 4;
+        int a = entree.nextInt();
         if (a == 1) {
             j1 = new JoueurHumain();
             j2 = new JoueurMinMax();
@@ -32,7 +31,7 @@ public class Partie {
             j2 = new JoueurHumain();
         } else if (a == 3){
             j1 = new JoueurMinMax();
-            j2 = new JoueurHumain();
+            j2 = new JoueurMinMax();
         } else if (a == 4){
             j1 = new JoueurIADebutant();
             j2 = new JoueurMinMax();

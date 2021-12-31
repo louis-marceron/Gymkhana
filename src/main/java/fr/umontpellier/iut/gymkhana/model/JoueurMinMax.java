@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.gymkhana.model;
 
+import java.util.ArrayList;
+
 public class JoueurMinMax implements Joueur {
     private int[] bestMove;
 
@@ -11,7 +13,7 @@ public class JoueurMinMax implements Joueur {
     public boolean jouer(Plateau plateau, Couleur couleur) {
         boolean b = false;
         do {
-            minmax(plateau, 3, true, couleur, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+            minmax(plateau, 2, true, couleur, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
             b = true;
             if (couleur == Couleur.Rouge && (bestMove[0] == 0 || bestMove[0] == 10)) {
                 System.out.println("pb");
@@ -27,61 +29,70 @@ public class JoueurMinMax implements Joueur {
     public int minmax(Plateau plateau, int profondeur, boolean joueurMax, Couleur couleur, double alpha, double beta) {
         if (plateau.joueurGagant(couleur)) {
             return Integer.MAX_VALUE;
-        } else if (plateau.joueurGagant(couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc)){
+        } else if (plateau.joueurGagant(couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc)) {
             return Integer.MIN_VALUE;
         }
-        if (profondeur == 0)
-            return eval(plateau);
+        if (profondeur == 0) {
+            int a = eval(plateau, couleur);
+            return joueurMax ? a : -a;
+        }
+
         if (joueurMax) {
             int maxEval = Integer.MIN_VALUE;
-
             for (int[] s : plateau.areteJouable(couleur)) {
-                if (!(s[0] == 0 || s[0] == 10)) {
+                if (!(s[1] == 0 || s[1] == 10)) {
                     Plateau plateau1 = plateau.copie();
-//                    System.out.println("DEBUG");
-//                    System.out.println("{" + s[0] + "," + s[1] + "}");
-//                    System.out.println("DEBUG");
                     plateau1.getMatrice()[s[0]][s[1]] = new Arete(couleur);
-                    int eval = minmax(plateau1, profondeur - 1, false, couleur, alpha, beta);
+                    int eval = minmax(plateau1, profondeur - 1, false, couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc, alpha, beta);
+                    System.out.println("Tour de MinMax : sommet{" + s[0] + "," + s[1] + "} eval : " + eval);
 //                maxEval = Math.max(maxEval, eval);
                     if (eval > maxEval) {
-                        System.out.println("jsp");
                         maxEval = eval;
                         bestMove = s;
                     }
-//                    alpha = Math.max(alpha, eval);
-//                    if (beta <= alpha) break;
+                    alpha = Math.max(alpha, eval);
+                    if (beta <= alpha) break;
                 }
             }
             return maxEval;
         } else {
             int minEval = Integer.MAX_VALUE;
-            int compteur2 = 0;
             for (int[] s : plateau.areteJouable(couleur)) {
-                System.out.println("compteur 2 " + compteur2++);
-                if (!(s[1] == 0 || s[1] == 10)) {
-//                    System.out.println("DEBUG");
-//                    System.out.println("{" + s[0] + "," + s[1] + "}");
-//                    System.out.println("DEBUG");
+                if (!(s[0] == 0 || s[0] == 10 || s[1] == 0 || s[1] == 10)) {
                     Plateau plateau1 = plateau.copie();
                     plateau1.getMatrice()[s[0]][s[1]] = new Arete(couleur);
-                    int eval = minmax(plateau1, profondeur - 1, true, couleur, alpha, beta);
-                    System.out.println("eval : " + eval);
+                    int eval = minmax(plateau1, profondeur - 1, true, couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc, alpha, beta);
+                    System.out.println("Tour du Joueur : sommet{" + s[0] + "," + s[1] + "} eval : " + eval);
 //                minEval = Math.min(minEval, eval);
                     if (eval < minEval) {
-                        System.out.println("jsp");
                         minEval = eval;
                         bestMove = s;
                     }
-//                    alpha = Math.max(alpha, eval);
-//                    if (beta <= alpha) break;
+                    beta = Math.min(beta, eval);
+                    if (beta <= alpha) break;
                 }
             }
             return minEval;
         }
     }
 
-    public int eval(Plateau plateau) {
-        return (int) (Math.random() * 5);
+    public int eval(Plateau plateau, Couleur couleur) {
+        int max = Integer.MIN_VALUE;
+        int cur;
+        int[] s = new int[2];
+        ArrayList<int[]> list = new ArrayList<>();
+        for (int i = 0; i < plateau.getMatrice().length; i++) {
+            for (int j = 0; j < plateau.getMatrice()[i].length; j++) {
+                if (plateau.getMatrice()[i][j].getClass().equals(Sommet.class)){
+                    if (plateau.getMatrice()[i][j].getCouleur().equals(couleur)){
+                        s[0] = i;
+                        s[1] = j;
+                        cur = plateau.connex(s,couleur,list).size();
+                        max = Math.max(max,cur);
+                    }
+                }
+            }
+        }
+        return max;
     }
 }

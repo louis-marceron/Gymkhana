@@ -11,7 +11,6 @@ public class PlateauViewModel {
     private Joueur joueurCourant;
     private int nombreColonnes;
 
-    // TODO binding avec les sommets à faire
     private int x;
     private int y;
 
@@ -36,6 +35,15 @@ public class PlateauViewModel {
     public Plateau getPlateau() {
         return partie.getPlateau();
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     //TODO savoir si la partie est fini
 
 }

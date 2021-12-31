@@ -21,6 +21,7 @@ public class PlateauViewController {
 
     private PlateauViewModel viewModel;
     private Piece[][] plateau;
+    private char x, y;
 
     @FXML
     GridPane gridPane;
@@ -41,9 +42,9 @@ public class PlateauViewController {
             for (int j = 0; j < largeur; j++) {
                 if (plateau[i][j].getClass() == Vide.class) {
                     // TODO ajouter case non affectée
-                    ImageView image = creerImageView("vide.jpg");
+                    ImageView image = creerImageViewCaseVide();
                     image.setId(i + " " + j);
-                    gridPane.add(creerImageViewCaseVide(), i, j);
+                    gridPane.add(image, i, j);
                 }
                 if (plateau[i][j].getClass() == Arete.class) {
                     if (plateau[i][j].getCouleur() == Couleur.Rouge)
@@ -58,10 +59,10 @@ public class PlateauViewController {
                     gridPane.add(creerImageView("sommetBlanc.png"), i, j);
             }
         }
+
+
     }
 
-
-    // FIXME images non cliquables quand elles ne sont pas vides ?
     private ImageView creerImageView(String nomImage) throws FileNotFoundException {
         Image image = new Image(new FileInputStream("src/main/java/fr/umontpellier/iut/gymkhana/view/plateau/" + nomImage));
         ImageView imageView = new ImageView(image);
@@ -78,7 +79,22 @@ public class PlateauViewController {
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("image vide");
+                // Récupère les ID des ImageView contenant leurs coordonnées
+                String[] coordonnees = ((ImageView) mouseEvent.getSource()).getId().split(" ");
+
+                // Envoie les coordonnées dans la vue model
+                int x = Integer.parseInt(coordonnees[0]);
+                int y = Integer.parseInt(coordonnees[1]);
+                viewModel.setX(y); // TODO régler le problème des incohérences entre les coordonnées
+                viewModel.setY(x);
+
+                // tests
+                try {
+                    ((ImageView)mouseEvent.getSource()).setImage(new Image(new FileInputStream("src/main/java/fr/umontpellier/iut/gymkhana/view/plateau/sommet.jpg")));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(((ImageView) mouseEvent.getSource()).getId());
             }
         });
 

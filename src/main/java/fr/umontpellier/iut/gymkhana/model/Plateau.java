@@ -105,6 +105,12 @@ public class Plateau {
         return true;
     }
 
+    // FIXME temporaire
+    public boolean ajouterAreteShlag(int x, int y, Couleur c) {
+        matrice[x][y] = new Arete(c);
+        return true;
+    }
+
     /**
      * Retourne la liste des coordonnées des sommets adjacents (voisins) au sommet passé en paramètres.
      *

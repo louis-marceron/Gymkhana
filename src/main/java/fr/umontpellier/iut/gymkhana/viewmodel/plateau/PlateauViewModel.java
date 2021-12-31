@@ -12,8 +12,8 @@ public class PlateauViewModel {
     private int nombreColonnes;
 
     // TODO binding avec les sommets à faire
-    private int[] sommet1;
-    private int[] sommet2;
+    private int x;
+    private int y;
 
     public PlateauViewModel(Partie partie) {
         this.partie = partie;
@@ -23,8 +23,8 @@ public class PlateauViewModel {
 
     public void jouer() {
         if (joueurCourant.getClass() == JoueurHumain.class) {
-            ((JoueurHumain) joueurCourant).setSommet1(sommet1);
-            ((JoueurHumain) joueurCourant).setSommet2(sommet2);
+            ((JoueurHumain) joueurCourant).setX(x);
+            ((JoueurHumain) joueurCourant).setY(y);
         }
         partie.jouerTour();
     }

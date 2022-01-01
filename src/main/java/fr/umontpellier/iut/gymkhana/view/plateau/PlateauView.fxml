@@ -3,4 +3,4 @@
 <?import javafx.scene.layout.*?>
 
 
-<GridPane fx:id="gridPane" gridLinesVisible="true" style="-fx-background-color: rgb(43,43,43);" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.umontpellier.iut.gymkhana.view.plateau.PlateauViewController" />
+<GridPane fx:id="gridPane" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.umontpellier.iut.gymkhana.view.plateau.PlateauViewController" />

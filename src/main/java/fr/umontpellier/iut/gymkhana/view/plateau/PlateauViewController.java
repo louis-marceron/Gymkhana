@@ -29,6 +29,7 @@ public class PlateauViewController {
 
     // TODO animation quand on passe par-dessus une case cliquable
     // TODO animation quand on pose une arête
+    // TODO égalités
 
     public void init(PlateauViewModel vm, ViewHandler vh) throws FileNotFoundException {
         viewModel = vm;
@@ -39,7 +40,7 @@ public class PlateauViewController {
         for (int i = 0; i < largeur; i++) {
             for (int j = 0; j < largeur; j++) {
                 if (plateau[i][j].getClass() == NonAffectee.class) {
-                    gridPane.add(creerImageView("nonAffectee.jpg"), j, i);
+                    gridPane.add(creerImageView("vide.png"), j, i);
                 }
 
                 if (plateau[i][j].getClass() == Vide.class) {
@@ -48,7 +49,7 @@ public class PlateauViewController {
                     gridPane.add(image, j, i);
                 }
 
-                if (plateau[i][j].getClass() == Arete.class) { //FIXME c'est buggé
+                if (plateau[i][j].getClass() == Arete.class) {
                     if (plateau[i][j].getCouleur() == Couleur.Blanc) {
                         if ((j - 1 >= 0 && plateau[i][j - 1].getCouleur() == Couleur.Blanc)
                                 || (j + 1 <= plateau.length - 1 && plateau[i][j + 1].getCouleur() == Couleur.Blanc))
@@ -108,7 +109,7 @@ public class PlateauViewController {
                 // Envoie les coordonnées dans la vue model
                 int x = Integer.parseInt(coordonnees[0]);
                 int y = Integer.parseInt(coordonnees[1]);
-                viewModel.setX(x); // TODO coordonnées buggées
+                viewModel.setX(x);
                 viewModel.setY(y);
 
                 try {

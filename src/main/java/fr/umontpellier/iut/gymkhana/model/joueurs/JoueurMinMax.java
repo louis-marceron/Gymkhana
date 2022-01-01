@@ -26,14 +26,14 @@ public class JoueurMinMax extends Joueur {
         } while (!b);
         plateau.afficherS(bestMove);
         plateau.getMatrice()[bestMove[0]][bestMove[1]] = new Arete(couleur);
-        return plateau.joueurGagant(couleur);
+        return plateau.estGagnant(couleur);
     }
 
 
     public int minmax(Plateau plateau, int profondeur, boolean joueurMax, Couleur couleur, double alpha, double beta) {
-        if (plateau.joueurGagant(couleur)) {
+        if (plateau.estGagnant(couleur)) {
             return Integer.MAX_VALUE;
-        } else if (plateau.joueurGagant(couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc)) {
+        } else if (plateau.estGagnant(couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc)) {
             return Integer.MIN_VALUE;
         }
         if (profondeur == 0) {

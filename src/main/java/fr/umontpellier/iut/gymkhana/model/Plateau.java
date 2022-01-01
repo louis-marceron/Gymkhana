@@ -221,7 +221,7 @@ public class Plateau {
         return a && b;
     }
 
-    public boolean joueurGagant(Couleur couleur) {
+    public boolean estGagnant(Couleur couleur) {
         ArrayList<int[]> list = new ArrayList<>();
         int[] sommet = new int[2];
         for (int i = 0; i < matrice.length; i++) {
@@ -292,32 +292,6 @@ public class Plateau {
         }
         return areteJouable;
     }
-
-//    public int minimax(int profondeur, boolean turn){
-//        if (joueurGagant(Couleur.Rouge)) return 1;
-//        if (joueurGagant(Couleur.Blanc)) return -1;
-//
-//        ArrayList<int[]> casesJouables= areteJouable(turn?Couleur.Rouge:Couleur.Blanc);
-//        int min = Integer.MAX_VALUE;
-//        int max = Integer.MIN_VALUE;
-//
-//        for (int[] s: casesJouables){
-//            if (turn){
-//                matrice[s[0]][s[1]] = new Arete(Couleur.Rouge);
-//                int currentScore = minimax(profondeur +1, false);
-//                max = Math.max(currentScore, max);
-//                if (profondeur == 0){
-//                    System.out.println(currentScore + " pour {" + s[0] + "," + s[1] +"}");
-//                }
-//                if (currentScore >= 0)
-//                    if (profondeur == 0)
-//
-//            }else {
-//
-//            }
-//        }
-//    }
-
 
     /* J'ai déplacé l'affichage de Plateau dans la classe Impression,
     car il me semble que ça respecte mieux le principe de responsabilité unique

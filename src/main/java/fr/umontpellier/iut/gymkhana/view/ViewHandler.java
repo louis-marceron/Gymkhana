@@ -4,9 +4,11 @@ import fr.umontpellier.iut.gymkhana.view.plateau.PlateauViewController;
 import fr.umontpellier.iut.gymkhana.viewmodel.ViewModelFactory;
 import fr.umontpellier.iut.gymkhana.view.menuprincipal.MenuPrincipalViewController;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,7 +26,13 @@ public class ViewHandler {
 
     public void start() throws IOException {
         stage = new Stage();
+
+        // Permet de mieux placer la fenêtre
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         stage.setResizable(false);
+
         openView("MenuPrincipal");
     }
 

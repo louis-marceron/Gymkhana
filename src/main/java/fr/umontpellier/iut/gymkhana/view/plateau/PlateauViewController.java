@@ -1,7 +1,6 @@
 package fr.umontpellier.iut.gymkhana.view.plateau;
 
 import fr.umontpellier.iut.gymkhana.model.Couleur;
-import fr.umontpellier.iut.gymkhana.model.Plateau;
 import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
 import fr.umontpellier.iut.gymkhana.model.pieces.Piece;
 import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
@@ -10,11 +9,12 @@ import fr.umontpellier.iut.gymkhana.view.ViewHandler;
 import fr.umontpellier.iut.gymkhana.viewmodel.plateau.PlateauViewModel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -65,9 +65,14 @@ public class PlateauViewController {
     private ImageView creerImageView(String nomImage) throws FileNotFoundException {
         Image image = new Image(new FileInputStream("src/main/java/fr/umontpellier/iut/gymkhana/view/plateau/" + nomImage));
         ImageView imageView = new ImageView(image);
-        int taille = 70;
+
+        // Récupère la hauteur de l'écran et adapte la taille des cases du plateau
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        double taille = screenBounds.getMaxY() / viewModel.getNombreColonnes() * 0.8;
+        System.out.println(taille);
         imageView.setFitHeight(taille);
         imageView.setFitWidth(taille);
+
         return imageView;
     }
 

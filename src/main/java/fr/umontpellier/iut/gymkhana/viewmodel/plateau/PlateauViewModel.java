@@ -15,18 +15,30 @@ public class PlateauViewModel {
     private int y;
 
     public PlateauViewModel(Partie partie) {
+        System.out.println("lancéééééééééééééééééééééééé");
         this.partie = partie;
         this.joueurCourant = partie.getJoueurCourant();
         nombreColonnes = partie.getPlateau().getTaille() * 2 + 1;
+
+        // Lancer automatiquement le jeu si le premier joueur n'est humain
+        if (joueurCourant.getClass() != JoueurHumain.class) {
+            jouer();
+        }
     }
 
     public void jouer() {
-        this.joueurCourant = partie.getJoueurCourant();
         if (joueurCourant.getClass() == JoueurHumain.class) {
             ((JoueurHumain) joueurCourant).setX(x);
             ((JoueurHumain) joueurCourant).setY(y);
         }
         partie.jouerTour();
+
+        this.joueurCourant = partie.getJoueurCourant();
+
+        // Lancer automatiquement le prochain tour si le prochain joueur n'est pas humain
+        if (joueurCourant.getClass() != JoueurHumain.class) {
+            jouer();
+        }
     }
 
     public int getNombreColonnes() {
@@ -46,5 +58,4 @@ public class PlateauViewModel {
     }
 
     //TODO savoir si la partie est fini
-
 }

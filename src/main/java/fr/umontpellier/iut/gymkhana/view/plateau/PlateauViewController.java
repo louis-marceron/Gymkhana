@@ -1,10 +1,7 @@
 package fr.umontpellier.iut.gymkhana.view.plateau;
 
 import fr.umontpellier.iut.gymkhana.model.Couleur;
-import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
-import fr.umontpellier.iut.gymkhana.model.pieces.Piece;
-import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
-import fr.umontpellier.iut.gymkhana.model.pieces.Vide;
+import fr.umontpellier.iut.gymkhana.model.pieces.*;
 import fr.umontpellier.iut.gymkhana.view.ViewHandler;
 import fr.umontpellier.iut.gymkhana.viewmodel.plateau.PlateauViewModel;
 import javafx.event.EventHandler;
@@ -38,8 +35,10 @@ public class PlateauViewController {
         int largeur = viewModel.getNombreColonnes();
         for (int i = 0; i < largeur; i++) {
             for (int j = 0; j < largeur; j++) {
+                if (plateau[i][j].getClass() == NonAffectee.class) {
+                    gridPane.add(creerImageView("nonAffectee.jpg"), j, i);
+                }
                 if (plateau[i][j].getClass() == Vide.class) {
-                    // TODO ajouter case non affectée
                     ImageView image = creerImageViewCaseVide();
                     image.setId(i + " " + j);
                     gridPane.add(image, j, i);
@@ -69,7 +68,6 @@ public class PlateauViewController {
         // Récupère la hauteur de l'écran et adapte la taille des cases du plateau
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         double taille = screenBounds.getMaxY() / viewModel.getNombreColonnes() * 0.8;
-        System.out.println(taille);
         imageView.setFitHeight(taille);
         imageView.setFitWidth(taille);
 
@@ -77,7 +75,7 @@ public class PlateauViewController {
     }
 
     private ImageView creerImageViewCaseVide() throws FileNotFoundException {
-        ImageView imageView = creerImageView("vide.jpg");
+        ImageView imageView = creerImageView("vide.png");
 
         // Listener quand on clique sur une ImageView
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {

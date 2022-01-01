@@ -1,9 +1,6 @@
 package fr.umontpellier.iut.gymkhana.model;
 
-import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
-import fr.umontpellier.iut.gymkhana.model.pieces.Piece;
-import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
-import fr.umontpellier.iut.gymkhana.model.pieces.Vide;
+import fr.umontpellier.iut.gymkhana.model.pieces.*;
 
 import java.util.ArrayList;
 
@@ -40,12 +37,19 @@ public class Plateau {
         int dimension = taille * 2 + 1;
         matrice = new Piece[dimension][dimension];
 
-        // on rempli le plateau de vide
+        // On place les cases vides
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
-                matrice[i][j] = new Vide(null);
+                matrice[i][j] = new Vide(null); // FIXME ça va pas ça '_'
             }
         }
+
+        // On place les cases non affectées
+        matrice[0][0] = new NonAffectee(null);
+        matrice[matrice[0].length-1][0] = new NonAffectee(null);
+        matrice[0][matrice[0].length-1] = new NonAffectee(null);
+        matrice[matrice[0].length-1][matrice[0].length-1] = new NonAffectee(null);
+
 
         // On place les sommets rouges et blancs
         for (int i = 0; i < matrice.length; i++) {
@@ -100,6 +104,7 @@ public class Plateau {
         if (!matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2].getClass().equals(Vide.class)) {
             return false;
         }
+
         matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = new Arete(c);
         return true;
     }

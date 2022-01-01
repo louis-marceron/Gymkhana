@@ -27,6 +27,9 @@ public class PlateauViewController {
     @FXML
     GridPane gridPane;
 
+    // TODO animation quand on passe par-dessus une case cliquable
+    // TODO animation quand on pose une arête
+
     public void init(PlateauViewModel vm, ViewHandler vh) throws FileNotFoundException {
         viewModel = vm;
         viewHandler = vh;
@@ -38,17 +41,35 @@ public class PlateauViewController {
                 if (plateau[i][j].getClass() == NonAffectee.class) {
                     gridPane.add(creerImageView("nonAffectee.jpg"), j, i);
                 }
+
                 if (plateau[i][j].getClass() == Vide.class) {
                     ImageView image = creerImageViewCaseVide();
                     image.setId(i + " " + j);
                     gridPane.add(image, j, i);
                 }
-                if (plateau[i][j].getClass() == Arete.class) {
-                    if (plateau[i][j].getCouleur() == Couleur.Blanc)
-                        gridPane.add(creerImageView("areteBlanche.png"), j, i);
-                    if (plateau[i][j].getCouleur() == Couleur.Rouge)
-                        gridPane.add(creerImageView("areteRouge.png"), j, i);
+
+                if (plateau[i][j].getClass() == Arete.class) { //FIXME c'est buggé
+                    if (plateau[i][j].getCouleur() == Couleur.Blanc) {
+                        if ((j - 1 >= 0 && plateau[i][j - 1].getCouleur() == Couleur.Blanc)
+                                || (j + 1 <= plateau.length - 1 && plateau[i][j + 1].getCouleur() == Couleur.Blanc))
+                            gridPane.add(creerImageView("areteHorizontaleBlanche.png"), j, i);
+
+                        if ((i - 1 >= 0 && plateau[i - 1][j].getCouleur() == Couleur.Blanc)
+                                || (i + 1 <= plateau.length - 1 && plateau[i + 1][j].getCouleur() == Couleur.Blanc))
+                            gridPane.add(creerImageView("areteVerticaleBlanche.png"), j, i);
+                    }
+
+                    if (plateau[i][j].getCouleur() == Couleur.Rouge) {
+                        if ((j - 1 >= 0 && plateau[i][j - 1].getCouleur() == Couleur.Rouge)
+                                || (j + 1 <= plateau.length - 1 && plateau[i][j + 1].getCouleur() == Couleur.Rouge))
+                            gridPane.add(creerImageView("areteHorizontaleRouge.png"), j, i);
+
+                        if ((i - 1 >= 0 && plateau[i - 1][j].getCouleur() == Couleur.Rouge)
+                                || (i + 1 <= plateau.length - 1 && plateau[i + 1][j].getCouleur() == Couleur.Rouge))
+                            gridPane.add(creerImageView("areteVerticaleRouge.png"), j, i);
+                    }
                 }
+
                 if (plateau[i][j].getClass() == Sommet.class) {
                     if (plateau[i][j].getCouleur() == Couleur.Rouge)
                         gridPane.add(creerImageView("sommetRouge.png"), j, i);

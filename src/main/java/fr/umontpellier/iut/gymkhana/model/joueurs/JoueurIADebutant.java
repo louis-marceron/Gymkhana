@@ -10,7 +10,7 @@ public class JoueurIADebutant extends Joueur {
         super(plateau, couleur);
     }
 
-    public void jouer() {
+    public void jouer() { //FIXME ça ne marche pas (pas de vérification des aretes posées)
         ArrayList<int[]> sommetJouables;
         sommetJouables = getPlateau().getSommetJouables(getCouleur());
         int[] s = sommetJouables.get((int) (Math.random() * (sommetJouables.size())));

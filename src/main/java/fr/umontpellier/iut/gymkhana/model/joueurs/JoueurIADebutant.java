@@ -10,27 +10,11 @@ public class JoueurIADebutant extends Joueur {
         super(plateau, couleur);
     }
 
-//    public void jouer() {
-//        int[] s1, s2;
-//        ArrayList<int[]> sommetJouables, sommetVoisinsP;
-//        boolean b;
-//        do {
-//            sommetJouables = getPlateau().getSommetJouables(getCouleur());
-//            s1 = sommetJouables.get((int) (Math.random() * (sommetJouables.size())));
-//            sommetVoisinsP = getPlateau().getVoisinsSommetPossible(s1, getCouleur());
-//            s2 = sommetVoisinsP.get((int) (Math.random() * (sommetVoisinsP.size())));
-//            b = getPlateau().ajouterArete(s1, s2, getCouleur());
-//        } while (!b);
-//    }
-
     public void jouer() {
-        boolean b;
-//        do {
         ArrayList<int[]> sommetJouables;
         sommetJouables = getPlateau().getSommetJouables(getCouleur());
         int[] s = sommetJouables.get((int) (Math.random() * (sommetJouables.size())));
 
         getPlateau().ajouterAreteShlag(s[0], s[1], getCouleur());
-//        } while (!b);
     }
 }

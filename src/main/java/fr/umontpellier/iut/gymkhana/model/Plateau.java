@@ -98,7 +98,6 @@ public class Plateau {
 
         // Vérifie que l'arête est uniquement sur une case vide
         if (!matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2].getClass().equals(Vide.class)) {
-            System.out.println("ça marche pas");
             return false;
         }
         matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = new Arete(c);
@@ -122,6 +121,7 @@ public class Plateau {
     public ArrayList<int[]> getVoisinsSommet(int[] s, Couleur c) {
         // TODO tests unitaires
         ArrayList<int[]> voisins = new ArrayList<>();
+        if (s[0] < 0 || s[0] > 10 || s[1] < 0 || s[1] > 10) return voisins;
         // Regarde s'il y a un voisin à gauche du sommet s en regardant s'il y a une arête de couleur c à gauche de s
         if (s[1] > 0
                 && matrice[s[0]][s[1] - 1].getClass().equals(Arete.class)
@@ -129,6 +129,7 @@ public class Plateau {
         ) voisins.add(new int[]{s[0], s[1] - 2});
 
         // Regarde s'il y a un voisin à droite
+//        afficherS(s);
         if (s[1] < 2 * taille
                 && matrice[s[0]][s[1] + 1].getClass().equals(Arete.class)
                 && matrice[s[0]][s[1] + 1].getCouleur().equals(c)
@@ -154,19 +155,19 @@ public class Plateau {
 
         // Regarde s'il y a un voisin possible à gauche du sommet s en regardant s'il y a une
         // arête de couleur c à gauche de s
-        if (s[1] > 0 && matrice[s[0]][s[1] - 1].getClass().equals(Vide.class))
+        if (s[1] > 0 && matrice[s[0]][s[1] - 1].getClass().equals(Vide.class) & s[1] - 1 != 0)
             voisins.add(new int[]{s[0], s[1] - 2});
 
         // Regarde s'il y a un voisin possible à droite
-        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].getClass().equals(Vide.class))
+        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].getClass().equals(Vide.class) & s[1] + 1 != 10)
             voisins.add(new int[]{s[0], s[1] + 2});
 
         // Regarde s'il y a un voisin possible au dessus
-        if (s[0] > 0 && matrice[s[0] - 1][s[1]].getClass().equals(Vide.class))
+        if (s[0] > 0 && matrice[s[0] - 1][s[1]].getClass().equals(Vide.class) & s[0] - 1 != 0)
             voisins.add(new int[]{s[0] - 2, s[1]});
 
         // Regarde s'il y a un voisin possible en dessous
-        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].getClass().equals(Vide.class))
+        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].getClass().equals(Vide.class) & s[0] + 1 != 10)
             voisins.add(new int[]{s[0] + 2, s[1]});
 
         return voisins;
@@ -220,7 +221,7 @@ public class Plateau {
         return a && b;
     }
 
-    public boolean plateauGagnant(Couleur couleur) {
+    public boolean joueurGagant(Couleur couleur) {
         ArrayList<int[]> list = new ArrayList<>();
         int[] sommet = new int[2];
         for (int i = 0; i < matrice.length; i++) {
@@ -260,6 +261,64 @@ public class Plateau {
         return matrice;
     }
 
+    public Plateau copie() {
+        Plateau plat = new Plateau(this.taille);
+        for (int i = 0; i < matrice.length; i++) {
+            for (int j = 0; j < matrice[i].length; j++) {
+                plat.matrice[i][j] = this.matrice[i][j];
+            }
+        }
+        return plat;
+    }
+
+    public ArrayList<int[]> areteJouable(Couleur couleur) {
+        ArrayList<int[]> areteJouable = new ArrayList<>();
+        for (int i = 0; i < matrice.length; i++) {
+            for (int j = 0; j < matrice[i].length; j++) {
+                if (matrice[i][j].getClass().equals(Vide.class)) {
+                    int[] s = new int[2];
+                    s[0] = i;
+                    s[1] = j;
+                    if (s[0] == 0 && s[1] == 0 || s[0] == 0 && s[1] == 10 || s[0] == 10 && s[1] == 0 || s[0] == 10 && s[1] == 10)
+                        continue;
+                    if (couleur == Couleur.Rouge) {
+                        if (s[0] == 0 || s[0] == 10) continue;
+                    } else if (couleur == Couleur.Blanc) {
+                        if (s[1] == 0 || s[1] == 10) continue;
+                    }
+                    areteJouable.add(s);
+                }
+            }
+        }
+        return areteJouable;
+    }
+
+//    public int minimax(int profondeur, boolean turn){
+//        if (joueurGagant(Couleur.Rouge)) return 1;
+//        if (joueurGagant(Couleur.Blanc)) return -1;
+//
+//        ArrayList<int[]> casesJouables= areteJouable(turn?Couleur.Rouge:Couleur.Blanc);
+//        int min = Integer.MAX_VALUE;
+//        int max = Integer.MIN_VALUE;
+//
+//        for (int[] s: casesJouables){
+//            if (turn){
+//                matrice[s[0]][s[1]] = new Arete(Couleur.Rouge);
+//                int currentScore = minimax(profondeur +1, false);
+//                max = Math.max(currentScore, max);
+//                if (profondeur == 0){
+//                    System.out.println(currentScore + " pour {" + s[0] + "," + s[1] +"}");
+//                }
+//                if (currentScore >= 0)
+//                    if (profondeur == 0)
+//
+//            }else {
+//
+//            }
+//        }
+//    }
+
+
     /* J'ai déplacé l'affichage de Plateau dans la classe Impression,
     car il me semble que ça respecte mieux le principe de responsabilité unique
     (pour moi ce n'est pas le rôle de Plateau de faire l'affichage dans la console)
@@ -267,5 +326,9 @@ public class Plateau {
     @Override
     public String toString() {
         return ImpressionPlateau.toStringPlateau(this);
+    }
+
+    public void afficherS(int[] s) {
+        System.out.println("{" + s[0] + "," + s[1] + "}");
     }
 }

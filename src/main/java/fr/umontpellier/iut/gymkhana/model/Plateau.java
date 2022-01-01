@@ -106,9 +106,10 @@ public class Plateau {
     }
 
     // FIXME temporaire
-    public boolean ajouterAreteShlag(int x, int y, Couleur c) {
+    public void ajouterAreteShlag(int x, int y, Couleur c) {
+        System.out.println("arete posée : " + x + " " + y + " | couleur : " + c.nomCouleur());
         matrice[x][y] = new Arete(c);
-        return true;
+        System.out.println(this);
     }
 
     /**
@@ -198,7 +199,7 @@ public class Plateau {
      */
     public boolean gagnant(int[] s, Couleur c) {
         ArrayList<int[]> connex = new ArrayList<>();
-        connex = connex(s,c,connex); // on obtient la classe de connexité du sommet s.
+        connex = connex(s, c, connex); // on obtient la classe de connexité du sommet s.
         boolean a = false;
         boolean b = false;
         switch (c) {
@@ -226,8 +227,8 @@ public class Plateau {
             for (int j = 0; j < matrice[i].length; j++) {
                 sommet[0] = i;
                 sommet[1] = j;
-                if (matrice[i][j].getClass().equals(Sommet.class) && matrice[i][j].getCouleur().equals(couleur) && !contenir(list,sommet)){
-                    if (gagnant(sommet,couleur)) return true;
+                if (matrice[i][j].getClass().equals(Sommet.class) && matrice[i][j].getCouleur().equals(couleur) && !contenir(list, sommet)) {
+                    if (gagnant(sommet, couleur)) return true;
                 }
             }
         }

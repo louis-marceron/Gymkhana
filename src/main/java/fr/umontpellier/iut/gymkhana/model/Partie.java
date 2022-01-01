@@ -50,12 +50,12 @@ public class Partie {
         this.j1 = j1;
     }
 
-    public Plateau getPlateau() {
-        return plateau;
-    }
-
     public void setJ2(Joueur j2) {
         this.j2 = j2;
+    }
+
+    public Plateau getPlateau() {
+        return plateau;
     }
 
     public Joueur getJoueurCourant() {

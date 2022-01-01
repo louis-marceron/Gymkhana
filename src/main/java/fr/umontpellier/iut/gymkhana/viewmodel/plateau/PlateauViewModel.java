@@ -21,6 +21,7 @@ public class PlateauViewModel {
     }
 
     public void jouer() {
+        this.joueurCourant = partie.getJoueurCourant();
         if (joueurCourant.getClass() == JoueurHumain.class) {
             ((JoueurHumain) joueurCourant).setX(x);
             ((JoueurHumain) joueurCourant).setY(y);

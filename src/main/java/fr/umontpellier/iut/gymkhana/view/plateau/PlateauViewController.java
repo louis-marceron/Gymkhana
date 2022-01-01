@@ -36,28 +36,30 @@ public class PlateauViewController {
         plateauViewController = this;
         plateau = viewModel.getPlateau().getMatrice();
         int largeur = viewModel.getNombreColonnes();
-
         for (int i = 0; i < largeur; i++) {
             for (int j = 0; j < largeur; j++) {
                 if (plateau[i][j].getClass() == Vide.class) {
                     // TODO ajouter case non affectée
                     ImageView image = creerImageViewCaseVide();
                     image.setId(i + " " + j);
-                    gridPane.add(image, i, j);
+                    gridPane.add(image, j, i);
                 }
                 if (plateau[i][j].getClass() == Arete.class) {
-                    if (plateau[i][j].getCouleur() == Couleur.Rouge)
-                        gridPane.add(creerImageView("areteBlanche.png"), i, j);
                     if (plateau[i][j].getCouleur() == Couleur.Blanc)
-                        gridPane.add(creerImageView("areteRouge.png"), i, j);
-                }
-                if (plateau[i][j].getClass() == Sommet.class)
+                        gridPane.add(creerImageView("areteBlanche.png"), j, i);
                     if (plateau[i][j].getCouleur() == Couleur.Rouge)
-                        gridPane.add(creerImageView("sommetRouge.png"), i, j);
-                if (plateau[i][j].getCouleur() == Couleur.Blanc)
-                    gridPane.add(creerImageView("sommetBlanc.png"), i, j);
+                        gridPane.add(creerImageView("areteRouge.png"), j, i);
+                }
+                if (plateau[i][j].getClass() == Sommet.class) {
+                    if (plateau[i][j].getCouleur() == Couleur.Rouge)
+                        gridPane.add(creerImageView("sommetRouge.png"), j, i);
+                    if (plateau[i][j].getCouleur() == Couleur.Blanc)
+                        gridPane.add(creerImageView("sommetBlanc.png"), j, i);
+                }
             }
         }
+
+//        gridPane.add(creerImageView("sommet.jpg"), 4, 8);
     }
 
     private ImageView creerImageView(String nomImage) throws FileNotFoundException {
@@ -84,8 +86,6 @@ public class PlateauViewController {
                 int y = Integer.parseInt(coordonnees[1]);
                 viewModel.setX(x); // TODO coordonnées buggées
                 viewModel.setY(y);
-
-                System.out.println(((ImageView) mouseEvent.getSource()).getId());
 
                 try {
                     plateauViewController.jouerLeTour();

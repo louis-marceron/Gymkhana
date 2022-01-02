@@ -55,30 +55,30 @@ public class PlateauViewController {
                 }
 
                 if (plateau[i][j].getClass() == Arete.class) {
-                    if (plateau[i][j].getCouleur() == Couleur.Blanc) {
-                        if ((j - 1 >= 0 && plateau[i][j - 1].getCouleur() == Couleur.Blanc)
-                                || (j + 1 <= plateau.length - 1 && plateau[i][j + 1].getCouleur() == Couleur.Blanc))
+                    if (((PieceColoree) plateau[i][j]).getCouleur() == Couleur.Blanc) {
+                        if ((j - 1 >= 0 && ((PieceColoree) plateau[i][j - 1]).getCouleur() == Couleur.Blanc)
+                                || (j + 1 <= plateau.length - 1 && ((PieceColoree) plateau[i][j + 1]).getCouleur() == Couleur.Blanc))
                             gridPane.add(creerImageView("areteHorizontaleBlanche.png"), j, i);
 
-                        if ((i - 1 >= 0 && plateau[i - 1][j].getCouleur() == Couleur.Blanc)
-                                || (i + 1 <= plateau.length - 1 && plateau[i + 1][j].getCouleur() == Couleur.Blanc))
+                        if ((i - 1 >= 0 && ((PieceColoree) plateau[i - 1][j]).getCouleur() == Couleur.Blanc)
+                                || (i + 1 <= plateau.length - 1 && ((PieceColoree) plateau[i + 1][j]).getCouleur() == Couleur.Blanc))
                             gridPane.add(creerImageView("areteVerticaleBlanche.png"), j, i);
                     }
 
-                    if (plateau[i][j].getCouleur() == Couleur.Rouge) {
-                        if ((j - 1 >= 0 && plateau[i][j - 1].getCouleur() == Couleur.Rouge)
-                                || (j + 1 <= plateau.length - 1 && plateau[i][j + 1].getCouleur() == Couleur.Rouge))
+                    if (((PieceColoree) plateau[i][j]).getCouleur() == Couleur.Rouge) {
+                        if ((j - 1 >= 0 && ((PieceColoree) plateau[i][j - 1]).getCouleur() == Couleur.Rouge)
+                                || (j + 1 <= plateau.length - 1 && ((PieceColoree) plateau[i][j + 1]).getCouleur() == Couleur.Rouge))
                             gridPane.add(creerImageView("areteHorizontaleRouge.png"), j, i);
 
-                        if ((i - 1 >= 0 && plateau[i - 1][j].getCouleur() == Couleur.Rouge)
-                                || (i + 1 <= plateau.length - 1 && plateau[i + 1][j].getCouleur() == Couleur.Rouge))
+                        if ((i - 1 >= 0 && ((PieceColoree) plateau[i - 1][j]).getCouleur() == Couleur.Rouge)
+                                || (i + 1 <= plateau.length - 1 && ((PieceColoree) plateau[i + 1][j]).getCouleur() == Couleur.Rouge))
                             gridPane.add(creerImageView("areteVerticaleRouge.png"), j, i);
                     }
                 }
 
                 if (plateau[i][j].getClass() == Sommet.class) {
                     // On stock la couleur du sommet courant
-                    Couleur couleur = plateau[i][j].getCouleur();
+                    Couleur couleur = ((PieceColoree) plateau[i][j]).getCouleur();
                     String couleurExtensions;
 
                     if (couleur == Couleur.Blanc) {
@@ -93,28 +93,28 @@ public class PlateauViewController {
                     Rectangle2D screenBounds = Screen.getPrimary().getBounds();
                     double taille = screenBounds.getMaxY() / viewModel.getNombreColonnes() * 0.8;
 
-                    if (j - 1 >= 0 && plateau[i][j - 1].getClass() == Arete.class && couleur == plateau[i][j - 1].getCouleur()) {
+                    if (j - 1 >= 0 && plateau[i][j - 1].getClass() == Arete.class && couleur == ((PieceColoree) plateau[i][j - 1]).getCouleur()) {
                         Rectangle rectangle = new Rectangle(taille / 2.5 + 1, taille / 5, Color.web(couleurExtensions));
                         GridPane.setHalignment(rectangle, HPos.LEFT);
                         GridPane.setValignment(rectangle, VPos.CENTER);
                         gridPane.add(rectangle, j, i);
                     }
 
-                    if (j + 1 <= plateau.length - 1 && plateau[i][j + 1].getClass() == Arete.class && couleur == plateau[i][j + 1].getCouleur()) {
+                    if (j + 1 <= plateau.length - 1 && plateau[i][j + 1].getClass() == Arete.class && couleur == ((PieceColoree) plateau[i][j + 1]).getCouleur()) {
                         Rectangle rectangle = new Rectangle(taille / 2.5 + 1, taille / 5, Color.web(couleurExtensions));
                         GridPane.setHalignment(rectangle, HPos.RIGHT);
                         GridPane.setValignment(rectangle, VPos.CENTER);
                         gridPane.add(rectangle, j, i);
                     }
 
-                    if (i - 1 >= 0 && plateau[i - 1][j].getClass() == Arete.class && couleur == plateau[i - 1][j].getCouleur()) {
+                    if (i - 1 >= 0 && plateau[i - 1][j].getClass() == Arete.class && couleur == ((PieceColoree) plateau[i - 1][j]).getCouleur()) {
                         Rectangle rectangle = new Rectangle(taille / 5, taille / 2.5 + 1, Color.web(couleurExtensions));
                         GridPane.setHalignment(rectangle, HPos.CENTER);
                         GridPane.setValignment(rectangle, VPos.TOP);
                         gridPane.add(rectangle, j, i);
                     }
 
-                    if (i + 1 <= plateau.length - 1 && plateau[i + 1][j].getClass() == Arete.class && couleur == plateau[i + 1][j].getCouleur()) {
+                    if (i + 1 <= plateau.length - 1 && plateau[i + 1][j].getClass() == Arete.class && couleur == ((PieceColoree) plateau[i + 1][j]).getCouleur()) {
                         Rectangle rectangle = new Rectangle(taille / 5, taille / 2.5 + 1, Color.web(couleurExtensions));
                         GridPane.setHalignment(rectangle, HPos.CENTER);
                         GridPane.setValignment(rectangle, VPos.BOTTOM);
@@ -171,4 +171,3 @@ public class PlateauViewController {
         viewHandler.openView("Plateau");
     }
 }
-

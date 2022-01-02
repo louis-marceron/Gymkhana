@@ -3,6 +3,7 @@ package fr.umontpellier.iut.gymkhana.model.joueurs;
 import fr.umontpellier.iut.gymkhana.model.Couleur;
 import fr.umontpellier.iut.gymkhana.model.Plateau;
 import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
+import fr.umontpellier.iut.gymkhana.model.pieces.PieceColoree;
 import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
 
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class JoueurMinMax extends Joueur {
         for (int i = 0; i < plateau.getMatrice().length; i++) {
             for (int j = 0; j < plateau.getMatrice()[i].length; j++) {
                 if (plateau.getMatrice()[i][j].getClass().equals(Sommet.class)) {
-                    if (plateau.getMatrice()[i][j].getCouleur().equals(couleur)) {
+                    if (((PieceColoree)plateau.getMatrice()[i][j]).getCouleur().equals(couleur)) {
                         s[0] = i;
                         s[1] = j;
                         cur = plateau.connex(s, couleur, list).size();

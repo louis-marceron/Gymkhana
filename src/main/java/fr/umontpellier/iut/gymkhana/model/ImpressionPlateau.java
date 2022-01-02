@@ -47,7 +47,7 @@ public class ImpressionPlateau {
                 } else if (tab[i][j].getClass().equals(Sommet.class)) { //"SB".equals(tab[i][j]) || "SR".equals(tab[i][j])
                     str.append(".   ");
                 } else if (tab[i][j].getClass().equals(Arete.class)) { //"AB".equals(tab[i][j])
-                    if ((tab[i][j]).getCouleur() == Couleur.Blanc) {
+                    if (((Arete)(tab[i][j])).getCouleur() == Couleur.Blanc) {
                         str.append("B   ");
                     } else {
                         str.append("R   ");

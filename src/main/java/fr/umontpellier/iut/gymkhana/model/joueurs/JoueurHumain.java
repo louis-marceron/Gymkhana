@@ -11,7 +11,7 @@ public class JoueurHumain extends Joueur {
         super(plateau, couleur);
     }
 
-    public void jouer() { // TODO try/catch si sommets pas initialisés
+        public void jouer() { // TODO try/catch si sommets pas initialisés
         getPlateau().ajouterAreteShlag(x, y, getCouleur());
     }
 

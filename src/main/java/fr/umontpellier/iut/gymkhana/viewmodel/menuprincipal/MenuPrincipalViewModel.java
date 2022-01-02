@@ -1,9 +1,9 @@
 package fr.umontpellier.iut.gymkhana.viewmodel.menuprincipal;
 
 import fr.umontpellier.iut.gymkhana.model.*;
-import fr.umontpellier.iut.gymkhana.model.JoueurMinMax;
 import fr.umontpellier.iut.gymkhana.model.joueurs.JoueurHumain;
 import fr.umontpellier.iut.gymkhana.model.joueurs.JoueurIADebutant;
+import fr.umontpellier.iut.gymkhana.model.joueurs.JoueurMinMax;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 

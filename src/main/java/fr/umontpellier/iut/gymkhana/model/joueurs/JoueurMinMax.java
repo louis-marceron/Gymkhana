@@ -1,35 +1,29 @@
-package fr.umontpellier.iut.gymkhana.model;
+package fr.umontpellier.iut.gymkhana.model.joueurs;
+
+import fr.umontpellier.iut.gymkhana.model.Couleur;
+import fr.umontpellier.iut.gymkhana.model.Plateau;
+import fr.umontpellier.iut.gymkhana.model.pieces.Arete;
+import fr.umontpellier.iut.gymkhana.model.pieces.Sommet;
 
 import java.util.ArrayList;
 
-public class JoueurMinMax implements Joueur {
+public class JoueurMinMax extends Joueur {
     private int[] bestMove;
 
-    public JoueurMinMax() {
+    public JoueurMinMax(Plateau plateau, Couleur couleur) {
+        super(plateau, couleur);
         this.bestMove = new int[2];
     }
 
-    @Override
-    public boolean jouer(Plateau plateau, Couleur couleur) {
-        boolean b = false;
-        do {
-            minmax(plateau, 2, true, couleur, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-            b = true;
-            if (couleur == Couleur.Rouge && (bestMove[0] == 0 || bestMove[0] == 10)) {
-                System.out.println("pb");
-//                b = false;
-            }
-        } while (!b);
-        plateau.afficherS(bestMove);
-        plateau.getMatrice()[bestMove[0]][bestMove[1]] = new Arete(couleur);
-        return plateau.joueurGagant(couleur);
+    public void jouer() {
+        minmax(getPlateau(), 2, true, getCouleur(), Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        getPlateau().getMatrice()[bestMove[0]][bestMove[1]] = new Arete(getCouleur());
     }
 
-
     public int minmax(Plateau plateau, int profondeur, boolean joueurMax, Couleur couleur, double alpha, double beta) {
-        if (plateau.joueurGagant(couleur)) {
+        if (plateau.estGagnant(couleur)) {
             return Integer.MAX_VALUE;
-        } else if (plateau.joueurGagant(couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc)) {
+        } else if (plateau.estGagnant(couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc)) {
             return Integer.MIN_VALUE;
         }
         if (profondeur == 0) {
@@ -44,8 +38,6 @@ public class JoueurMinMax implements Joueur {
                     Plateau plateau1 = plateau.copie();
                     plateau1.getMatrice()[s[0]][s[1]] = new Arete(couleur);
                     int eval = minmax(plateau1, profondeur - 1, false, couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc, alpha, beta);
-                    System.out.println("Tour de MinMax : sommet{" + s[0] + "," + s[1] + "} eval : " + eval);
-//                maxEval = Math.max(maxEval, eval);
                     if (eval > maxEval) {
                         maxEval = eval;
                         bestMove = s;
@@ -62,8 +54,7 @@ public class JoueurMinMax implements Joueur {
                     Plateau plateau1 = plateau.copie();
                     plateau1.getMatrice()[s[0]][s[1]] = new Arete(couleur);
                     int eval = minmax(plateau1, profondeur - 1, true, couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc, alpha, beta);
-                    System.out.println("Tour du Joueur : sommet{" + s[0] + "," + s[1] + "} eval : " + eval);
-//                minEval = Math.min(minEval, eval);
+
                     if (eval < minEval) {
                         minEval = eval;
                         bestMove = s;
@@ -83,12 +74,12 @@ public class JoueurMinMax implements Joueur {
         ArrayList<int[]> list = new ArrayList<>();
         for (int i = 0; i < plateau.getMatrice().length; i++) {
             for (int j = 0; j < plateau.getMatrice()[i].length; j++) {
-                if (plateau.getMatrice()[i][j].getClass().equals(Sommet.class)){
-                    if (plateau.getMatrice()[i][j].getCouleur().equals(couleur)){
+                if (plateau.getMatrice()[i][j].getClass().equals(Sommet.class)) {
+                    if (plateau.getMatrice()[i][j].getCouleur().equals(couleur)) {
                         s[0] = i;
                         s[1] = j;
-                        cur = plateau.connex(s,couleur,list).size();
-                        max = Math.max(max,cur);
+                        cur = plateau.connex(s, couleur, list).size();
+                        max = Math.max(max, cur);
                     }
                 }
             }

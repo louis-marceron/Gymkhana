@@ -1,7 +1,8 @@
 package fr.umontpellier.iut.gymkhana.model;
 
+import fr.umontpellier.iut.gymkhana.model.pieces.*;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * La classe {@code Plateau} permet de créer des instances d'un plateau du Gymkhana, modélisé
@@ -36,22 +37,21 @@ public class Plateau {
         int dimension = taille * 2 + 1;
         matrice = new Piece[dimension][dimension];
 
-/*      je laisse les coins juste en null comme pour les cases vides
-        // On remplit les coins de "NA"
-        matrice[0][0] = "NA";
-        matrice[matrice.length - 1][0] = "NA";
-        matrice[0][matrice.length - 1] = "NA";
-        matrice[matrice.length - 1][matrice.length - 1] = "NA";
-*/
-
-        // on rempli le plateau de vide
+        // On place les cases vides
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
-                matrice[i][j] = new Vide(null);
+                matrice[i][j] = new Vide(null); // FIXME ça va pas ça '_'
             }
         }
-        // On place les sommets rouges et blancs
 
+        // On place les cases non affectées
+        matrice[0][0] = new NonAffectee(null);
+        matrice[matrice[0].length-1][0] = new NonAffectee(null);
+        matrice[0][matrice[0].length-1] = new NonAffectee(null);
+        matrice[matrice[0].length-1][matrice[0].length-1] = new NonAffectee(null);
+
+
+        // On place les sommets rouges et blancs
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
                 if (i % 2 == 0) {
@@ -75,7 +75,6 @@ public class Plateau {
      * @return {@code false} si le placement de l'arête est illégal
      */
     public boolean ajouterArete(int[] s1, int[] s2, Couleur c) {
-        // TODO try/catch + tests unitaires
         // Vérifie que les indices ne sont pas trop grands
         if (s1[0] > taille * 2
                 || s1[1] > taille * 2
@@ -83,18 +82,15 @@ public class Plateau {
                 || s2[1] > taille * 2)
             return false;
 
-/*        // Vérifie que les deux cases sont toutes les deux SR ou toutes les deux SB
-        if (!matrice[s1[0]][s1[1]].equals(c.nomSommet())
-                || !matrice[s2[0]][s2[1]].equals(c.nomSommet()))
-            return false;
- */
         // Vérifie que les cases ne soient pas null
         if (matrice[s1[0]][s1[1]] == null || matrice[s2[0]][s2[1]] == null)
             return false;
+
         // Vérifie que les deux cases soient des sommets
         if (!matrice[s1[0]][s1[1]].getClass().equals(Sommet.class) || !matrice[s2[0]][s2[1]].getClass().equals(Sommet.class)) {
             return false;
         }
+
         // Vérifie que les deux cases soient de la même couleur
         if (!matrice[s1[0]][s1[1]].getCouleur().equals(c) || !matrice[s2[0]][s2[1]].getCouleur().equals(c)) {
             return false;
@@ -108,8 +104,16 @@ public class Plateau {
         if (!matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2].getClass().equals(Vide.class)) {
             return false;
         }
+
         matrice[(s1[0] + s2[0]) / 2][(s1[1] + s2[1]) / 2] = new Arete(c);
         return true;
+    }
+
+    // FIXME temporaire
+    public void ajouterAreteShlag(int x, int y, Couleur c) {
+        System.out.println("arete posée : " + x + " " + y + " | couleur : " + c.nomCouleur());
+        matrice[x][y] = new Arete(c);
+        System.out.println(this);
     }
 
     /**
@@ -201,7 +205,7 @@ public class Plateau {
      */
     public boolean gagnant(int[] s, Couleur c) {
         ArrayList<int[]> connex = new ArrayList<>();
-        connex = connex(s,c,connex); // on obtient la classe de connexité du sommet s.
+        connex = connex(s, c, connex); // on obtient la classe de connexité du sommet s.
         boolean a = false;
         boolean b = false;
         switch (c) {
@@ -222,7 +226,7 @@ public class Plateau {
         return a && b;
     }
 
-    public boolean joueurGagant(Couleur couleur) {
+    public boolean estGagnant(Couleur couleur) {
         ArrayList<int[]> list = new ArrayList<>();
         int[] sommet = new int[2];
         for (int i = 0; i < matrice.length; i++) {
@@ -293,32 +297,6 @@ public class Plateau {
         }
         return areteJouable;
     }
-
-//    public int minimax(int profondeur, boolean turn){
-//        if (joueurGagant(Couleur.Rouge)) return 1;
-//        if (joueurGagant(Couleur.Blanc)) return -1;
-//
-//        ArrayList<int[]> casesJouables= areteJouable(turn?Couleur.Rouge:Couleur.Blanc);
-//        int min = Integer.MAX_VALUE;
-//        int max = Integer.MIN_VALUE;
-//
-//        for (int[] s: casesJouables){
-//            if (turn){
-//                matrice[s[0]][s[1]] = new Arete(Couleur.Rouge);
-//                int currentScore = minimax(profondeur +1, false);
-//                max = Math.max(currentScore, max);
-//                if (profondeur == 0){
-//                    System.out.println(currentScore + " pour {" + s[0] + "," + s[1] +"}");
-//                }
-//                if (currentScore >= 0)
-//                    if (profondeur == 0)
-//
-//            }else {
-//
-//            }
-//        }
-//    }
-
 
     /* J'ai déplacé l'affichage de Plateau dans la classe Impression,
     car il me semble que ça respecte mieux le principe de responsabilité unique

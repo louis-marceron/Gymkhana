@@ -1,4 +1,6 @@
-package fr.umontpellier.iut.gymkhana.model;
+package fr.umontpellier.iut.gymkhana.model.pieces;
+
+import fr.umontpellier.iut.gymkhana.model.Couleur;
 
 public abstract class Piece {
     private Couleur couleur;

@@ -17,7 +17,7 @@
      </rowConstraints>
       <children>
           <ImageView fx:id="imageView" fitHeight="53.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
-              <Image fx:id="image" url="@sommet.jpg" />
+              <Image fx:id="image" url="@images/sommet.jpg" />
           </ImageView>
       </children>
    </GridPane>

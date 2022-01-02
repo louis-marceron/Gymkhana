@@ -2,12 +2,11 @@ package fr.umontpellier.iut.gymkhana.model;
 
 public class ModelFactory {
 
-    private Partie partie;
-
-    // Singleton pour avoir une partie commune entre chaque vue
     public Partie getPartie() {
-        if (partie == null)
-            partie = new Partie();
-        return partie;
+        return new Partie();
     }
 }
+
+//TODO patrons de singleton pétés
+// Vue de fin de partie
+// Recommencer la partie (durant la partie et à la fin)

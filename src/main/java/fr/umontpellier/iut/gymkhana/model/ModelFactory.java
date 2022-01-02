@@ -7,6 +7,5 @@ public class ModelFactory {
     }
 }
 
-//TODO patrons de singleton pétés
-// Vue de fin de partie
-// Recommencer la partie (durant la partie et à la fin)
+// TODO e de fin de partie
+// TODO Recommencer la partie (durant la partie et à la fin)

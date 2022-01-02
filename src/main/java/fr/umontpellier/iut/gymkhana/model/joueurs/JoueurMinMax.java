@@ -15,11 +15,9 @@ public class JoueurMinMax extends Joueur {
         this.bestMove = new int[2];
     }
 
-    public boolean jouer(Plateau plateau, Couleur couleur) {
-        minmax(plateau, 2, true, couleur, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-
-        plateau.getMatrice()[bestMove[0]][bestMove[1]] = new Arete(couleur);
-        return plateau.estGagnant(couleur);
+    public void jouer() {
+        minmax(getPlateau(), 2, true, getCouleur(), Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        getPlateau().getMatrice()[bestMove[0]][bestMove[1]] = new Arete(getCouleur());
     }
 
     public int minmax(Plateau plateau, int profondeur, boolean joueurMax, Couleur couleur, double alpha, double beta) {

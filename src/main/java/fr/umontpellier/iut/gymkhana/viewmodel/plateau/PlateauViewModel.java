@@ -26,10 +26,7 @@ public class PlateauViewModel {
     }
 
     public void jouer() {
-        if (partie.estTerminee()) {// FIXME temporaire
-            System.out.println(joueurCourant.getCouleur() + " a gagné !");
-        } else {
-
+        if (!partie.estTerminee()) {// FIXME temporaire
             if (joueurCourant.getClass() == JoueurHumain.class) {
                 ((JoueurHumain) joueurCourant).setX(x);
                 ((JoueurHumain) joueurCourant).setY(y);
@@ -38,6 +35,7 @@ public class PlateauViewModel {
 
             this.joueurCourant = partie.getJoueurCourant();
 
+            System.out.println(joueurCourant.getClass());
             // Lancer automatiquement le prochain tour si le prochain joueur n'est pas humain
             if (joueurCourant.getClass() != JoueurHumain.class) {
                 jouer();

@@ -28,7 +28,7 @@ public class MenuPrincipalViewModel {
         return joueur2;
     }
 
-    public void setJoueurs() { // TODO try/catch ?
+    public void setJoueurs() {
         String j1 = joueur1.getValue();
         String j2 = joueur2.getValue();
 

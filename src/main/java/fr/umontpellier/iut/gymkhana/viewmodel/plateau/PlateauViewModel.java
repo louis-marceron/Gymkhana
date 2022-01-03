@@ -35,7 +35,6 @@ public class PlateauViewModel {
 
             this.joueurCourant = partie.getJoueurCourant();
 
-            System.out.println(joueurCourant.getClass());
             // Lancer automatiquement le prochain tour si le prochain joueur n'est pas humain
             if (joueurCourant.getClass() != JoueurHumain.class) {
                 jouer();
@@ -59,5 +58,7 @@ public class PlateauViewModel {
         this.y = y;
     }
 
-    //TODO savoir si la partie est fini
+    public Partie getPartie() {
+        return partie;
+    }
 }

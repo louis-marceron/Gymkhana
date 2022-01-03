@@ -15,3 +15,5 @@ public enum Couleur {
         return this == Rouge ? "Rouge" : "Blanc";
     }
 }
+
+//TODO enlever méthodes inutiles

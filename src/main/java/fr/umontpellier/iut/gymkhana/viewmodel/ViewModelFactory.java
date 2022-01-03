@@ -7,11 +7,9 @@ import fr.umontpellier.iut.gymkhana.viewmodel.plateau.PlateauViewModel;
 
 public class ViewModelFactory {
 
-    private final ModelFactory mf;
     private Partie partie;
 
     public ViewModelFactory(ModelFactory mf) {
-        this.mf = mf;
         partie = mf.getPartie();
     }
 

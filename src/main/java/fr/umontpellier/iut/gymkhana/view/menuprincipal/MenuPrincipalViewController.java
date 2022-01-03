@@ -32,7 +32,6 @@ public class MenuPrincipalViewController {
         viewHandler = vh;
 
         // On initialise les valeurs dans les listes déroulantes (comboBox)
-        // TODO faire un truc plus propre qui ajouter automatiquement les implémentations de Joueur
         comboBoxJoueur1.getItems().addAll("Humain", "IA débutante", "IA MinMax");
         comboBoxJoueur2.getItems().addAll("Humain", "IA débutante", "IA MinMax");
 
@@ -40,6 +39,7 @@ public class MenuPrincipalViewController {
         comboBoxJoueur1.getSelectionModel().selectFirst();
         comboBoxJoueur2.getSelectionModel().selectFirst();
 
+        // TODO réparer ça
         // Hack pour binder la valeur sélectionner dans la liste déroulante avec le model
         tfJoueur1 = new TextField();
         tfJoueur2 = new TextField();

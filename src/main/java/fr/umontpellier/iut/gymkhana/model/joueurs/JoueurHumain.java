@@ -12,7 +12,7 @@ public class JoueurHumain extends Joueur {
     }
 
     public void jouer() {
-        getPlateau().ajouterAreteShlag(x, y, getCouleur());
+        getPlateau().ajouterArete(x, y, getCouleur());
     }
 
     public void setX(int x) {

@@ -40,7 +40,7 @@ public class Plateau {
         // On place les cases vides
         for (int i = 0; i < matrice.length; i++) {
             for (int j = 0; j < matrice[i].length; j++) {
-                matrice[i][j] = new Vide(); // FIXME ça va pas ça '_'
+                matrice[i][j] = new Vide();
             }
         }
 
@@ -109,9 +109,7 @@ public class Plateau {
         return true;
     }
 
-    // FIXME temporaire
-    public void ajouterAreteShlag(int x, int y, Couleur c) {
-        System.out.println("arete posée : " + x + " " + y + " | couleur : " + c.nomCouleur());
+    public void ajouterArete(int x, int y, Couleur c) {
         matrice[x][y] = new Arete(c);
         System.out.println(this);
     }
@@ -124,7 +122,6 @@ public class Plateau {
      * @return Liste des coordonnées des voisins de {@code s}
      */
     public ArrayList<int[]> getVoisinsSommet(int[] s, Couleur c) {
-        // TODO tests unitaires
         ArrayList<int[]> voisins = new ArrayList<>();
         if (s[0] < 0 || s[0] > 10 || s[1] < 0 || s[1] > 10) return voisins;
         // Regarde s'il y a un voisin à gauche du sommet s en regardant s'il y a une arête de couleur c à gauche de s

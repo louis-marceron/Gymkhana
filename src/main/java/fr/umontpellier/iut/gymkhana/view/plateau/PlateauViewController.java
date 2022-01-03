@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
+import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,18 +25,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class PlateauViewController {
-
     private PlateauViewController plateauViewController;
     private PlateauViewModel viewModel;
     private ViewHandler viewHandler;
     private Piece[][] plateau;
 
     @FXML
-    GridPane gridPane;
+    private GridPane gridPane;
 
-    // TODO animation quand on passe par-dessus une case cliquable
-    // TODO animation quand on pose une arête
-    // TODO égalités
+    @FXML
+    private Label gagnant;
+
 
     public void init(PlateauViewModel vm, ViewHandler vh) throws FileNotFoundException {
         viewModel = vm;
@@ -41,6 +43,20 @@ public class PlateauViewController {
         plateauViewController = this;
         plateau = viewModel.getPlateau().getMatrice();
         int largeur = viewModel.getNombreColonnes();
+
+        // Message gagnant
+        gagnant.setMouseTransparent(true);
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        int taillePolice = (int) screenBounds.getMaxY() / 15;
+        gagnant.setStyle("-fx-font: " + taillePolice + " \"Berlin Sans FB\";");
+
+        if (viewModel.getPartie().estTerminee()) {
+            System.out.println("prout");
+            gagnant.setText("Le joueur " + viewModel.getPartie().getJoueurCourant().getCouleur().nomCouleur() + " a gagné !");
+            gagnant.setVisible(true);
+            gridPane.setMouseTransparent(true); // On ne peut plus cliquer sur les cases
+            gridPane.setEffect(new GaussianBlur(9));
+        }
 
         for (int i = 0; i < largeur; i++) {
             for (int j = 0; j < largeur; j++) {
@@ -90,7 +106,6 @@ public class PlateauViewController {
                     }
 
                     // On ajoute des extensions sur les sommets s'ils sont à côté d'une arête de la même couleur (esthétique)
-                    Rectangle2D screenBounds = Screen.getPrimary().getBounds();
                     double taille = screenBounds.getMaxY() / viewModel.getNombreColonnes() * 0.8;
 
                     if (j - 1 >= 0 && plateau[i][j - 1].getClass() == Arete.class && couleur == ((PieceColoree) plateau[i][j - 1]).getCouleur()) {
@@ -160,6 +175,19 @@ public class PlateauViewController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                imageView.setEffect(new Glow(8));
+            }
+        });
+        imageView.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                imageView.setEffect(null);
             }
         });
 

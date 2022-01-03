@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
@@ -178,6 +179,7 @@ public class PlateauViewController {
             }
         });
 
+        // Hover
         imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -190,6 +192,9 @@ public class PlateauViewController {
                 imageView.setEffect(null);
             }
         });
+
+        // Curseur
+        imageView.setCursor(Cursor.HAND);
 
         return imageView;
     }

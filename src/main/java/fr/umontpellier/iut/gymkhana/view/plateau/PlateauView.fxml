@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -17,5 +18,8 @@
           <font>
               <Font name="Berlin Sans FB" size="96.0" />
           </font>
+      <effect>
+         <Glow level="0.82" />
+      </effect>
       </Label>
 </StackPane>

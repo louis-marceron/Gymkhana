@@ -11,7 +11,7 @@ public class JoueurHumain extends Joueur {
         super(plateau, couleur);
     }
 
-    public void jouer() {
+    public void jouer() {   
         getPlateau().ajouterArete(x, y, getCouleur());
     }
 

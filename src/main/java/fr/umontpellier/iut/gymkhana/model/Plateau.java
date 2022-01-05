@@ -5,18 +5,6 @@ import fr.umontpellier.iut.gymkhana.model.pieces.*;
 import java.util.ArrayList;
 
 /**
- * La classe {@code Plateau} permet de créer des instances d'un plateau du Gymkhana, modélisé
- * à travers une matrice de type {@code String[][]}. Chaque case de la matrice représente les sommets / arêtes
- * des graphes Rouge et Blanc, ou les cases vides où l'on peut poser une arête.
- * <p><b>Légende</b>
- * <blockquote>
- * NA = case non assignée (correspond aux 4 coins du plateau)<br>
- * V = case vide<br>
- * SR = sommet rouge<br>
- * SB = sommet blanc<br>
- * AR = arête rouge<br>
- * AB = arête blanche<br>
- * </blockquote>
  * <p>La classe {@code Plateau} comprend les méthodes pouvant placer des arêtes et vérifier si un
  * {@code Joueur} est gagnant. Il y aussi des méthodes spécifiques aux Graphes, pouvant par exemple
  * retourner les voisins d'un sommet ou sa classe de connexité.
@@ -25,12 +13,6 @@ public class Plateau {
     private final int taille;
     private Piece[][] matrice;
 
-    /**
-     * Initialise un nouvel objet {@code Plateau} en construisant une matrice comprenant les cases
-     * non assignées "NA", les cases vides "V" et les sommets rouges et blancs "SR" / "SB".
-     *
-     * @param taille La longueur des graphes Rouge et Blanc. Leur largeur est de {@code taille - 1}
-     */
     public Plateau(int taille) {
         this.taille = taille;
 
@@ -295,16 +277,8 @@ public class Plateau {
         return areteJouable;
     }
 
-    /* J'ai déplacé l'affichage de Plateau dans la classe Impression,
-    car il me semble que ça respecte mieux le principe de responsabilité unique
-    (pour moi ce n'est pas le rôle de Plateau de faire l'affichage dans la console)
-    */
     @Override
     public String toString() {
         return ImpressionPlateau.toStringPlateau(this);
-    }
-
-    public void afficherS(int[] s) {
-        System.out.println("{" + s[0] + "," + s[1] + "}");
     }
 }

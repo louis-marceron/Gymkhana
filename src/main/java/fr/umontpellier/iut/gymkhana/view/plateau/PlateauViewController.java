@@ -52,7 +52,6 @@ public class PlateauViewController {
         gagnant.setStyle("-fx-font: " + taillePolice + " \"Berlin Sans FB\";");
 
         if (viewModel.getPartie().estTerminee()) {
-            System.out.println("prout");
             gagnant.setText("Le joueur " + viewModel.getPartie().getJoueurCourant().getCouleur().nomCouleur() + " a gagné !");
             gagnant.setVisible(true);
             gridPane.setMouseTransparent(true); // On ne peut plus cliquer sur les cases

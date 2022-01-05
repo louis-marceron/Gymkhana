@@ -35,7 +35,7 @@ public class JoueurMinMax extends Joueur {
         if (joueurMax) {
             int maxEval = Integer.MIN_VALUE;
             for (int[] s : plateau.areteJouable(couleur)) {
-                if (!(s[1] == 0 || s[1] == 10)) {
+                if (!(s[1] == 0 || s[1] == plateau.getMatrice().length-1)) {
                     Plateau plateau1 = plateau.copie();
                     plateau1.getMatrice()[s[0]][s[1]] = new Arete(couleur);
                     int eval = minmax(plateau1, profondeur - 1, false, couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc, alpha, beta);
@@ -51,7 +51,7 @@ public class JoueurMinMax extends Joueur {
         } else {
             int minEval = Integer.MAX_VALUE;
             for (int[] s : plateau.areteJouable(couleur)) {
-                if (!(s[0] == 0 || s[0] == 10 || s[1] == 0 || s[1] == 10)) {
+                if (!(s[0] == 0 || s[0] == plateau.getMatrice().length-1 || s[1] == 0 || s[1] == plateau.getMatrice().length-1)) {
                     Plateau plateau1 = plateau.copie();
                     plateau1.getMatrice()[s[0]][s[1]] = new Arete(couleur);
                     int eval = minmax(plateau1, profondeur - 1, true, couleur == Couleur.Blanc ? Couleur.Rouge : Couleur.Blanc, alpha, beta);

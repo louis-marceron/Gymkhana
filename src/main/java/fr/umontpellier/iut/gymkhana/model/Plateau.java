@@ -105,7 +105,7 @@ public class Plateau {
      */
     public ArrayList<int[]> getVoisinsSommet(int[] s, Couleur c) {
         ArrayList<int[]> voisins = new ArrayList<>();
-        if (s[0] < 0 || s[0] > 10 || s[1] < 0 || s[1] > 10) return voisins;
+        if (s[0] < 0 || s[0] > matrice.length-1 || s[1] < 0 || s[1] > matrice.length-1) return voisins;
         // Regarde s'il y a un voisin à gauche du sommet s en regardant s'il y a une arête de couleur c à gauche de s
         if (s[1] > 0
                 && matrice[s[0]][s[1] - 1].getClass().equals(Arete.class)
@@ -143,7 +143,7 @@ public class Plateau {
             voisins.add(new int[]{s[0], s[1] - 2});
 
         // Regarde s'il y a un voisin possible à droite
-        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].getClass().equals(Vide.class) & s[1] + 1 != 10)
+        if (s[1] < 2 * taille && matrice[s[0]][s[1] + 1].getClass().equals(Vide.class) & s[1] + 1 != matrice.length-1)
             voisins.add(new int[]{s[0], s[1] + 2});
 
         // Regarde s'il y a un voisin possible au dessus
@@ -151,7 +151,7 @@ public class Plateau {
             voisins.add(new int[]{s[0] - 2, s[1]});
 
         // Regarde s'il y a un voisin possible en dessous
-        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].getClass().equals(Vide.class) & s[0] + 1 != 10)
+        if (s[0] < 2 * taille && matrice[s[0] + 1][s[1]].getClass().equals(Vide.class) & s[0] + 1 != matrice.length-1)
             voisins.add(new int[]{s[0] + 2, s[1]});
 
         return voisins;
@@ -191,14 +191,14 @@ public class Plateau {
             case Rouge: // dans le cas des sommets rouges on regarde si sa classe de connexité contient des sommets
                 for (int[] som : connex) {
                     if (som[1] == 0) a = true;
-                    if (som[1] == 10) b = true;
+                    if (som[1] == matrice.length-1) b = true;
                 }
                 break;
 
             case Blanc:
                 for (int[] som : connex) {
                     if (som[0] == 0) a = true;
-                    if (som[0] == 10) b = true;
+                    if (som[0] == matrice.length-1) b = true;
                 }
                 break;
         }
@@ -263,12 +263,12 @@ public class Plateau {
                     int[] s = new int[2];
                     s[0] = i;
                     s[1] = j;
-                    if (s[0] == 0 && s[1] == 0 || s[0] == 0 && s[1] == 10 || s[0] == 10 && s[1] == 0 || s[0] == 10 && s[1] == 10)
+                    if (s[0] == 0 && s[1] == 0 || s[0] == 0 && s[1] == matrice.length-1 || s[0] == matrice.length-1 && s[1] == 0 || s[0] == matrice.length-1 && s[1] == matrice.length-1)
                         continue;
                     if (couleur == Couleur.Rouge) {
-                        if (s[0] == 0 || s[0] == 10) continue;
+                        if (s[0] == 0 || s[0] == matrice.length-1) continue;
                     } else if (couleur == Couleur.Blanc) {
-                        if (s[1] == 0 || s[1] == 10) continue;
+                        if (s[1] == 0 || s[1] == matrice.length-1) continue;
                     }
                     areteJouable.add(s);
                 }

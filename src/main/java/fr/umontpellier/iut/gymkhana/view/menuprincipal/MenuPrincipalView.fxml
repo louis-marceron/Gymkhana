@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.umontpellier.iut.gymkhana.view.menuprincipal.MenuPrincipalViewController">
+<AnchorPane prefHeight="255.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.umontpellier.iut.gymkhana.view.menuprincipal.MenuPrincipalViewController">
     <children>
         <Label layoutX="103.0" layoutY="14.0" text="Gymkhana">
             <font>
@@ -21,7 +21,7 @@
                 <Font name="Berlin Sans FB" size="18.0" />
             </font>
         </Label>
-        <Button fx:id="buttonLancerPartie" layoutX="139.0" layoutY="149.0" mnemonicParsing="false" onAction="#onButtonLancerPartie" text="Lancer la partie">
+        <Button fx:id="buttonLancerPartie" layoutX="139.0" layoutY="197.0" mnemonicParsing="false" onAction="#onButtonLancerPartie" text="Lancer la partie">
             <font>
                 <Font name="Berlin Sans FB" size="15.0" />
             </font>
@@ -33,5 +33,11 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ComboBox>
+      <Label layoutX="22.0" layoutY="142.0" prefHeight="34.0" prefWidth="142.0" text="Taille du plateau :">
+         <font>
+            <Font name="Berlin Sans FB" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textField" layoutX="163.0" layoutY="146.0" prefHeight="25.0" prefWidth="30.0" promptText="5" />
     </children>
 </AnchorPane>

@@ -1,15 +1,19 @@
 package fr.umontpellier.iut.gymkhana.view.plateau;
 
+import fr.umontpellier.iut.gymkhana.GymkhanaApp;
+import fr.umontpellier.iut.gymkhana.StartGymkhanaApp;
 import fr.umontpellier.iut.gymkhana.model.Couleur;
 import fr.umontpellier.iut.gymkhana.model.pieces.*;
 import fr.umontpellier.iut.gymkhana.view.ViewHandler;
 import fr.umontpellier.iut.gymkhana.viewmodel.plateau.PlateauViewModel;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
@@ -20,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,6 +42,9 @@ public class PlateauViewController {
     @FXML
     private Label gagnant;
 
+    @FXML
+    ImageView recommencer;
+
 
     public void init(PlateauViewModel vm, ViewHandler vh) throws FileNotFoundException {
         viewModel = vm;
@@ -45,15 +53,32 @@ public class PlateauViewController {
         plateau = viewModel.getPlateau().getMatrice();
         int largeur = viewModel.getNombreColonnes();
 
-        // Message gagnant
+        // Label message gagnant
         gagnant.setMouseTransparent(true);
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         int taillePolice = (int) screenBounds.getMaxY() / 15;
         gagnant.setStyle("-fx-font: " + taillePolice + " \"Berlin Sans FB\";");
 
+        // Bouton recommencer
+        recommencer.setMouseTransparent(true);
+        recommencer.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                GymkhanaApp g = new GymkhanaApp();
+                viewHandler.getStage().close(); // Ferme l'ancien stage
+                try {
+                    g.start(new Stage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         if (viewModel.getPartie().estTerminee()) {
             gagnant.setText("Le joueur " + viewModel.getPartie().getJoueurCourant().getCouleur().nomCouleur() + " a gagné !");
             gagnant.setVisible(true);
+            recommencer.setVisible(true);
+            recommencer.setMouseTransparent(false);
             gridPane.setMouseTransparent(true); // On ne peut plus cliquer sur les cases
             gridPane.setEffect(new GaussianBlur(9));
         }

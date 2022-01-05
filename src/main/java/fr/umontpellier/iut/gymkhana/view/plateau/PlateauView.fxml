@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <StackPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.umontpellier.iut.gymkhana.view.plateau.PlateauViewController">
-    <GridPane fx:id="gridPane" style="-fx-background-color: #333232;">
+    <GridPane fx:id="gridPane" prefWidth="224.0" style="-fx-background-color: #333232;">
       <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
          <ColumnConstraints />
       </columnConstraints>
       <rowConstraints>
          <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
       </rowConstraints>
     </GridPane>
-      <Label fx:id="gagnant" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" text="Label" textFill="WHITE" visible="false">
+      <Label fx:id="gagnant" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" text="Label" textFill="#39ff1f" visible="false">
           <font>
               <Font name="Berlin Sans FB" size="96.0" />
           </font>
@@ -22,4 +29,17 @@
          <Glow level="0.82" />
       </effect>
       </Label>
+   <ImageView fx:id="recommencer" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="TOP_RIGHT">
+      <image>
+         <Image url="@images/recommencer.png" />
+      </image>
+      <StackPane.margin>
+         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+      </StackPane.margin>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+      <effect>
+         <Glow />
+      </effect></ImageView>
 </StackPane>

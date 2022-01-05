@@ -69,7 +69,7 @@ public class PlateauViewController {
                         gridPane.add(creerImageView("vide.png"), j, i);
                     } else if (viewModel.getPartie().getJoueurCourant().getCouleur() == Couleur.Rouge && (i == 0 || i == plateau.length - 1)) {
                         gridPane.add(creerImageView("vide.png"), j, i);
-                    } else {
+                    } else { // coup dur
                         ImageView image = creerImageViewCaseVide();
                         image.setId(i + " " + j);
                         gridPane.add(image, j, i);

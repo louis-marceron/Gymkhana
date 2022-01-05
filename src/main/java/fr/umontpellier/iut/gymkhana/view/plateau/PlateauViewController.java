@@ -66,9 +66,15 @@ public class PlateauViewController {
                 }
 
                 if (plateau[i][j].getClass() == Vide.class) {
-                    ImageView image = creerImageViewCaseVide();
-                    image.setId(i + " " + j);
-                    gridPane.add(image, j, i);
+                    if ((viewModel.getPartie().getJoueurCourant().getCouleur() == Couleur.Blanc && (j == 0 || j == plateau[i].length - 1))) {
+                        gridPane.add(creerImageView("vide.png"), j, i);
+                    } else if (viewModel.getPartie().getJoueurCourant().getCouleur() == Couleur.Rouge && (i == 0 || i == plateau.length - 1)) {
+                        gridPane.add(creerImageView("vide.png"), j, i);
+                    } else {
+                        ImageView image = creerImageViewCaseVide();
+                        image.setId(i + " " + j);
+                        gridPane.add(image, j, i);
+                    }
                 }
 
                 if (plateau[i][j].getClass() == Arete.class) {

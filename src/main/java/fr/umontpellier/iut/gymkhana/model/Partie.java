@@ -7,7 +7,7 @@ import fr.umontpellier.iut.gymkhana.model.joueurs.Joueur;
  * en prenant et en traitant les valeurs entrées par les joueurs.
  */
 public class Partie {
-    private final Plateau plateau;
+    private Plateau plateau;
     private Joueur j1;
     private Joueur j2;
     private Joueur joueurCourant;
@@ -55,5 +55,9 @@ public class Partie {
 
     public boolean estTerminee() {
         return partieTerminee;
+    }
+
+    public void remplacerPlateau(int taille) {
+        plateau = new Plateau(taille);
     }
 }

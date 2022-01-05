@@ -7,5 +7,4 @@ public class ModelFactory {
     }
 }
 
-// TODO egalité de fin de partie
 // TODO Recommencer la partie (durant la partie et à la fin)

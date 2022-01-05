@@ -56,4 +56,8 @@ public class MenuPrincipalViewModel {
                 break;
         }
     }
+
+    public void remplacerPlateau(int taille) {
+        partie.remplacerPlateau(taille);
+    }
 }

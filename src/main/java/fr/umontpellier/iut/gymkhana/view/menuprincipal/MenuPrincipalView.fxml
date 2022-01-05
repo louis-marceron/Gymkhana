@@ -38,6 +38,6 @@
             <Font name="Berlin Sans FB" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="textField" layoutX="163.0" layoutY="146.0" prefHeight="25.0" prefWidth="30.0" promptText="5" />
+      <TextField fx:id="textField" layoutX="163.0" layoutY="146.0" prefHeight="25.0" prefWidth="30.0" text="5" />
     </children>
 </AnchorPane>

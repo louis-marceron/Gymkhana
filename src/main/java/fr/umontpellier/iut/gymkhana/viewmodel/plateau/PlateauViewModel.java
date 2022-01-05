@@ -26,7 +26,7 @@ public class PlateauViewModel {
     }
 
     public void jouer() {
-        if (!partie.estTerminee()) {// FIXME temporaire
+        if (!partie.estTerminee()) {
             if (joueurCourant.getClass() == JoueurHumain.class) {
                 ((JoueurHumain) joueurCourant).setX(x);
                 ((JoueurHumain) joueurCourant).setY(y);
